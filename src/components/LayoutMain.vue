@@ -1,18 +1,16 @@
 <template>
- 	<div class="wrapper">
+	<div class="wrapper">
 	
 	<header class="header">
 	<div class="header__container _container">
 	<div class="header__body">
 		<div class="header__logo">
 			<div class="header__image">
-				<img src="@/assets/logo.svg" alt="logo">
+				<!-- <img src="../assets/logo.svg" alt="logo"> -->
 			</div>
-			<div  class="header__title">
+			<div class="header__title">
 				Конструктор Меню
 			</div>
-			<!-- <button v-click-outside="onClickOutside">Кликай</button>
-			<button v-click-outside="vcoConfig"> нажимай</button> -->
 		</div>
 		<div class="header__version version">
 			<div class="version__label">Версия меню:</div>
@@ -25,30 +23,8 @@
 	</div>
 	
 	</header>
-
-	<main style="display:flex" class="page">
-	
-		<!-- <EditingCategory 
-		@create="createcategory"
-		/> -->
-		<EditingRubric 
-	
-		/>
-		<!-- <EditingAbout 
-		@save="saveAbout"
-		@removeabout="removeabout"
-		/> -->
-		<!-- <FormLogin 
-		@login='onLogin'
-		/> -->
-		<MainPreview 
+	<main class="page">
 		
-		:about="about"
-		:categorys="categorys"
-		 @remove="removecategory"
-		
-		/>
-	
 	</main>
 	<footer class="footer">
 	<div class="footer__container _container">
@@ -61,141 +37,21 @@
 	</footer>
 	
 	</div>
-</template>
+	</template>
+	
 
 <script>
-
-import MainPreview from '@/components/MainPreview.vue'
-import EditingRubric from '@/components/Editing/EditingRubric.vue'
-import EditingCategory from '@/components/Editing/EditingCategory.vue'
-import EditingAbout from '@/components/Editing/EditingAbout.vue'
-import FormLogin from '@/components/FormLogin'
-
 export default {
-  name: 'App',
-
-  components: {
-	MainPreview,
-	EditingAbout,
-	EditingCategory,
-	EditingRubric,
-	FormLogin
-  },
-  data() {
-	return {
-		title:'herase',
-		text:'dasssssss',
-		about: 
-		{
-			id:'',
-			title:'',
-			text:'',
-         img:'',
-		},
-		categorys: [
-			{
-				id: 1,
-			title: 'Специальное предложение',
-			text: 'Блюда недели, выгодные предложения и акции!',
-			rubrics: [
-				{
-					id: 1,
-					title: 'Салаты',
-					text: 'Летние и горячие салаты из солнечной Италии.',
-					dishs:[
-						{
-							id: 1,
-							title: 'Цезарь',
-							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-						},
-					]
-				},
-				{
-					id: 2,
-					title: 'Закуски',
-					text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-				},
-				{
-					id: 3,
-					title: 'Закуски',
-					text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-				},
-			]
-			},
-			{
-				id:  2,
-			title: 'Итальянская кухня',
-			text: 'Вкусы италии вкусы италии вкусы италии',
-			rubrics:[
-						{
-							id: 1,
-							title: 'Пицца',
-							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-							dishs:[
-								{
-									id: 1,
-									title: 'Пицца 4ре сыра',
-									text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-								},
-								{
-									id: 2,
-									title: 'Пицца 4ре сыра',
-									text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-								},
-							]
-						},
-					]
-			},
-			{
-				id: 3,
-			title: 'Русская кухня',
-			text: 'Богатый вкус все блюда вкус все блюда',
-			rubrics:''
-			},
-		],
-		
-		popupVisible: false,
-		popupVisibleImg: false,
-	}
-  },
-  
-  methods: {
-	saveAbout(data) {
-    console.log('child component said естьепта', data)
-	//  console.log(about.title)
-     this.about = data
-  },
-
-	createcategory(category){
-		this.categorys.push(category);
-	},
-	removecategory(category){
-		this.categorys = this.categorys.filter(p => p.id !== category.id)
-		this.popupVisible = false;
-	},
-	removeabout(){
-		
-		this.about.img = '';
-	
-		this.popupVisibleImg = false;
-
-	},
-
-	
-  },
-  
+  name: 'LayoutMain',
+  props: {
+    msg: String
+  }
 }
-
 </script>
 
-
-
-
-
-
-
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-@import url(https://fonts.googleapis.com/css?family=Montserrat:500,600,700&display=swap&subset=cyrillic-ext);
+  @import url(https://fonts.googleapis.com/css?family=Montserrat:500,600,700&display=swap&subset=cyrillic-ext);
 * {
   padding: 0px;
   margin: 0px;
@@ -410,9 +266,9 @@ body._lock {
 .page {
   flex: 1 1 auto;
 }
-/* .page > div {
+.page > div {
 	background: #F2F2F2;
-} */
+}
 .start__body {
   padding: 10px 0;
 }
@@ -444,11 +300,7 @@ body._lock {
   text-align: center;
   color: #828282;
 }
-.input-page {
-	 display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+
 .input-page__body {
   display: flex;
   flex-direction: column;
@@ -486,13 +338,101 @@ body._lock {
   max-width: 232px;
 }
 
+.box-input__wrapper {
+  position: relative;
+}
+.box-input__input {
+  padding: 11px 9px;
+  width: 100%;
+  border: 1px solid #BDBDBD;
+  border-radius: 10px;
+  color: #333333;
+}
+.box-input__input::placeholder {
+  color: #828282;
+}
 
+textarea.box-input__input {
+  resize: vertical;
+  min-height: 120px;
+}
 
 .box-images__file {
   margin-top: 10px;
 }
 
-
+.file {
+  width: 100%;
+  height: auto;
+}
+.file__item {
+  flex: 0 0 81px;
+  position: relative;
+  height: 81px;
+}
+.file__item-preview-remove {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.file__item-preview-remove._active::after {
+  content: url(../assets/icons/remove.svg);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  border-radius: 5px;
+  
+}
+.file__item-preview {
+  position: relative;
+  width: 81px;
+  height: 81px;
+  border-radius: 5px;
+}
+.file__item-preview img {
+  position: absolute;
+  flex: 0 0 81px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.file__input {
+  position: absolute;
+  display: inline-flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  font-size: 0;
+  cursor: pointer;
+}
+.file__button {
+  width: 81px;
+  height: 81px;
+}
+.file__button img {
+  width: 100%;
+}
+.file__preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
 
 .counter-text {
   position: absolute;
@@ -582,7 +522,7 @@ body._lock {
 	transform: rotate(0deg);
 	min-width: 8px;
 	height: 5px;
-	background: url(@/assets/icons/arrow-down-lang.svg) no-repeat;
+	background: url(../assets/icons/arrow-down-lang.svg) no-repeat;
 }
 ._icon-arrow-down._active::after {
 	transform: rotate(180deg);
@@ -669,33 +609,5 @@ border-radius: 3px;
 transform: rotate(-90deg);
 }
 
-.main-preview-dishs__block {
-   padding: 8px 13px;
-  margin-left: 20px;
-  background: #FFFFFF;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.04);
-  border-radius: 5px;
-  border: 2px solid transparent;
-  margin-top: 10px;
-}
 
-
-._focus{
-	border: 2px solid orange;
-}
-
-
-
-._ibg {
-	position: relative;
-}
-
-._ibg img {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	object-fit: cover;
-}
 </style>
