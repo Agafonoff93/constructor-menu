@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@headlessui/vue": "^1.7.4",
     "core-js": "^3.8.3",
     "v-click-outside": "^3.2.0",
     "vue": "^3.2.13",

@@ -21,9 +21,24 @@
 					</button>
 					<button 
 					@click="$emit('remove', category)" 
+				
 					class="popup__agree"
 					>
 						Да, удалить
+					</button>
+					<button 
+					@click="$emit('removerubric', rubric)" 
+				
+					class="popup__agree"
+					>
+						Да, удалить рубрику
+					</button>
+					<button 
+					@click="$emit('removedish', dish)" 
+				
+					class="popup__agree"
+					>
+						Да, удалить блюдо
 					</button>
 				</div>
 			</div>
@@ -39,12 +54,21 @@ export default {
 		show: {
 			type:Boolean,
 			default:false
-		}
+		},
+		rubric:{
+			type: Object
+		},
+		dish:{
+			type: Object
+		},
 	},
 
 	methods: {
 		hidePopup() {
 			this.$emit('update:show', false)
+		},
+		clickTest(){
+			console.log($emit('remove', category))
 		}
 	}
 	

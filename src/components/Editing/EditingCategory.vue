@@ -12,7 +12,7 @@
 							<my-input 							
 							type="text" 
 							placeholder="Название категории"
-							v-model="category.title"
+							v-model="category.label"
 							:limit="100"
 							/>
 							<div class="box-input__wrapper">
@@ -46,13 +46,13 @@
 export default {
    name: 'EditingCategory',
   props: {
-   
+
   },
   
 	data() {
 		return {
 			category: {
-				title:'',
+				label:'',
 				text:'',
 			},
 			
@@ -61,10 +61,10 @@ export default {
 	},
 	methods: {
 		createcategory() {
-				this.category.id = Date.now();
+				this.category.value = Date.now();
 				this.$emit('create', this.category, 'second param', '3 param')
 				this.category = {
-					title: '',
+					label: '',
 					text: ''
 				}
 		
@@ -78,4 +78,8 @@ export default {
 	
 	
 }
+</script>
+
+<script>
+
 </script>

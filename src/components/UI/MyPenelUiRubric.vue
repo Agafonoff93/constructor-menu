@@ -13,7 +13,7 @@
 							<span>Добавить рубрику</span>
 						</button>
 						<div class="buttons-panel__editing">
-							<button class="buttons-panel__сorrect">
+							<button @click="$emit('removerubric', event)"  class="buttons-panel__сorrect">
 								<img src="@/assets/icons/btn-crct.svg" alt="correct">
 							</button>
 							<button @click="showPopup"  class="buttons-panel__delete">
@@ -27,7 +27,8 @@
 	</div>
 	<transition name="popup-transition">
 		<my-popup 
-			@remove="$emit('remove', category)"
+		   
+			@removerubric="$emit('removerubric', rubric)"
 			v-model:show="popupVisible">
 	 </my-popup>
 	</transition>
@@ -40,6 +41,13 @@ import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
 export default {
+  props:{
+	rubric:{
+			type: Object,
+			required: true,
+		},
+  },
+	
 	data() {
 	return {
 		
@@ -48,12 +56,15 @@ export default {
   },
   setup() {
     const target = ref(null)
+
     onClickOutside(target, (event) => console.log(event))
+
     return { target }
   },
 
-  emits: ['remove'],
+  emits: ['removerubric'],
 	methods: {
+	
 	showPopup() {
 		this.popupVisible = true;
 	},

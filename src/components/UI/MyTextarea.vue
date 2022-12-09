@@ -4,8 +4,9 @@
 	@input="updateInput" 
 	:maxlength="limit"
 	class="box-input__input" 
+	:placeholder="placeholder"
 	name="content" 								
-	placeholder="Описание"
+	v-bind="$attrs"
 	>
 	</textarea>
 	<span class="box-input__counter-text counter-text">
@@ -19,7 +20,8 @@ export default {
 	name: 'my-textarea',
 	props: {
 		modelValue: [ String, Number],
-		limit: Number
+		limit: Number,
+		placeholder: [ String, Number],
 	},
 	date(){
 		return {
@@ -29,6 +31,9 @@ export default {
 	methods: {
 		updateInput(event) {
 			this.$emit('update:modelValue', event.target.value)
+		},
+		clickAtr(){
+			console.log(this.$attrs)
 		}
 	},
 	computed: {

@@ -3,13 +3,16 @@
 		<div  class="main-preview-categories__block">
 					<div @click="getFocus" ref="target"  class="main-preview-categories__header"  :class="{_focus: isFocus}">
 						<div class="main-preview-categories__label _label">Категория</div>
-						<div class="main-preview-categories__title _title">{{ category.title }}</div>
+						<div class="main-preview-categories__title _title">{{ category.label }}</div>
 						<div class="main-preview-categories__text _text">{{ category.text }}</div>
 					</div>
+					
 					<RubricPreview 
 					v-for="rubric in category.rubrics"
-					:key="rubric.id"
+					:key="rubric.value"
 					:rubric="rubric"
+					@removerubric="$emit('removerubric', $event, category)"
+					@removedish="$emit('removedish', $event)"
 					/>
 					<div style="display:none" class="main-preview-categories__body">
 					
@@ -17,7 +20,10 @@
 				</div>
 
 <!-- ui panel  -->
-            <MyPenelUiCategory v-if="isFocus"  @remove="$emit('remove', category)"/>
+            <MyPenelUiCategory 
+				v-if="isFocus"  
+				@remove="$emit('remove', category)"
+				/>
 <!-- ui panel  -->
 				
 
@@ -41,6 +47,9 @@ export default {
 		},
 	
 	
+	
+	
+	
 	},
 	setup() {
     const target = ref(null)
@@ -49,7 +58,7 @@ export default {
 
     return { target }
   },
-	emits: ['remove'],
+	// emits: ['remove','removerubric','removedish'],
 	data(){
 		return {
 			isFocus: false
@@ -58,6 +67,7 @@ export default {
 	methods: {
 		getFocus(){
 			this.isFocus = true
+			
 		},
 		
 		
@@ -66,6 +76,7 @@ export default {
 		MyPenelUiCategory,
 		RubricPreview,
 	},
+
   
 }
 

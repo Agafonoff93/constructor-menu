@@ -1,6 +1,6 @@
 <template>
 			<div class="input-page__box-images box-images">
-							<div class="box-images__label _label">Логотип</div>
+							<div class="box-images__label _label">Фотографии</div>
 							<div class="box-images__file file">
 <!-- 
 								<div id="formPreview" class="file__preview">
@@ -40,7 +40,7 @@
 							</div>
 								<transition name="popup-transition">
 									<my-popup-img 
-								labelImage="Удаление логотипа"	
+									labelImage="Удаление фото рубрики"	
 						      :previewImage="previewImage"
 								v-model:show="popupVisibleImg"
 								@removeabout="$emit('removeabout', about)"
@@ -61,10 +61,13 @@
 
 
 export default {
-	name: 'my-input-img',
+	name: 'my-input-img-dish',
 	props: {
 		valueimage: [String, Number, Object, null],
+		
 	},
+
+	expose: ['noShowPreviewImg'],
 	data() {
       return {
         previewImage: null,
@@ -101,6 +104,13 @@ export default {
 			this.previewImage = null;
 			input.value = ''
 		},
+		noShowPreviewImg(){
+			let input = this.$refs.fileInput
+			this.previewImage = null;
+			input.value = ''
+		},
+		
+		
 
 
 		

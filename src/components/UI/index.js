@@ -4,6 +4,9 @@ import MyTextarea from "@/components/UI/MyTextarea"
 import MyPopup from "@/components/UI/MyPopup"
 import MyPopupImg from "@/components/UI/MyPopupImg"
 import MyInputImg from "@/components/UI/MyInputImg"
+import MyInputImgRubric from "@/components/UI/MyInputImgRubric"
+import MyInputImgDish from "@/components/UI/MyInputImgDish"
+
 
 export default [
 	ButtonOrange,
@@ -11,6 +14,9 @@ export default [
 	MyTextarea,
 	MyPopup,
 	MyPopupImg,
-	MyInputImg
+	MyInputImg,
+	MyInputImgRubric,
+	MyInputImgDish,
+	
 
 ]

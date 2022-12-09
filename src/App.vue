@@ -31,8 +31,13 @@
 		<!-- <EditingCategory 
 		@create="createcategory"
 		/> -->
-		<EditingRubric 
-	
+		<!-- <EditingRubric 
+		:categories="categories"
+		@createrubric="createrubric"
+		/> -->
+		<EditingDish 
+		:categories="categories"
+		@createdish="createdish"
 		/>
 		<!-- <EditingAbout 
 		@save="saveAbout"
@@ -44,9 +49,11 @@
 		<MainPreview 
 		
 		:about="about"
-		:categorys="categorys"
-		 @remove="removecategory"
+		:categories="categories"
 		
+		 @remove="removecategory"
+		 @removerubric="removemyrubric"
+		 @removedish="removemydish"
 		/>
 	
 	</main>
@@ -66,9 +73,10 @@
 <script>
 
 import MainPreview from '@/components/MainPreview.vue'
-import EditingRubric from '@/components/Editing/EditingRubric.vue'
-import EditingCategory from '@/components/Editing/EditingCategory.vue'
 import EditingAbout from '@/components/Editing/EditingAbout.vue'
+import EditingCategory from '@/components/Editing/EditingCategory.vue'
+import EditingRubric from '@/components/Editing/EditingRubric.vue'
+import EditingDish from '@/components/Editing/EditingDish.vue'
 import FormLogin from '@/components/FormLogin'
 
 export default {
@@ -79,12 +87,13 @@ export default {
 	EditingAbout,
 	EditingCategory,
 	EditingRubric,
+	EditingDish,
 	FormLogin
   },
   data() {
 	return {
-		title:'herase',
-		text:'dasssssss',
+		title:'Леон',
+		text:'Ресторан Леон - лучший ресторан в городе и во всей стране тоже!',
 		about: 
 		{
 			id:'',
@@ -92,63 +101,140 @@ export default {
 			text:'',
          img:'',
 		},
-		categorys: [
+		// categorys: [
+		// 	{
+		// 		id: 1,
+		// 	title: 'Специальное предложение',
+		// 	text: 'Блюда недели, выгодные предложения и акции!',
+		// 	rubrics: [
+		// 		{
+		// 			id: 1,
+		// 			title: 'Салаты',
+		// 			text: 'Летние и горячие салаты из солнечной Италии.',
+		// 			dishs:[
+		// 				{
+		// 					id: 1,
+		// 					title: 'Цезарь',
+		// 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+		// 				},
+		// 			]
+		// 		},
+		// 		{
+		// 			id: 2,
+		// 			title: 'Закуски',
+		// 			text: 'Закуски вкусные и сытные разбавят ожидания блюда',
+		// 		},
+		// 		{
+		// 			id: 3,
+		// 			title: 'Закуски',
+		// 			text: 'Закуски вкусные и сытные разбавят ожидания блюда',
+		// 		},
+		// 	]
+		// 	},
+		// 	{
+		// 		id:  2,
+		// 	title: 'Итальянская кухня',
+		// 	text: 'Вкусы италии вкусы италии вкусы италии',
+		// 	rubrics:[
+		// 				{
+		// 					id: 1,
+		// 					title: 'Пицца',
+		// 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+		// 					dishs:[
+		// 						{
+		// 							id: 1,
+		// 							title: 'Пицца 4ре сыра',
+		// 							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+		// 						},
+		// 						{
+		// 							id: 2,
+		// 							title: 'Пицца 4ре сыра',
+		// 							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+		// 						},
+		// 					]
+		// 				},
+		// 			]
+		// 	},
+		// 	{
+		// 		id: 3,
+		// 	title: 'Русская кухня',
+		// 	text: 'Богатый вкус все блюда вкус все блюда',
+		// 	rubrics:''
+		// 	},
+		// ],
+		categories: [
 			{
-				id: 1,
-			title: 'Специальное предложение',
+			value: 1,
+			label: 'Специальное предложение',
 			text: 'Блюда недели, выгодные предложения и акции!',
 			rubrics: [
 				{
-					id: 1,
-					title: 'Салаты',
+					value: 1,
+					label: 'Салаты',
 					text: 'Летние и горячие салаты из солнечной Италии.',
+					img:'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg',
 					dishs:[
 						{
-							id: 1,
-							title: 'Цезарь',
+							value: 1,
+							label: 'Цезарь',
 							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+							price:'321',
+							weight: '',
+							img:'',
 						},
 					]
 				},
+
 				{
-					id: 2,
-					title: 'Закуски',
+					value: 2,
+					label: 'Закуски',
 					text: 'Закуски вкусные и сытные разбавят ожидания блюда',
+					img: '',
+					dishs:''
 				},
 				{
-					id: 3,
-					title: 'Закуски',
-					text: 'Закуски вкусные и сытные разбавят ожидания блюда',
+					value: 3,
+					label: 'Коктели',
+					text: 'Освежающий апепель shpritz и много всего',
+					img: '',
+					dishs:''
 				},
 			]
 			},
 			{
-				id:  2,
-			title: 'Итальянская кухня',
+			value:  2,
+			label: 'Итальянская кухня',
 			text: 'Вкусы италии вкусы италии вкусы италии',
 			rubrics:[
+				{
+					value: 1,
+					label: 'Пицца',
+					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+					img:'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg',
+					dishs:[
 						{
-							id: 1,
-							title: 'Пицца',
-							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-							dishs:[
-								{
-									id: 1,
-									title: 'Пицца 4ре сыра',
-									text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-								},
-								{
-									id: 2,
-									title: 'Пицца 4ре сыра',
-									text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-								},
-							]
+							value: 1,
+							label: 'Пицца 4ре сыра',
+							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+							price:'549',
+							weight: '300',
+							img:'',
 						},
+						{
+							value: 2,
+							label: 'Пицца 4ре сыра',
+							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+							price:'559',
+							weight: '330',
+							img:'',
+						},
+					]
+				},
 					]
 			},
 			{
-				id: 3,
-			title: 'Русская кухня',
+			value: 3,
+			label: 'Русская кухня',
 			text: 'Богатый вкус все блюда вкус все блюда',
 			rubrics:''
 			},
@@ -167,18 +253,47 @@ export default {
   },
 
 	createcategory(category){
-		this.categorys.push(category);
+		this.categories.push(category);
+	},
+	createrubric(rubric, category_id){
+		console.log(rubric)
+		this.categories.find(p => p.value == category_id).rubrics.push(rubric)
+	},
+	createdish(dish,  formlabel_id, formlabel_rubric_id){
+
+		let categoryFindForDish = this.categories.find(p => p.value == formlabel_id)
+		// categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id).dishs.push(dish)
+		let rubricFindForDish = categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id)
+		if (Array.isArray(rubricFindForDish.dishs) != true){
+			rubricFindForDish.dishs = [] 
+		}
+      console.log(Array.isArray(rubricFindForDish.dishs))
+		rubricFindForDish.dishs.push(dish) 
+		console.log(Array.isArray(rubricFindForDish.dishs))
 	},
 	removecategory(category){
-		this.categorys = this.categorys.filter(p => p.id !== category.id)
+		console.log(category)
+		this.categories = this.categories.filter(p => p.value !== category.value)
+		this.popupVisible = false;
+	},
+	removemyrubric(rubric , category){
+		let categoryFind = this.categories.find(p => p.value == category.value)
+		categoryFind.rubrics = categoryFind.rubrics.filter(p => p.value !== rubric.value)
+		this.popupVisible = false;
+	},
+	removemydish(dish, rubric , category){
+		console.log('собираемся что то удалить')
+		// let categoryFind = this.categories.find(p => p.value == category.value)
+		console.log(dish)
+		console.log(category)
+		console.log(rubric)
+		// rubricsFind = categoryFind.rubrics.find(p => p.value !== rubric.value)
+		// console.log(rubricsFind)
 		this.popupVisible = false;
 	},
 	removeabout(){
-		
 		this.about.img = '';
-	
 		this.popupVisibleImg = false;
-
 	},
 
 	
@@ -502,6 +617,13 @@ body._lock {
   font-size: 12px;
   padding: 5px 9px;
 }
+.counter-text_align {
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	height:100%;
+}
+
 ._text {
   font-weight: 500;
   font-size: 14px;
@@ -698,4 +820,98 @@ transform: rotate(-90deg);
 	left: 0;
 	object-fit: cover;
 }
+
+
+
+
+
+.select {
+ position: relative;
+}
+
+.select__inactive {
+position: absolute;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+background-color: rgb(242 242 242 / 30%);
+border-radius: 10px;
+pointer-events: auto;
+}
+
+.select__button {
+	padding: 10px 9px;
+    width: 100%;
+    border: 1px solid #BDBDBD;
+    border-radius: 10px;
+    color: #828282;
+	 background-color: #fff;
+	 display: flex;
+	 justify-content: space-between;
+	 align-items: center;
+
+}
+
+.select__options {
+	background: #FFFFFF;
+	border: 1px solid #BDBDBD;
+	border-top: none;
+	border-radius: 0px  0px  10px  10px;
+	position: absolute;
+	z-index: 5;
+	width: 100%;
+	padding-top: 5px;
+	top: 30px;
+}
+
+.select__option {
+	padding: 11px 9px;
+    width: 100%;
+    color: #333333;
+	 background-color: #fff;
+	 border-radius: 10px;
+	 cursor: pointer;
+}
+.select__option-selected {
+	color: #F78408;
+}
+
+
+
+._error{
+	color: #ed3232;
+}
+
+._arrow-down {
+/* content: ""; */
+position: relative;
+/* background: url(../assets/icons/arrow-down-black.svg) no-repeat; */
+width: 11px;
+height: 7px;
+display:flex;
+align-items: center;
+justify-content: center;
+transition: all 0.5s ease 0s;
+transform: rotate(0deg);
+}
+._arrow-down_active {
+transform: rotate(180deg);
+}
+._arrow-down_active path{
+	fill:#F78408;
+}
+
+/* animation-select start */
+.animation-select-enter-active{
+transition: all 0.3s ease 0s;
+}
+
+.animation-select-enter-from {
+opacity:0;
+}
+.animation-select-enter-to {
+opacity:1;
+}
+/* animation-select end*/
 </style>

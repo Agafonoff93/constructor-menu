@@ -28,13 +28,15 @@
 					</div>
 				</button>
 				<div  class="main-preview__categories main-preview-categories">
-					<div v-if="categorys.length > 0" class="main-preview-categories__wrapper" data-spollers>
+					<div v-if="categories.length > 0" class="main-preview-categories__wrapper" data-spollers>
 						<TransitionGroup name="list-category"  >
 							<CategoryPreview  
-							v-for="category in categorys" 
-							:key="category.id"  
+							v-for="category in categories" 
+							:key="category.value"  
 							:category="category"
 							@remove="$emit('remove', category)"
+							@removerubric="$emit('removerubric', $event, category)"
+							@removedish="$emit('removedish', $event)"
 							
 					
 						/>
@@ -67,10 +69,11 @@ props: {
 		type: Object,
 		required: true
 	},
-	categorys: {
+	categories: {
 		type: Array,
 		required: true
 	},
+	
  
 },
 
@@ -83,7 +86,9 @@ methods:{
 },
 
  mounted() {
-    console.log(this.about) // I'm text inside the component.
+   //  console.log(this.about) // I'm text inside the component.
+	//  console.log('категории', category)
+	//  console.log('категории', this.category)
   }
 
 }
@@ -200,6 +205,9 @@ height: 7px;
 transition: all 0.3s ease 0s;
 transform: rotate(0deg);
 }
+.main-preview-rubrics__header._active .main-preview-rubrics__title::after {
+transform: rotate(180deg);
+}
 .main-preview-rubrics__block {
 display: flex;
 flex-direction: column;
@@ -213,9 +221,7 @@ border-radius: 5px;
 margin-top: 10px;
 border: 2px solid transparent;
 }
-.main-preview-rubrics__header._active .main-preview-rubrics__title::after {
-transform: rotate(180deg);
-}
+
 .main-preview-rubrics__label {
 margin-bottom: 2px;
 }

@@ -1,24 +1,36 @@
 <template>
+	
 	<input 
 	:value="modelValue" 
 	@input="updateInput" 
 	class="box-input__input"  
 	type="text"
 	:maxlength="limit"
+	:placeholder="placeholder"
+	v-bind="$attrs"
 	>
+	<!-- <div class="box-input__input-meaning">{{ meaning }}</div> -->
+	<span class="box-input__counter-text counter-text counter-text_align">
+		{{ meaning }}
+	</span>
+	
 </template>
 
 <script>
+
 export default {
 	name: 'my-input',
 	props: {
 		modelValue: [String, Number],
 		limit: Number,
+		meaning:  [String, Number],
+		placeholder:[String, Number],
 	},
 	methods: {
 		updateInput(event) {
 			this.$emit('update:modelValue', event.target.value)
-		}
+		},
+		
 	}
 }
 </script>
@@ -26,6 +38,11 @@ export default {
 <style>
 .box-input__wrapper {
   position: relative;
+  flex: 1 1 100%;
+}
+.box-input__wrapper-pair {
+	display: flex;
+	gap:15px;
 }
 .box-input__input {
   padding: 11px 9px;

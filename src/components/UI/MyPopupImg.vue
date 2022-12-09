@@ -7,7 +7,7 @@
 		<div class="popup__container">
 			<div @click.stop class="popup__content"> 
 				<div class="popup__title">
-			   	Удаление логотипа
+			   	{{ labelImage }}
 				</div>
 				<div class="popup__text">
 					<slot></slot>
@@ -43,6 +43,7 @@ export default {
 			default:false
 		},
 		 previewImage:  [String, Number, Object, null],
+		 labelImage: String,
 	},
 
 
