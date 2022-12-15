@@ -14,7 +14,7 @@
 							v-for="dish in rubric.dishs"
 							:key="dish.value"
 							:dish="dish"
-							@removedish="$emit('removedish', $event)"
+							@removedish="$emit('removedish',  dish)"
 							/>
 							
 							<!-- ui panel  -->

@@ -38,14 +38,14 @@
 							<div class="box-input__label _label">Основная информация</div>
 							<my-input 							
 							type="text" 
-							placeholder="Название категории"
+							placeholder="Название блюда"
 							v-model="dish.label"
 							:limit="100"
 							
 							/>
 							<div class="box-input__wrapper">
 								<my-textarea 
-								placeholder="Описание"
+								placeholder="Описание/состав"
 								v-model="dish.text"
 								:limit="1200"
 								></my-textarea>
@@ -74,7 +74,7 @@
 						</div>
 						<my-input-img-dish
 						ref="MyInputImgDish"
-						v-model:valueimage="dish.img"					
+						v-model:valueimage="dish.sliderImage"					
 						
 						/>
 
@@ -117,21 +117,10 @@ export default {
 				price: '',
 				weight: '',
 				img:'',
+				sliderImage:[],
 			},
 				
-			people: [
-				{ value:1, label: 'Wade Cooper' },
-				{ value:2, label: 'Arlene Mccoy' },
-				{ value:3, label: 'Devon Webb' },
-				{ value:4, label: 'Tom Cook' },
-				{ value:5, label: 'Tanya Fox' },
-				{ value:6, label: 'Hellen Schmidt' },
-			],
-			roles: [
-				{value: 1, label: "Marketing"},
-				{value: 2, label: "Front desk"},
-				{value: 3, label: "Support"}
-			],
+		
 			form:{
 				label_id: null,
 				label_rubric_id: null,
@@ -163,14 +152,14 @@ export default {
 					if(this.formlabel_rubric_id != null){
 						console.log('создаем блюдо')
 						this.dish.value = Date.now();
-						this.$emit('createdish', this.dish,  this.formlabel_id, this.formlabel_rubric_id)
+						this.$emit('createdish', this.dish, this.formlabel_id, this.formlabel_rubric_id)
 						this.dish = {
 							value: Date.now(),
 							label: '',
 							text: '',
 							price:'',
 							weight:'',
-							img:''
+							sliderImage:[]
 						};
 					}else{
 					console.log('рубрика отсутствует не судьба')

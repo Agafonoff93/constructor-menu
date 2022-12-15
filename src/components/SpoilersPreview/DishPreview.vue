@@ -11,9 +11,14 @@
 		<div class="main-preview-dishs__description">
 			<div class="main-preview-dishs__text _text">{{ dish.text }}</div>
 			<div class="main-preview-dishs__weight _label">{{ dish.weight }}</div>	
-				<div  v-if="this.dish.img.length != 0" class="main-preview-dishs__image _ibg">
-												<img v-bind:src="(`${dish.img}`)" alt="">
-				</div>		
+			<div  v-if="this.dish.img.length != 0" class="main-preview-dishs__image _ibg">
+											<img v-bind:src="(`${dish.img}`)" alt="">
+			</div>
+			<div  class="main-preview-dishs__slider-wrapper">
+				<MySlider 
+				:dish="dish"
+				/>
+			</div>		
 		</div>
 		<div class="main-preview-dishs__button-more _label">
 			<span >Свернуть описание</span>
@@ -35,6 +40,7 @@
 import MyPenelUiDish from  '@/components/UI/MyPenelUiDish.vue'
 import { ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import MySlider from '@/components/UI/MySlider.vue'
 export default {
 	props: {
 		dish:{
@@ -63,7 +69,7 @@ export default {
 		},
 	},
 	components: {
-		
+		MySlider,
 		MyPenelUiDish,
 	}
 }

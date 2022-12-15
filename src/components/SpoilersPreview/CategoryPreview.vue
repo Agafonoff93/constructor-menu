@@ -12,7 +12,7 @@
 					:key="rubric.value"
 					:rubric="rubric"
 					@removerubric="$emit('removerubric', $event, category)"
-					@removedish="$emit('removedish', $event)"
+					@removedish="$emit('removedish',$event, rubric, category)"
 					/>
 					<div style="display:none" class="main-preview-categories__body">
 					

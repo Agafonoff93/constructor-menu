@@ -2,37 +2,38 @@
 			<div class="input-page__box-images box-images">
 							<div class="box-images__label _label">Фотографии</div>
 							<div class="box-images__file file">
-
+<!-- 
+								<div id="formPreview" class="file__preview">
+									<div class="file__item">
+										<input 
+										class="file__input" 
+										id="formImage" 
+										type="file" 
+										accept=".jpg, .png, .gif"
+										name="image[]">
+										<div class="file__button _icon-css">
+											<span></span>
+										</div>
+									</div>
+								</div> -->
 
 							
 								<div class="file__preview">
-									<div class="file__items-preview-box">
-										<div 									
-										v-for="(image, key) in images" 
-										:key="key"
-										>
-											<div class="file__item-preview ">
-												<img class="preview" :ref="'image'" />
-												<!-- {{ image.name }} -->
-											</div>
-										</div>
-										<div v-if="images.length <= 9 " class="file__item">
+									<div class="file__item">
 										
-										<div class="file__button" :class="{ '_icon-css': images.length <= 10 }"  @click="selectImage"><span></span> </div>
+										<div class="file__button" :class="{ '_icon-css': previewImage == null }" :style="{ 'background-image': `url(${previewImage})` }" @click="selectImage"><span></span> </div>
 									
-										<input v-if="images.length <= 9 " class="file__input" multiple accept=".jpg, .png, .gif" ref="fileInput" type="file" 
+										<input class="file__input" multiple accept=".jpg, .png, .gif" ref="fileInput" type="file" 
 										:valueimage="valueimage" 		
-										@change="onFileChange">
-									</div>
-									</div>
-									
-								<!-- <div v-if="previewImage !== null" class="file__ui-block ui-block">
-									<button  @change="selectImage"  class="ui-block__btn ui-block__btn_editing">
+										@input="pickFile">
+								</div>
+								<div v-if="previewImage !== null" class="file__ui-block ui-block">
+									<button  @click="selectImage"  class="ui-block__btn ui-block__btn_editing">
 										<img src="@/assets/icons/btn-crct.svg" alt="correct"></button>
 									<button  @click="showPopupImg" class="ui-block__btn ui-block__btn_remove">
 										<img src="@/assets/icons/btn-del.svg" alt="delete"></button>
 
-								</div> -->
+								</div>
 							</div>				
 
 
@@ -62,18 +63,15 @@
 export default {
 	name: 'my-input-img-dish',
 	props: {
-		valueimage: [String, Number, Object, Array,null],
+		valueimage: [String, Number, Object, null],
 		
 	},
 
 	expose: ['noShowPreviewImg'],
 	data() {
       return {
-			testArray:[],
-		  imageArray:[],
         previewImage: null,
 		  popupVisibleImg: false,
-		  images: [],
       };
     },
 	//  emits: 
@@ -81,79 +79,35 @@ export default {
 	// 		,
 	methods: {
 		
-		onFileChange(e) {
-
-			// const limitedImages = this.images.slice(0, 10)
-			// const limitedImages = this.images.splice(0, 10)
-			let vm = this;
-			console.log(e.target.files)
-			var selectedFiles = e.target.files;
-			
-			for (let i = 0; i < selectedFiles.length; i++) {
-			// console.log(selectedFiles[i]);
-			this.images.push(selectedFiles[i]);
-			}
-			this.images = this.images.splice(0, 10)
-
-			for (let i = 0; i < this.images.length; i++) {
-			let reader = new FileReader();
-			reader.onload = (e) => {
-				this.$refs.image[i].src = reader.result;
-			
-					let imageItem = {id: Date.now() , img: this.$refs.image[i].src } 
-				// console.log(this.$refs.image[i].src);
-				this.imageArray.push(imageItem)
-				
-       
-				console.log(this.imageArray)
-			};
-         
-			
-			// console.log(this.images)
-			reader.readAsDataURL(this.images[i]);
-			}
-			this.imageArray.splice(0, 10)
-			this.$emit('update:valueimage', this.imageArray) 
-			// this.$emit('input', file[0]) яя добавил
-			console.log(this.images)
-			console.log(this.imageArray)
-			console.log(selectedFiles)
-		},
-		
 		selectImage () {
           this.$refs.fileInput.click()
       },
       pickFile () {
-
-
-
-      //   let input = this.$refs.fileInput
-      //   let file = input.files
-		//   let reader = new FileReader
-		//  if (file && file[0]) {
-      //     let reader = new FileReader
-      //     reader.onload = e => {
-      //       this.previewImage = e.target.result
-		// 		this.$emit('update:valueimage', this.previewImage)
-		// 	}
-		// 	reader.readAsDataURL(file[0])
-		// 	this.$emit('input', file[0])
-		// 	console.log( this.previewImage)
-      //   }
-
+        let input = this.$refs.fileInput
+        let file = input.files
+		  console.log()
+        if (file && file[0]) {
+          let reader = new FileReader
+          reader.onload = e => {
+            this.previewImage = e.target.result
+				this.$emit('update:valueimage', this.previewImage)
+			}
+			reader.readAsDataURL(file[0])
+			this.$emit('input', file[0])
+			console.log( this.previewImage)
 			
+			
+        }
       },
 		showPreviewImg(){
 			let input = this.$refs.fileInput
 			this.previewImage = null;
-			console.log('metod showPrevImg')
-			this.images = []
+			input.value = ''
 		},
 		noShowPreviewImg(){
 			let input = this.$refs.fileInput
 			this.previewImage = null;
-			console.log('metod noShowPrevImg')
-		   this.images = []
+			input.value = ''
 		},
 		
 		
@@ -231,7 +185,6 @@ transform: rotate(-90deg);
   flex: 0 0 81px;
   position: relative;
   height: 81px;
-  order: -1;
 }
 .file__item-preview-remove {
   position: absolute;
@@ -240,9 +193,6 @@ transform: rotate(-90deg);
   top: 0;
   left: 0;
 }
-
-
-
 /* .file__item-preview-remove._active::after {
   content: url(@/assets/icons/remove.svg);
   position: relative;
@@ -285,19 +235,14 @@ transform: rotate(-90deg);
 /* .file__item:hover::after {
 	opacity: 1;
 } */
-.file__items-preview-box {
-	display: flex;
-	gap:7px;
-	flex-wrap: wrap;
-}
+
 .file__item-preview {
-	
   position: relative;
   width: 81px;
   height: 81px;
   border-radius: 15px;
 }
-.file__item-preview img {
+/* .file__item-preview img {
   position: absolute;
   flex: 0 0 81px;
   width: 100%;
@@ -305,8 +250,8 @@ transform: rotate(-90deg);
   top: 0;
   left: 0;
   object-fit: cover;
-  border-radius: 15px;
-}
+  border-radius: 5px;
+} */
 .file__input {
   position: absolute;
   display: inline-flex;
@@ -332,8 +277,6 @@ transform: rotate(-90deg);
 } */
 .file__preview {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
   flex-wrap: wrap;
   gap: 7px;
 }

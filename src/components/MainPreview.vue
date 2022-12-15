@@ -36,9 +36,9 @@
 							:category="category"
 							@remove="$emit('remove', category)"
 							@removerubric="$emit('removerubric', $event, category)"
-							@removedish="$emit('removedish', $event)"
+							@removedish="(dish, rubric, category) => $emit('removemydish',dish, rubric, category)"
 							
-					
+							
 						/>
 						</TransitionGroup>
 					
@@ -276,12 +276,40 @@ justify-content: space-between;
 margin-bottom: 5px;
 }
 .main-preview-dishs__image {
+min-width:0;	
 margin: 10px 0;
 padding: 0 0 74% 0;
+max-width: 100%;
+display: block;
 }
 .main-preview-dishs__image img {
 border-radius: 5px;
 }
+
+.main-preview-dishs__slider-wrapper{
+	margin: 10px 0;
+}
+.swiper-slide {
+	width: 100%;
+}
+.main-preview-dishs__slider {
+ 
+}
+.main-preview-dishs__slider-wrapper {
+ overflow: hidden;
+
+}
+.swiper .swiper-wrapper {
+  width: 100%;
+  height: 100%;
+  box-sizing: content-box;
+  display: flex;
+  position: relative;
+}
+.mySlider .main-swiper-slide {
+	width: 100%;
+}
+
 .main-preview-dishs__button-more {
 display: flex;
 align-items: center;

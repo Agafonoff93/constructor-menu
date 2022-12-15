@@ -13,17 +13,7 @@
 							v-model="form.label_id"
 							:options="categories"
 							:error="error"
-							/>
-							<!-- <MySelectProba 
-							placeholder="Select roles"
-							v-model="form.role_ids"
-							:options="roles"
-							multiple
-							error="Роль небыла выбрана"
-							/> -->
-							<!-- <MySelect
-							:categorys="categorys"
-							/> -->
+							/>						
 						</div>
 
 

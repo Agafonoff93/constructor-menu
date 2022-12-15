@@ -25,7 +25,8 @@
 	</div>
 	
 	</header>
-
+	
+  
 	<main style="display:flex" class="page">
 	
 		<!-- <EditingCategory 
@@ -53,7 +54,7 @@
 		
 		 @remove="removecategory"
 		 @removerubric="removemyrubric"
-		 @removedish="removemydish"
+		 @removemydish="removemydish"
 		/>
 	
 	</main>
@@ -79,6 +80,7 @@ import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
 import FormLogin from '@/components/FormLogin'
 
+
 export default {
   name: 'App',
 
@@ -88,7 +90,7 @@ export default {
 	EditingCategory,
 	EditingRubric,
 	EditingDish,
-	FormLogin
+	FormLogin,
   },
   data() {
 	return {
@@ -178,9 +180,16 @@ export default {
 							value: 1,
 							label: 'Цезарь',
 							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-							price:'321',
+							price:'359',
 							weight: '',
 							img:'',
+							sliderImage: [
+								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+							]
 						},
 					]
 				},
@@ -219,6 +228,13 @@ export default {
 							price:'549',
 							weight: '300',
 							img:'',
+							sliderImage: [
+								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg'},
+							]
 						},
 						{
 							value: 2,
@@ -227,6 +243,13 @@ export default {
 							price:'559',
 							weight: '330',
 							img:'',
+							sliderImage: [
+								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+							]
 						},
 					]
 				},
@@ -247,7 +270,7 @@ export default {
   
   methods: {
 	saveAbout(data) {
-    console.log('child component said естьепта', data)
+    console.log('child component', data)
 	//  console.log(about.title)
      this.about = data
   },
@@ -259,7 +282,9 @@ export default {
 		console.log(rubric)
 		this.categories.find(p => p.value == category_id).rubrics.push(rubric)
 	},
-	createdish(dish,  formlabel_id, formlabel_rubric_id){
+	createdish(dish,  formlabel_id, formlabel_rubric_id ){
+		console.log(dish)
+		console.log( dish.sliderImage)
 
 		let categoryFindForDish = this.categories.find(p => p.value == formlabel_id)
 		// categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id).dishs.push(dish)
@@ -281,14 +306,12 @@ export default {
 		categoryFind.rubrics = categoryFind.rubrics.filter(p => p.value !== rubric.value)
 		this.popupVisible = false;
 	},
-	removemydish(dish, rubric , category){
+	removemydish(dish, rubric, category){
+		
 		console.log('собираемся что то удалить')
-		// let categoryFind = this.categories.find(p => p.value == category.value)
-		console.log(dish)
-		console.log(category)
-		console.log(rubric)
-		// rubricsFind = categoryFind.rubrics.find(p => p.value !== rubric.value)
-		// console.log(rubricsFind)
+		let categoryFind = this.categories.find(p => p.value == category.value)
+		let rubricFind = categoryFind.rubrics.find(p => p.value == rubric.value)
+		rubricFind.dishs = rubricFind.dishs.filter(p => p.value !== dish.value)
 		this.popupVisible = false;
 	},
 	removeabout(){
