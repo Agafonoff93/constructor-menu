@@ -21,7 +21,7 @@
 					</button>
 					<button 
 				
-					@click="$emit('removeabout', about), hidePopup(), $emit('showPreviewImg',showPreviewImg)"  
+					@click="$emit('removeabout', previewImage), hidePopup(), $emit('showPreviewImg',showPreviewImg)"  
 					class="popup__agree"
 					>
 						Да, удалить
@@ -42,7 +42,7 @@ export default {
 			type:Boolean,
 			default:false
 		},
-		 previewImage:  [String, Number, Object, null],
+		 previewImage:  [String, Number, Object,Array, null],
 		 labelImage: String,
 	},
 
@@ -51,7 +51,7 @@ export default {
 		hidePopup() {
 			this.$emit('update:show', false)
 		},
-	   
+	 
 	}
 	
 }

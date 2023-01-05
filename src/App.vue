@@ -1,5 +1,6 @@
 <template>
- 	<div class="wrapper">
+ 	
+	<div class="wrapper">
 	
 	<header class="header">
 	<div class="header__container _container">
@@ -27,34 +28,67 @@
 	</header>
 	
   
-	<main style="display:flex" class="page">
-	
-		<!-- <EditingCategory 
+	<main  class="page">
+	  
+		<transition name="about">
+		<EditingAbout
+		v-if="visibleEditingAbout"
+		@visibleAbout="visibleEditingAbout"
+		@save="saveAbout"
+		@hideAbout="hideAbout"
+		@removeabout="removeabout"
+		:about="about"
+		ref="EditingAbout"
+		/>
+	  </transition>
+	  <transition name="category">
+		<EditingCategory
+		v-if="visibleEditingCategory"
+		@hideCategory="hideCategory"
 		@create="createcategory"
-		/> -->
-		<!-- <EditingRubric 
+		:categoriesObject="categoriesObject"
+		:categories="categories"
+		/>
+	</transition>
+		<transition name="rubric">
+		<EditingRubric
+		v-if="visibleEditingRubric" 
+		@hideRubric="hideRubric"
 		:categories="categories"
 		@createrubric="createrubric"
-		/> -->
-		<EditingDish 
-		:categories="categories"
-		@createdish="createdish"
+		:rubricsObject="rubricsObject"
+		:categoryId="categoryId"
 		/>
-		<!-- <EditingAbout 
-		@save="saveAbout"
-		@removeabout="removeabout"
-		/> -->
+		</transition>
+		<transition name="dish">
+		<EditingDish
+		v-if="visibleEditingDish" 
+		@hideDish="hideDish"
+		:categories="categories"
+		:dishObject="dishObject"
+		:categoryId="categoryId"
+		:rubricId="rubricId"
+		@createdish="createdish"
+		/> 
+	   </transition>
 		<!-- <FormLogin 
 		@login='onLogin'
 		/> -->
-		<MainPreview 
 		
+		<MainPreview 
+		v-show="visibleMainPreview"
+		v-model:visibleMain="visibleMainPreview"
+		ref="MainPreview"
 		:about="about"
 		:categories="categories"
+		@seeAbout="seeAbout"
+		@seeEditingCategory="seeEditingCategory"
+		@seeEditingRubric="seeEditingRubric"
+		@seeEditingDish="seeEditingDish"
+		@remove="removecategory"
+		@removerubric="removemyrubric"
+		@removemydish="removemydish"
 		
-		 @remove="removecategory"
-		 @removerubric="removemyrubric"
-		 @removemydish="removemydish"
 		/>
 	
 	</main>
@@ -79,7 +113,7 @@ import EditingCategory from '@/components/Editing/EditingCategory.vue'
 import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
 import FormLogin from '@/components/FormLogin'
-
+// import MyPenelUi from '@/components/UI/MyPenelUi'
 
 export default {
   name: 'App',
@@ -91,6 +125,7 @@ export default {
 	EditingRubric,
 	EditingDish,
 	FormLogin,
+	// MyPenelUi
   },
   data() {
 	return {
@@ -98,72 +133,12 @@ export default {
 		text:'Ресторан Леон - лучший ресторан в городе и во всей стране тоже!',
 		about: 
 		{
-			id:'',
-			title:'',
-			text:'',
-         img:'',
+			id:'1',
+			title:'Леон',
+			text:'Самый лучший ресторан в мире',
+         img:'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg',
 		},
-		// categorys: [
-		// 	{
-		// 		id: 1,
-		// 	title: 'Специальное предложение',
-		// 	text: 'Блюда недели, выгодные предложения и акции!',
-		// 	rubrics: [
-		// 		{
-		// 			id: 1,
-		// 			title: 'Салаты',
-		// 			text: 'Летние и горячие салаты из солнечной Италии.',
-		// 			dishs:[
-		// 				{
-		// 					id: 1,
-		// 					title: 'Цезарь',
-		// 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-		// 				},
-		// 			]
-		// 		},
-		// 		{
-		// 			id: 2,
-		// 			title: 'Закуски',
-		// 			text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-		// 		},
-		// 		{
-		// 			id: 3,
-		// 			title: 'Закуски',
-		// 			text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-		// 		},
-		// 	]
-		// 	},
-		// 	{
-		// 		id:  2,
-		// 	title: 'Итальянская кухня',
-		// 	text: 'Вкусы италии вкусы италии вкусы италии',
-		// 	rubrics:[
-		// 				{
-		// 					id: 1,
-		// 					title: 'Пицца',
-		// 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-		// 					dishs:[
-		// 						{
-		// 							id: 1,
-		// 							title: 'Пицца 4ре сыра',
-		// 							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-		// 						},
-		// 						{
-		// 							id: 2,
-		// 							title: 'Пицца 4ре сыра',
-		// 							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-		// 						},
-		// 					]
-		// 				},
-		// 			]
-		// 	},
-		// 	{
-		// 		id: 3,
-		// 	title: 'Русская кухня',
-		// 	text: 'Богатый вкус все блюда вкус все блюда',
-		// 	rubrics:''
-		// 	},
-		// ],
+
 		categories: [
 			{
 			value: 1,
@@ -181,7 +156,7 @@ export default {
 							label: 'Цезарь',
 							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
 							price:'359',
-							weight: '',
+							weight: '350',
 							img:'',
 							sliderImage: [
 								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
@@ -259,12 +234,23 @@ export default {
 			value: 3,
 			label: 'Русская кухня',
 			text: 'Богатый вкус все блюда вкус все блюда',
-			rubrics:''
+			rubrics:[],
 			},
 		],
 		
+		uiVisible:false,
 		popupVisible: false,
 		popupVisibleImg: false,
+		visibleEditingAbout: false,
+		visibleEditingCategory: false,
+		visibleEditingRubric: false,
+		visibleEditingDish: false,
+		visibleMainPreview: true,
+		categoriesObject: '',
+		rubricsObject: '',
+		dishObject: '',
+		categoryId: null,
+		rubricId: null,
 	}
   },
   
@@ -273,28 +259,71 @@ export default {
     console.log('child component', data)
 	//  console.log(about.title)
      this.about = data
+	  this.visibleEditingAbout = false
+	  this.visibleMainPreview = true
+	  console.log('сохранить эбаут')
+	 
+
+  },
+  hideAbout(){
+	console.log('отмена')
+	this.visibleEditingAbout = false
+	  this.visibleMainPreview = true
+  },
+  hideCategory(){
+	console.log('отмена')
+	this.visibleEditingCategory = false
+	  this.visibleMainPreview = true
+  },
+  hideRubric(){
+	console.log('отмена')
+	this.visibleEditingRubric = false
+	  this.visibleMainPreview = true
+  },
+  hideDish(){
+	console.log('отмена')
+	this.visibleEditingDish = false
+	  this.visibleMainPreview = true
   },
 
+
 	createcategory(category){
-		this.categories.push(category);
+		if(this.categories.find(p => p.value == category.value)){
+			console.log('вносим изменения')
+		}else{
+			this.categories.push(category);
+		}
 	},
 	createrubric(rubric, category_id){
 		console.log(rubric)
+		console.log(rubric.value)
+		let categoryFind = this.categories.find(p => p.value == category_id)
+		if(categoryFind.rubrics.find(p => p.value == rubric.value)) {
+			console.log('вносим изменения')
+		}else{
 		this.categories.find(p => p.value == category_id).rubrics.push(rubric)
+	   }
 	},
 	createdish(dish,  formlabel_id, formlabel_rubric_id ){
-		console.log(dish)
-		console.log( dish.sliderImage)
-
 		let categoryFindForDish = this.categories.find(p => p.value == formlabel_id)
-		// categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id).dishs.push(dish)
 		let rubricFindForDish = categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id)
-		if (Array.isArray(rubricFindForDish.dishs) != true){
-			rubricFindForDish.dishs = [] 
-		}
-      console.log(Array.isArray(rubricFindForDish.dishs))
-		rubricFindForDish.dishs.push(dish) 
-		console.log(Array.isArray(rubricFindForDish.dishs))
+		// console.log( categoryFindForDish)
+		// console.log( rubricFindForDish)
+		
+
+      if(rubricFindForDish.dishs.find(p => p.value == dish.value)){
+			console.log('вносим изменения')
+		
+			
+		}else{
+			if (Array.isArray(rubricFindForDish.dishs) != true){
+			rubricFindForDish.dishs = [] }
+			rubricFindForDish.dishs.push(dish) 
+			console.log('добавляем в массив')
+			}
+		
+		
+		// console.log(Array.isArray(rubricFindForDish.dishs))
 	},
 	removecategory(category){
 		console.log(category)
@@ -318,10 +347,57 @@ export default {
 		this.about.img = '';
 		this.popupVisibleImg = false;
 	},
-
+   seeAbout(){
+		this.visibleEditingAbout = true
+		this.visibleMainPreview = false
+	
+	  console.log('вызываем about')
+	},
+	seeEditingCategory(category){
+	console.log('seeEditingCategory в app')
+	this.categoriesObject = category
+	this.visibleEditingCategory = true
+	this.$refs.MainPreview.hideUiMain()
+	this.visibleMainPreview = false
 	
   },
-  
+	seeEditingRubric(rubric, category){
+		if(category != undefined){
+			this.categoryId = category.value
+		}
+	console.log('seeEditingRubric в app')
+	this.rubricsObject = rubric
+	this.visibleEditingRubric = true
+	this.$refs.MainPreview.hideUiMain()
+	this.visibleMainPreview = false
+  },
+	seeEditingDish(dish, rubric, category){
+	console.log(dish)
+	console.log(rubric)
+	console.log(category)
+	console.log('seeEditingDish в app')
+
+	if(category != undefined){
+			this.categoryId = category.value
+		}
+	if(rubric != undefined){
+			this.rubricId = rubric.value
+		}
+	this.dishObject = dish
+
+	this.visibleEditingDish = true
+	this.$refs.MainPreview.hideUiMain()
+	this.visibleMainPreview = false
+  },
+	
+  },
+  mounted() {
+		
+		
+   //  console.log(this.about) // I'm text inside the component.
+	//  console.log('категории', category)
+	//  console.log('категории', this.category)
+  }
 }
 
 </script>
@@ -547,6 +623,7 @@ body._lock {
 
 .page {
   flex: 1 1 auto;
+  position:relative;
 }
 /* .page > div {
 	background: #F2F2F2;
@@ -583,9 +660,13 @@ body._lock {
   color: #828282;
 }
 .input-page {
-	 display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+	/* position:absolute;
+	width:100%; */
+	/* z-index:5; */
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	background: #F2F2F2;
 }
 .input-page__body {
   display: flex;
@@ -937,4 +1018,46 @@ opacity:0;
 opacity:1;
 }
 /* animation-select end*/
+
+
+
+/* animation-main-blocks*/
+.about-enter-active,
+.about-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.about-enter-from,
+.about-leave-to {
+  opacity: 0;
+}
+.category-enter-active,
+.category-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.category-enter-from,
+.category-leave-to {
+  opacity: 0;
+}
+.rubric-enter-active,
+.rubric-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.rubric-enter-from,
+.rubric-leave-to {
+  opacity: 0;
+}
+.dish-enter-active,
+.dish-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dish-enter-from,
+.dish-leave-to {
+  opacity: 0;
+}
+
+/* animation-main-blocks*/
 </style>

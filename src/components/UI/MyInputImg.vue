@@ -2,20 +2,6 @@
 			<div class="input-page__box-images box-images">
 							<div class="box-images__label _label">Логотип</div>
 							<div class="box-images__file file">
-<!-- 
-								<div id="formPreview" class="file__preview">
-									<div class="file__item">
-										<input 
-										class="file__input" 
-										id="formImage" 
-										type="file" 
-										accept=".jpg, .png, .gif"
-										name="image[]">
-										<div class="file__button _icon-css">
-											<span></span>
-										</div>
-									</div>
-								</div> -->
 
 							
 								<div class="file__preview">
@@ -26,6 +12,7 @@
 										<input class="file__input" accept=".jpg, .png, .gif" ref="fileInput" type="file" 
 										:valueimage="valueimage" 		
 										@input="pickFile">
+										
 								</div>
 								<div v-if="previewImage !== null" class="file__ui-block ui-block">
 									<button  @click="selectImage"  class="ui-block__btn ui-block__btn_editing">
@@ -71,9 +58,8 @@ export default {
 		  popupVisibleImg: false,
       };
     },
-	//  emits: 
-	//         ['input', 'update:valueimage','removeabout','removeImg:priew']
-	// 		,
+	 expose: ['showAboutImg'],
+	
 	methods: {
 		
 		selectImage () {
@@ -81,7 +67,7 @@ export default {
       },
       pickFile () {
         let input = this.$refs.fileInput
-        let file = input.files
+        let file = input.files	
 		  
         if (file && file[0]) {
           let reader = new FileReader
@@ -100,6 +86,10 @@ export default {
 			let input = this.$refs.fileInput
 			this.previewImage = null;
 			input.value = ''
+		},
+		showAboutImg(){
+			console.log('хочу показать')
+			this.previewImage = this.valueimage
 		},
 
 

@@ -1,23 +1,34 @@
 <template>
-	<div ref="target" class="ui__container _container">	
+	<transition  name="popup-transition">
+	<div 
+	v-if="showUi"
+	@click.stop="hideUi" 
+	class="ui__wrapper-transparent">
+	<div @click.stop class="ui__container _container">	
 		<div class="ui__fixed-wrapper">
 			<div class="ui__buttons">				
 				<div  class="ui__buttons-panel buttons-panel">
 					<div class="buttons-panel__top">
 						<div class="buttons-panel__title">Параметры блюда</div>
-						<button class="buttons-panel__cancel">Отменить</button>
+						<button 
+						@click="hideUi" 
+						class="buttons-panel__cancel"
+						>
+						Отменить</button>
 					</div>
 					<div class="buttons-panel__bottom">
 					
 						<div class="buttons-panel__editing">
-							<button @click="$emit('removerubric', event)"  class="buttons-panel__сorrect">
-								<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M17.3333 5.03334C17.3339 4.92367 17.3129 4.81495 17.2715 4.71342C17.23 4.61188 17.1689 4.51954 17.0916 4.44167L13.5583 0.908337C13.4804 0.831103 13.3881 0.769998 13.2866 0.728528C13.185 0.687057 13.0763 0.666036 12.9666 0.66667C12.857 0.666036 12.7482 0.687057 12.6467 0.728528C12.5452 0.769998 12.4528 0.831103 12.375 0.908337L10.0166 3.26667L0.908307 12.375C0.831072 12.4529 0.769968 12.5452 0.728497 12.6467C0.687027 12.7483 0.666006 12.857 0.66664 12.9667V16.5C0.66664 16.721 0.754437 16.933 0.910718 17.0893C1.067 17.2455 1.27896 17.3333 1.49997 17.3333H5.03331C5.14991 17.3397 5.26655 17.3214 5.37566 17.2798C5.48476 17.2382 5.5839 17.1741 5.66664 17.0917L14.725 7.98334L17.0916 5.66667C17.1677 5.5859 17.2297 5.49295 17.275 5.39167C17.283 5.32525 17.283 5.2581 17.275 5.19167C17.2789 5.15288 17.2789 5.1138 17.275 5.075L17.3333 5.03334ZM4.69164 15.6667H2.33331V13.3083L10.6083 5.03334L12.9666 7.39167L4.69164 15.6667ZM14.1416 6.21667L11.7833 3.85834L12.9666 2.68334L15.3166 5.03334L14.1416 6.21667Z" fill="#828282"/>
+							<button @click="seeEditingDish"  class="buttons-panel__сorrect">
+								<svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M20 5.23999C20.0008 5.10838 19.9756 4.97792 19.9258 4.85608C19.876 4.73424 19.8027 4.62343 19.71 4.52999L15.47 0.289986C15.3766 0.197305 15.2658 0.12398 15.1439 0.074215C15.0221 0.0244504 14.8916 -0.000774696 14.76 -1.38033e-05C14.6284 -0.000774696 14.4979 0.0244504 14.3761 0.074215C14.2543 0.12398 14.1435 0.197305 14.05 0.289986L11.22 3.11999L0.290017 14.05C0.197335 14.1434 0.12401 14.2542 0.0742455 14.3761C0.0244809 14.4979 -0.000744179 14.6284 1.67143e-05 14.76V19C1.67143e-05 19.2652 0.105374 19.5196 0.29291 19.7071C0.480446 19.8946 0.7348 20 1.00002 20H5.24002C5.37994 20.0076 5.51991 19.9857 5.65084 19.9358C5.78176 19.8858 5.90073 19.8089 6.00002 19.71L16.87 8.77999L19.71 5.99999C19.8013 5.90307 19.8757 5.79152 19.93 5.66999C19.9397 5.59028 19.9397 5.5097 19.93 5.42999C19.9347 5.38344 19.9347 5.33654 19.93 5.28999L20 5.23999ZM4.83002 18H2.00002V15.17L11.93 5.23999L14.76 8.06999L4.83002 18ZM16.17 6.65999L13.34 3.82999L14.76 2.41999L17.58 5.23999L16.17 6.65999Z" fill="#828282"/>
 								</svg>
 								<span>Редактировать блюдо</span> 
 							</button>
 							<button @click="showPopup"  class="buttons-panel__delete">
-								<img src="@/assets/icons/btn-del.svg" alt="delete">
+								<svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14.6667 3.99999H11.3333V3.16666C11.3333 2.50362 11.0699 1.86773 10.6011 1.39889C10.1323 0.930049 9.49637 0.666656 8.83333 0.666656H7.16667C6.50363 0.666656 5.86774 0.930049 5.3989 1.39889C4.93006 1.86773 4.66667 2.50362 4.66667 3.16666V3.99999H1.33333C1.11232 3.99999 0.900358 4.08779 0.744078 4.24407C0.587797 4.40035 0.5 4.61231 0.5 4.83332C0.5 5.05434 0.587797 5.2663 0.744078 5.42258C0.900358 5.57886 1.11232 5.66666 1.33333 5.66666H2.16667V14.8333C2.16667 15.4964 2.43006 16.1322 2.8989 16.6011C3.36774 17.0699 4.00363 17.3333 4.66667 17.3333H11.3333C11.9964 17.3333 12.6323 17.0699 13.1011 16.6011C13.5699 16.1322 13.8333 15.4964 13.8333 14.8333V5.66666H14.6667C14.8877 5.66666 15.0996 5.57886 15.2559 5.42258C15.4122 5.2663 15.5 5.05434 15.5 4.83332C15.5 4.61231 15.4122 4.40035 15.2559 4.24407C15.0996 4.08779 14.8877 3.99999 14.6667 3.99999ZM6.33333 3.16666C6.33333 2.94564 6.42113 2.73368 6.57741 2.5774C6.73369 2.42112 6.94565 2.33332 7.16667 2.33332H8.83333C9.05435 2.33332 9.26631 2.42112 9.42259 2.5774C9.57887 2.73368 9.66667 2.94564 9.66667 3.16666V3.99999H6.33333V3.16666ZM12.1667 14.8333C12.1667 15.0543 12.0789 15.2663 11.9226 15.4226C11.7663 15.5789 11.5543 15.6667 11.3333 15.6667H4.66667C4.44565 15.6667 4.23369 15.5789 4.07741 15.4226C3.92113 15.2663 3.83333 15.0543 3.83333 14.8333V5.66666H12.1667V14.8333Z" fill="#EB5757"/>
+								</svg>
 							</button>
 						</div>
 					</div>
@@ -25,6 +36,8 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	</transition>
 	<transition name="popup-transition">
 		<my-popup 
 		   
@@ -37,8 +50,7 @@
 
 <script>
 
-import { ref } from 'vue'
-import { onClickOutside } from '@vueuse/core'
+
 
 export default {
   props:{
@@ -46,6 +58,13 @@ export default {
 			type: Object,
 			required: true,
 		},
+	isFocus: {
+	type: [Boolean,Object, null]
+	},
+	showUi: {
+		type:Boolean,
+		default:false
+	},
   },
 	
 	data() {
@@ -54,19 +73,25 @@ export default {
 		popupVisible: false,
 	}
   },
-  setup() {
-    const target = ref(null)
 
-    onClickOutside(target, (event) => console.log(event))
 
-    return { target }
-  },
-
-  emits: ['removedish'],
+  emits: ['removedish','seeEditingDish'],
 	methods: {
 	
 	showPopup() {
 		this.popupVisible = true;
+	},
+	cancelUi(){
+		this.$emit('getClose')
+		console.log('клик')
+	},
+	hideUi(){
+		this.$emit('update:showUi', false)	
+	},
+	seeEditingDish() {
+		console.log('редактирование блюда')
+		this.$emit('seeEditingDish')
+		this.$emit('update:showUi', false)	
 	},
   },
 }
@@ -74,6 +99,16 @@ export default {
 
 <style scoped>
 
+.ui__wrapper-transparent{
+	position: absolute;
+	margin-top: -70px;
+   top: 0px;
+   left: 0;
+   width: 100%;
+   height: 100%;
+	/* background-color: #eb575780; */
+	z-index: 15;
+}
 .ui__container {
   min-height: 50px;
   padding-bottom: 55px;
@@ -121,8 +156,7 @@ export default {
   color: #EB5757;
 }
 .ui__fixed-wrapper {
-  /* position: fixed; */
-  position:relative;
+  position: fixed;
   width: 100%;
   z-index: 5;
   bottom: 0;
@@ -134,9 +168,7 @@ export default {
   border-radius: 20px 20px 0px 0px;
   padding: 15px 15px 25px 15px;
 }
-.ui__button-add img {
-  margin-right: 9px;
-}
+
 .ui__button-add span {
   font-weight: 600;
   font-size: 16px;
@@ -186,15 +218,21 @@ export default {
 .buttons-panel__editing {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 .buttons-panel__сorrect {
   margin-right: 22px;
+  display:flex;
+}
+.buttons-panel__сorrect svg {
+  margin-right: 9px;
 }
 .buttons-panel__сorrect-btn {
   display: flex;
   align-items: center;
 }
-.buttons-panel__сorrect-btn img {
+.buttons-panel__сorrect-btn svg {
   width: 20px;
   height: 20px;
   margin-right: 5px;
@@ -204,7 +242,12 @@ export default {
   font-size: 16px;
   line-height: 18px;
 }
-
+.buttons-panel__сorrect span {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: #828282;
+}
 
 
 .popup-transition-enter-active,

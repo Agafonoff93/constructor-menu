@@ -1,5 +1,6 @@
 <template>
 			<div class="input-page__box-images box-images">
+			
 							<div class="box-images__label _label">Фотографии</div>
 							<div class="box-images__file file">
 
@@ -8,45 +9,46 @@
 								<div class="file__preview">
 									<div class="file__items-preview-box">
 										<div 									
-										v-for="(image, key) in images" 
+										v-for="(image, key) in imageArray" 
 										:key="key"
-										>
-											<div class="file__item-preview ">
-												<img class="preview" :ref="'image'" />
-												<!-- {{ image.name }} -->
-											</div>
+										class="file__item-preview "
+										>	
+												<img class="preview" :ref="'image'" v-bind:src="(`${image.img}`)" />
+												<button @click="focusButton(image, key)" :ref="'button'" class="file__item-preview-delete" :class="{'_active': focused }">
+													<svg width="25" height="27" viewBox="0 0 25 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.8333 5.75004H17.6667V4.45837C17.6667 3.43066 17.2584 2.44504 16.5317 1.71834C15.805 0.991632 14.8194 0.583374 13.7917 0.583374H11.2083C10.1806 0.583374 9.195 0.991632 8.46829 1.71834C7.74159 2.44504 7.33333 3.43066 7.33333 4.45837V5.75004H2.16667C1.8241 5.75004 1.49555 5.88613 1.25332 6.12836C1.01109 6.3706 0.875 6.69914 0.875 7.04171C0.875 7.38428 1.01109 7.71282 1.25332 7.95505C1.49555 8.19729 1.8241 8.33337 2.16667 8.33337H3.45833V22.5417C3.45833 23.5694 3.86659 24.555 4.59329 25.2817C5.32 26.0084 6.30562 26.4167 7.33333 26.4167H17.6667C18.6944 26.4167 19.68 26.0084 20.4067 25.2817C21.1334 24.555 21.5417 23.5694 21.5417 22.5417V8.33337H22.8333C23.1759 8.33337 23.5044 8.19729 23.7467 7.95505C23.9889 7.71282 24.125 7.38428 24.125 7.04171C24.125 6.69914 23.9889 6.3706 23.7467 6.12836C23.5044 5.88613 23.1759 5.75004 22.8333 5.75004ZM9.91667 4.45837C9.91667 4.1158 10.0528 3.78726 10.295 3.54503C10.5372 3.30279 10.8658 3.16671 11.2083 3.16671H13.7917C14.1342 3.16671 14.4628 3.30279 14.705 3.54503C14.9472 3.78726 15.0833 4.1158 15.0833 4.45837V5.75004H9.91667V4.45837ZM18.9583 22.5417C18.9583 22.8843 18.8222 23.2128 18.58 23.4551C18.3378 23.6973 18.0092 23.8334 17.6667 23.8334H7.33333C6.99076 23.8334 6.66222 23.6973 6.41999 23.4551C6.17775 23.2128 6.04167 22.8843 6.04167 22.5417V8.33337H18.9583V22.5417Z" fill="white"/>
+</svg>
+
+												</button>
+												<!-- <button @click="removeImage(image)" ref="button" class="file__item-preview-delete"></button> -->
+
 										</div>
-										<div v-if="images.length <= 9 " class="file__item">
+										<div v-if="imageArray.length <= 9 " class="file__item">
 										
-										<div class="file__button" :class="{ '_icon-css': images.length <= 10 }"  @click="selectImage"><span></span> </div>
+										<div class="file__button" :class="{ '_icon-css': imageArray.length <= 10 }"  @click="selectImage"><span></span> </div>
 									
-										<input v-if="images.length <= 9 " class="file__input" multiple accept=".jpg, .png, .gif" ref="fileInput" type="file" 
+										<input v-if="imageArray.length <= 9 " class="file__input" multiple accept=".jpg, .png, .gif" ref="fileInput" type="file" 
 										:valueimage="valueimage" 		
 										@change="onFileChange">
 									</div>
 									</div>
 									
-								<!-- <div v-if="previewImage !== null" class="file__ui-block ui-block">
-									<button  @change="selectImage"  class="ui-block__btn ui-block__btn_editing">
-										<img src="@/assets/icons/btn-crct.svg" alt="correct"></button>
-									<button  @click="showPopupImg" class="ui-block__btn ui-block__btn_remove">
-										<img src="@/assets/icons/btn-del.svg" alt="delete"></button>
-
-								</div> -->
+								
 							</div>				
 
 
 							</div>
 								<transition name="popup-transition">
 									<my-popup-img 
-									labelImage="Удаление фото рубрики"	
+									labelImage="Удаление фото"	
 						      :previewImage="previewImage"
 								v-model:show="popupVisibleImg"
-								@removeabout="$emit('removeabout', about)"
+								@removeabout="removeImage"
 								@showPreviewImg="showPreviewImg"
+								
 								>								
 								<div class="popup__image _ibg" v-if=" this.previewImage !== null ">	
-									<img  v-bind:src="(`${previewImage}`)" alt="">
+									<img  v-bind:src="(`${previewImage.img}`)" alt="">
 								</div>
 								</my-popup-img>
 								</transition>
@@ -66,7 +68,7 @@ export default {
 		
 	},
 
-	expose: ['noShowPreviewImg'],
+	expose: ['noShowPreviewImg','showDishImg'],
 	data() {
       return {
 			testArray:[],
@@ -74,6 +76,8 @@ export default {
         previewImage: null,
 		  popupVisibleImg: false,
 		  images: [],
+		  focused: false,
+		  focusEl:'',
       };
     },
 	//  emits: 
@@ -81,68 +85,67 @@ export default {
 	// 		,
 	methods: {
 		
-		onFileChange(e) {
-
-			// const limitedImages = this.images.slice(0, 10)
-			// const limitedImages = this.images.splice(0, 10)
+		onFileChange(e) {	
 			let vm = this;
 			console.log(e.target.files)
+			
 			var selectedFiles = e.target.files;
 			
-			for (let i = 0; i < selectedFiles.length; i++) {
-			// console.log(selectedFiles[i]);
-			this.images.push(selectedFiles[i]);
-			}
+				for (let i = 0; i < selectedFiles.length; i++) {
+				this.images.push(selectedFiles[i]);
+				}
 			this.images = this.images.splice(0, 10)
-
-			for (let i = 0; i < this.images.length; i++) {
-			let reader = new FileReader();
-			reader.onload = (e) => {
-				this.$refs.image[i].src = reader.result;
 			
-					let imageItem = {id: Date.now() , img: this.$refs.image[i].src } 
-				// console.log(this.$refs.image[i].src);
-				this.imageArray.push(imageItem)
+				for (let i = 0; i < this.images.length; i++) {
+				let reader = new FileReader();
 				
-       
+				reader.onload = (e) => {
+					this.images[i].src = reader.result;
+					let number = this.valueimage.length
+					console.log(number);
+					
+						let imageItem = {id: Date.now() , img: this.images[i].src, name:  this.images[i].name} 
+						if(this.imageArray.length <= 9 ){
+					 this.imageArray.push(imageItem)
+					}
+					 console.log(this.testArray)
+					};
+					
+					// this.imageArray = this.imageArray.splice(0, 10)
+					console.log(this.testArray)
+				reader.readAsDataURL(this.images[i]);
+				
+				}
+				
+				
 				console.log(this.imageArray)
-			};
-         
 			
-			// console.log(this.images)
-			reader.readAsDataURL(this.images[i]);
-			}
-			this.imageArray.splice(0, 10)
+		
 			this.$emit('update:valueimage', this.imageArray) 
-			// this.$emit('input', file[0]) яя добавил
-			console.log(this.images)
+			
 			console.log(this.imageArray)
-			console.log(selectedFiles)
+			
 		},
 		
 		selectImage () {
           this.$refs.fileInput.click()
       },
-      pickFile () {
-
-
-
-      //   let input = this.$refs.fileInput
-      //   let file = input.files
-		//   let reader = new FileReader
-		//  if (file && file[0]) {
-      //     let reader = new FileReader
-      //     reader.onload = e => {
-      //       this.previewImage = e.target.result
-		// 		this.$emit('update:valueimage', this.previewImage)
-		// 	}
-		// 	reader.readAsDataURL(file[0])
-		// 	this.$emit('input', file[0])
-		// 	console.log( this.previewImage)
-      //   }
-
-			
+      showDishImg(sliderImage) {
+			console.log('можем тут что нибуть сделать')
+		
+			this.imageArray = sliderImage
+		
       },
+		removeImage(image){
+			console.log('хотим удалить картинку')
+			console.log(this.imageArray)
+			console.log(image)
+			// this.$emit('removeImage',image)
+			// this.imageArray.filter(p => p.id !== image.id)
+			this.imageArray = this.imageArray.filter(p => p.id !== image.id)
+			console.log(this.imageArray)
+			this.$emit('update:valueimage', this.imageArray) 
+		},
 		showPreviewImg(){
 			let input = this.$refs.fileInput
 			this.previewImage = null;
@@ -155,13 +158,20 @@ export default {
 			console.log('metod noShowPrevImg')
 		   this.images = []
 		},
-		
-		
+		focusButton(image, key){
+			console.log( this.focusEl)
+			console.log( image)
 
-
-		
-
-		
+			if(this.focusEl == key){
+				this.popupVisibleImg = true;
+				this.previewImage = image
+				// this.$ref.MyPopupImg.imageItem(image)
+				console.log('запускаем попап')
+			}else{
+				this.focusEl = key
+			}
+			this.$refs.button[key].focus()
+		},
 
 		showPopupImg() {
 		this.popupVisibleImg = true;
@@ -172,6 +182,11 @@ export default {
 	// 	this.popupVisibleImg = true;
 	//  }	
 	},
+	computed:{
+	focusEl(){
+		this.focusEl 
+	}
+	}
 
 }
 
@@ -190,6 +205,51 @@ export default {
     background-position: center center;
 }
 
+.buton__focus{
+	background-color: aqua;
+transition: all 0.3s ease 0s;
+}
+
+.buton__focus:focus{
+	background-color: chartreuse;
+}
+
+.box-images {
+	/* pointer-events: none; */
+}
+
+
+.file__item-preview-delete{
+	pointer-events: auto;
+	opacity: 0;
+	transition: all 0.3s ease 0s;
+	position: absolute;
+	width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+	
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+  border-radius: 15px;
+  cursor:pointer;
+}
+
+.file__item-preview-delete:focus{
+	
+  background: linear-gradient(0deg, rgba(255, 0, 0, 0.4), rgba(255, 0, 0, 0.4));
+  opacity:1;
+}
+
+.file__item-preview-delete svg {
+	opacity:0;
+}
+
+.file__item-preview-delete:focus svg {
+	opacity:1;
+}
 ._icon-css{
 	position: relative;
 	width: 81px;
@@ -233,13 +293,7 @@ transform: rotate(-90deg);
   height: 81px;
   order: -1;
 }
-.file__item-preview-remove {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-}
+
 
 
 

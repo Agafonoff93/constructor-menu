@@ -65,7 +65,7 @@ export default {
 
 	methods: {
 		hidePopup() {
-			this.$emit('update:show', false)
+			this.$emit('update:show', false)		
 		},
 		clickTest(){
 			console.log($emit('remove', category))

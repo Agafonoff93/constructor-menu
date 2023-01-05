@@ -24,7 +24,9 @@
 	
 	</header>
 	<main class="page">
-		
+		<p>
+			Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus quo harum cum error, porro officiis optio earum eius temporibus molestiae neque fuga assumenda commodi iure impedit culpa magnam deleniti libero?
+		</p>
 	</main>
 	<footer class="footer">
 	<div class="footer__container _container">

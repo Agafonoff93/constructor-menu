@@ -1,10 +1,17 @@
 <template>
 
-	<div  style="flex:1 0 50%" class="page__main-preview main-preview">
+	<div  class="page__main-preview main-preview">
 		<div class="main-preview__container _container">
 			<div class="main-preview__body">
-			
-				<div v-if="this.about.title || this.about.text || this.about.img != '' " class="main-preview__header main-preview-header">
+				<button @click="seeEditingAbout" v-if="categories.length > 0 && about.title == '' &&  about.text == '' &&  about.img  == ''"  class="main-preview__add-info ">
+					<div class="main-preview__icon _icon-css">
+						<span></span>
+					</div>
+					<div class="main-preview__text">
+						<p>Добавьте информацию о ресторане!</p>
+					</div>
+				</button>
+				<div v-else-if="about.title || about.text || about.img != '' " class="main-preview__header main-preview-header">
 					<div v-if="this.about.img.length != 0" class="main-preview-header__logo">
 						<img v-bind:src="(`${about.img}`)" alt="">
 					
@@ -13,22 +20,38 @@
 					class="main-preview-header__title _title"
 					
 			     	>
-					{{about.title}}
+						{{about.title}}
 		       	</div>
 					<div class="main-preview-header__text _text">
-					{{about.text}}
+						{{about.text}}
+					</div>
+					<div class="main-preview-header__editing">
+						<button  @click="seeEditingAbout" class="main-preview-header__editing-btn">
+							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M17.3333 5.03334C17.3339 4.92367 17.3129 4.81495 17.2715 4.71342C17.23 4.61188 17.1689 4.51954 17.0916 4.44167L13.5583 0.908337C13.4804 0.831103 13.3881 0.769998 13.2866 0.728528C13.185 0.687057 13.0763 0.666036 12.9666 0.66667C12.857 0.666036 12.7482 0.687057 12.6467 0.728528C12.5452 0.769998 12.4528 0.831103 12.375 0.908337L10.0166 3.26667L0.908307 12.375C0.831072 12.4529 0.769968 12.5452 0.728497 12.6467C0.687027 12.7483 0.666006 12.857 0.66664 12.9667V16.5C0.66664 16.721 0.754437 16.933 0.910718 17.0893C1.067 17.2455 1.27896 17.3333 1.49997 17.3333H5.03331C5.14991 17.3397 5.26655 17.3214 5.37566 17.2798C5.48476 17.2382 5.5839 17.1741 5.66664 17.0917L14.725 7.98334L17.0916 5.66667C17.1677 5.5859 17.2297 5.49295 17.275 5.39167C17.283 5.32525 17.283 5.2581 17.275 5.19167C17.2789 5.15288 17.2789 5.1138 17.275 5.075L17.3333 5.03334ZM4.69164 15.6667H2.33331V13.3083L10.6083 5.03334L12.9666 7.39167L4.69164 15.6667ZM14.1416 6.21667L11.7833 3.85834L12.9666 2.68334L15.3166 5.03334L14.1416 6.21667Z" fill="#828282"/>
+								</svg>
+						</button>
 					</div>
 				</div>
-				<button v-else  class="main-preview__add-info ">
-					<div class="main-preview__icon _icon-css">
-						<span></span>
-					</div>
-					<div class="main-preview__text">
-						<p>Добавьте информацию о ресторане!</p>
-					</div>
-				</button>
+				<div v-else class="main-preview__start-body start">
+						<div class="start__title">Добро пожаловать в конструткор меню!</div>
+						<div class="start__text">
+							<p>Здесь Вы сможете создать электронное меню для своего заведения.</p>
+							<p>Процесс создания меню состоит из двух этапов: заполнение позиций и выбор дизайна.</p>
+							<p>Сейчас Вам предстоит добавить блюда, категории и рубрики. После того, как вы закончите,
+								промотайте страницу вниз и нажмите кнопку <span>“Выбрать дизайн”</span>, чтобы перейти к выбору
+								дизайна.</p>
+						</div>
+				</div>
+			
+				
+				
 				<div  class="main-preview__categories main-preview-categories">
-					<div v-if="categories.length > 0" class="main-preview-categories__wrapper" data-spollers>
+				
+					<div 
+					v-if="categories.length > 0" 
+					class="main-preview-categories__wrapper" 
+					>
 						<TransitionGroup name="list-category"  >
 							<CategoryPreview  
 							v-for="category in categories" 
@@ -37,34 +60,51 @@
 							@remove="$emit('remove', category)"
 							@removerubric="$emit('removerubric', $event, category)"
 							@removedish="(dish, rubric, category) => $emit('removemydish',dish, rubric, category)"
-							
-							
+							ref="CategoryPreview"
+							@seeEditingRubric="$emit('seeEditingRubric', $event, category)"
+							@seeMyEditingDish="(dish, rubric, category) => $emit('seeEditingDish',dish, rubric, category)"
+							@seeEditingCategory="$emit('seeEditingCategory', $event )"
 						/>
 						</TransitionGroup>
 					
 					</div>
-					<div class="main-preview__add-block" v-else>
-						<button  class="main-preview__create create">
+					<div 
+					v-else
+					class="main-preview__add-block" 
+					>
+						<button @click="$emit('seeEditingCategory')" class="main-preview__create create">
 							<div class="create__image">
 								<div class="create__button _icon-css-lg">
 									<span></span>
 								</div>
 							</div>
-							<div class="create__title">Добавить элементы меню</div>
+							<div class="create__title">Начать создавать меню</div>
 						</button> 
 				   </div>
 				</div>
 			</div>
+			<transition name="ui">
+			<MyPanelUiMain 
+			v-if="visibleMain"
+			@openUiMain="openUiMain"
+			:uiMainVisible="uiMainVisible"
+			@hideUiMain="hideUiMain"
+			@seeEditingCategory="$emit('seeEditingCategory')"
+			@seeEditingRubric="$emit('seeEditingRubric')"
+			@seeEditingDish="$emit('seeEditingDish')"
+			/>
+			</transition>
 		</div>
 	</div>
 </template>
 
 <script>
 import CategoryPreview from '@/components/SpoilersPreview/CategoryPreview.vue'
+import MyPanelUiMain from '@/components/UI/MyPanelUiMain.vue'
+
 
 export default {
-props: {
-  
+props: { 
 	about: {
 		type: Object,
 		required: true
@@ -73,17 +113,41 @@ props: {
 		type: Array,
 		required: true
 	},
-	
- 
-},
+	isFocus: Boolean,
+	visibleMain: {
+		type: Boolean,
+		default: true
+	},
 
+},
+data() {
+	return {
+		uiMainVisible:false,
+	}
+},
 
 components:{
-	CategoryPreview
+	CategoryPreview,
+	MyPanelUiMain
+
 },
+expose: ['hideUiMain'],
 methods:{
-   
+   seeEditingAbout() {
+		this.$emit('seeAbout')
+	console.log('клик')
+	},
+	openUiMain(){
+	console.log('хотим добавить элемент')
+	this.uiMainVisible = true
+	
+  },
+  hideUiMain(){
+	this.uiMainVisible = false
+  },
+
 },
+
 
  mounted() {
    //  console.log(this.about) // I'm text inside the component.
@@ -136,6 +200,14 @@ align-items: center;
 }
 
 
+.main-preview-header__editing {
+	position:absolute;
+	top: 0;
+	right:20%;
+}
+.main-preview-header__editing-btn{
+	padding:7px;
+}
 
 .main-preview__text {
 color: #828282;
@@ -181,21 +253,29 @@ box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.04);
 border-radius: 5px;
 border: 2px solid transparent;
 }
-.main-preview-categories__header._active .main-preview-categories__title::after {
-transform: rotate(180deg);
-}
+
+
+
 .main-preview-categories__label {
 margin-bottom: 2px;
+display:flex;
+justify-content:space-between;
 }
 .main-preview-categories__title {
 display: flex;
 justify-content: space-between;
 align-items: center;
 position: relative;
+transition: all 0.3s ease 0s;
+}
+.main-preview-categories__title._active{
+	color: #F78408;
 }
 .main-preview-categories__title:not(:last-child) {
 margin-bottom: 7px;
 }
+
+
 .main-preview-categories__title::after {
 content: "";
 position: relative;
@@ -205,9 +285,11 @@ height: 7px;
 transition: all 0.3s ease 0s;
 transform: rotate(0deg);
 }
-.main-preview-rubrics__header._active .main-preview-rubrics__title::after {
-transform: rotate(180deg);
+.main-preview-categories__title._toggle::after{
+	transform: rotate(180deg);
 }
+
+
 .main-preview-rubrics__block {
 display: flex;
 flex-direction: column;
@@ -224,13 +306,20 @@ border: 2px solid transparent;
 
 .main-preview-rubrics__label {
 margin-bottom: 2px;
+display:flex;
+justify-content:space-between;
 }
 .main-preview-rubrics__title {
 display: flex;
 justify-content: space-between;
 align-items: center;
 position: relative;
+transition: all 0.3s ease 0s;
 }
+.main-preview-rubrics__title._active{
+	color: #F78408;
+}
+
 .main-preview-rubrics__title:not(:last-child) {
 margin-bottom: 7px;
 }
@@ -243,6 +332,10 @@ height: 7px;
 transition: all 0.3s ease 0s;
 transform: rotate(0deg);
 }
+.main-preview-rubrics__title._toggle::after{
+	transform: rotate(180deg);
+}
+
 .main-preview-rubrics__text:not(:last-child) {
 margin-bottom: 7px;
 }
@@ -261,11 +354,18 @@ border-radius: 5px;
 margin-top: 10px;
 border: 2px solid transparent;
 }
-.main-preview-dishs__header._active .main-preview-dishs__button-more::after {
-transform: rotate(180deg);
-}
+
+
 .main-preview-dishs__label {
 margin-bottom: 2px;
+display:flex;
+justify-content:space-between;
+}
+.main-preview-dishs__title {
+	transition: all 0.3s ease 0s;
+}
+.main-preview-dishs__title._active{
+	color: #F78408;
 }
 .main-preview-dishs__info-main {
 margin-bottom: 7px;
@@ -324,7 +424,9 @@ height: 5px;
 transition: all 0.3s ease 0s;
 transform: rotate(0deg);
 }
-
+.main-preview-dishs__button-more._toggle::after{
+	transform: rotate(180deg);
+}
 ._title {
 font-weight: 700;
 font-size: 18px;
@@ -349,6 +451,15 @@ object-fit: cover;
 content: "₽";
 }
 
+._weight:after {
+content: "г";
+}
+
+
+
+._wrapper-body {
+	overflow: hidden;
+}
 
 
 .list-category-enter-active,
@@ -362,5 +473,33 @@ content: "₽";
   opacity: 0;
   transform: translateX(30px);
 }
+
+
+/* animation-main-ui*/
+.ui-enter-active,
+.ui-leave-active {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.ui-enter-from,
+.ui-leave-to {
+  opacity: 0;
+}
+
+/* animation-main-ui*/
+
+/* animation-main-show-block*/
+.show-block-enter-active,
+.show-block-leave-active {
+  transition: all 0.5s ease-in-out;
+}
+
+.show-block-enter-from,
+.show-block-leave-to {
+  transform: translate(0px,-100%);
+	opacity: 0;
+}
+
+/* animation-main-show-block*/
 
 </style>

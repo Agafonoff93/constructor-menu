@@ -21,7 +21,7 @@
 							<div class="box-input__label _label">Основная информация</div>
 							<my-input 							
 							type="text" 
-							placeholder="Название категории"
+							placeholder="Название рубрики"
 							v-model="rubric.label"
 							:limit="100"
 							/>
@@ -35,9 +35,9 @@
 							</div>
 						</div>
 						<my-input-img-rubric
-						ref="MyInputImgRubric"
 						v-model:valueimage="rubric.img"					
-						
+						ref="MyInputImgRubric"
+						@deleteImage="deleteImage"
 						/>
 
 					</div>
@@ -51,7 +51,13 @@
 					>
 					Сохранить
 					</button-orange>
-					
+					<div  class="ui__container _container ">	
+							<div class="ui__fixed-wrapper">
+							<button @click="hideRubric" class="ui__button-cancel">
+											Отменить
+							</button>
+							</div>
+					</div>
 				
 		</div>
 </template>
@@ -63,12 +69,17 @@ import MySelectProba from "@/components/UI/MySelectProba"
 export default {
    name: 'EditingRubric',
   props: {
-	categorys: {
-		type: Array
-	},
+	rubricsObject: {
+				type: Object,	
+				required: false,
+			},
 	categories: {
 		type: Array,
 	},
+	categoryId: {
+		type: Number,
+		required: false,
+	}
 	// modelValue: {
 	// 	type: [String, Number]
 	// }
@@ -77,9 +88,11 @@ export default {
 	data() {
 		return {
 			rubric: {
+				// value:'',
 				label:'',
 				text:'',
 				img:'',
+				dishs:[],
 			},
 				
 			people: [
@@ -112,44 +125,92 @@ export default {
 	methods: {
 	
 		
-		createrubric() {
-			   if(this.form.label_id != null){
-					if(this.error != null){
-						this.error = null
-					}
-					// console.log('создаем рубрику')
-					this.rubric.value = Date.now();
-					this.$emit('createrubric', this.rubric,  this.form.label_id)
-					this.rubric = {
-						value: Date.now(),
-						label: '',
-						text: '',
-						img:''
-					};
-					this.form.label_id = null;
-					this.$refs.MyInputImgRubric.noShowPreviewImg();
-			    
-					
-				}else{
-					// console.log('не судьба')
-					this.error = 'Категория не указана'			
-				}		
-		},
-		createcategory() {
-				this.category.value = Date.now();
-				this.$emit('create', this.category, 'second param', '3 param')
-				this.category = {
-					label: '',
-					text: ''
+	createrubric() {
+			if(this.form.label_id != null){
+				if(this.error != null){
+					this.error = null
 				}
-		
-		},
-	
+				// console.log('создаем рубрику')
+				if(this.rubric.value == null){
+					this.rubric.value = Date.now();
+				}
+				this.$emit('createrubric', this.rubric,  this.form.label_id)
+				this.rubric = {
+					value: Date.now(),
+					label: '',
+					text: '',
+					img:''
+				};
+				this.form.label_id = null;
+				this.$refs.MyInputImgRubric.noShowPreviewImg();
+				this.$emit('hideRubric')
+			
+				
+			}else{
+				// console.log('не судьба')
+				this.error = 'Категория не указана'			
+			}		
+	},
+	hideRubric(){
+		this.$emit('hideRubric')
+	},
+	deleteImage(){
+		this.rubric.img = ''
 	},
 	
+	},
+
+	mounted() {
+		
+		if(this.rubricsObject !=  undefined){
+			this.rubric = this.rubricsObject 
+			if(this.rubric.img != ''){
+			console.log(this.rubric.img)
+			
+			this.$refs.MyInputImgRubric.showRubricImg(this.rubric.img);
+		}
+			this.form.label_id = this.categoryId 
+			// this.form.label_id = 
+		}
+   //  console.log(this.about) // I'm text inside the component.
+	//  console.log('категории', category)
+	
+	 console.log(this.rubricsObject)
+	 console.log(this.rubric)
+  }
 
 	
 	
 }
 </script>
 
+<style scoped>
+
+.ui__container {
+  min-height: 50px;
+  padding-bottom: 55px;
+}
+
+.ui__fixed-wrapper {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+  bottom: 0;
+  left: 0;
+}
+
+.ui__button-cancel {
+  box-shadow: 0px -2px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 20px 20px 0px 0px;
+  background: #FFFFFF;
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+  width:100%;
+  line-height: 15px;
+  color: #EB5757;
+}
+
+
+</style>

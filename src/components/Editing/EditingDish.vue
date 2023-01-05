@@ -21,16 +21,7 @@
 							:options="categoryRubrics"
 							:error="error"
 							/>
-							<!-- <MySelectProba 
-							placeholder="Select roles"
-							v-model="form.role_ids"
-							:options="roles"
-							multiple
-							error="Роль небыла выбрана"
-							/> -->
-							<!-- <MySelect
-							:categorys="categorys"
-							/> -->
+						
 						</div>
 
 
@@ -75,7 +66,7 @@
 						<my-input-img-dish
 						ref="MyInputImgDish"
 						v-model:valueimage="dish.sliderImage"					
-						
+						@removeImage="removeImage"
 						/>
 
 					</div>
@@ -89,7 +80,13 @@
 					>
 					Сохранить
 					</button-orange>
-					
+					<div  class="ui__container _container ">	
+							<div class="ui__fixed-wrapper">
+							<button @click="hideDish" class="ui__button-cancel">
+											Отменить
+							</button>
+							</div>
+					</div>
 				
 		</div>
 </template>
@@ -101,8 +98,20 @@ import MySelectProba from "@/components/UI/MySelectProba"
 export default {
    name: 'EditingDish',
   props: {
+	dishObject: {
+				type: Object,	
+				required: false,
+			},
 	categories: {
 		type: Array,
+	},
+	categoryId: {
+		type: Number,
+		required: false,
+	},
+	rubricId: {
+		type: Number,
+		required: false,
 	},
 	// modelValue: {
 	// 	type: [String, Number]
@@ -168,20 +177,19 @@ export default {
 					this.formlabel_rubric_id = null
 					this.formlabel_id = null;
 					this.$refs.MyInputImgDish.noShowPreviewImg();
+					this.$emit('hideDish')
 				}else{
 					console.log('не судьба')
 					this.error = 'Категория не указана'			
 				}		
 		},
-		createcategory() {
-				this.category.value = Date.now();
-				this.$emit('create', this.category, 'second param', '3 param')
-				this.category = {
-					label: '',
-					text: ''
-				}
-		
-		},
+		hideDish(){
+				this.$emit('hideDish')
+			},
+		removeImage(image){
+			this.dish.sliderImage.filter(p => p.id !== image.id)
+			console.log('удаляем')
+		}	
 	
 	},
 	watch: {
@@ -200,7 +208,24 @@ export default {
 			}
 		}
 
-	}
+	},
+	mounted() {
+		// console.log(this.dish.sliderImage) пусто
+		if(this.dishObject !=  undefined){
+			this.dish = this.dishObject 
+			if(this.dish.sliderImage != ''){
+			console.log(this.dish.sliderImage)
+		
+			
+			this.$refs.MyInputImgDish.showDishImg(this.dish.sliderImage);
+		}
+		console.log(this.dish.sliderImage)
+			this.formlabel_id = this.categoryId
+			this.formlabel_rubric_id = this.rubricId
+			// this.form.label_id = 
+		}
+
+  }
 	
 
 	
@@ -208,3 +233,33 @@ export default {
 }
 </script>
 
+<style scoped>
+
+.ui__container {
+  min-height: 50px;
+  padding-bottom: 55px;
+}
+
+.ui__fixed-wrapper {
+  position: fixed;
+  width: 100%;
+  z-index: 5;
+  bottom: 0;
+  left: 0;
+}
+
+.ui__button-cancel {
+  box-shadow: 0px -2px 12px rgba(0, 0, 0, 0.12);
+  border-radius: 20px 20px 0px 0px;
+  background: #FFFFFF;
+  padding: 20px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 12px;
+  width:100%;
+  line-height: 15px;
+  color: #EB5757;
+}
+
+
+</style>

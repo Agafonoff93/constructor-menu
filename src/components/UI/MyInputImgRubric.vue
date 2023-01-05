@@ -2,20 +2,7 @@
 			<div class="input-page__box-images box-images">
 							<div class="box-images__label _label">Фотографии</div>
 							<div class="box-images__file file">
-<!-- 
-								<div id="formPreview" class="file__preview">
-									<div class="file__item">
-										<input 
-										class="file__input" 
-										id="formImage" 
-										type="file" 
-										accept=".jpg, .png, .gif"
-										name="image[]">
-										<div class="file__button _icon-css">
-											<span></span>
-										</div>
-									</div>
-								</div> -->
+
 
 							
 								<div class="file__preview">
@@ -63,9 +50,11 @@
 export default {
 	name: 'my-input-img-rubric',
 	props: {
-		valueimage: [String, Number, Object, null],
+		valueimage: {
+		type:	String,
+		},
 	},
-	expose: ['noShowPreviewImg'],
+	expose: ['noShowPreviewImg','showRubricImg'],
 	data() {
       return {
         previewImage: null,
@@ -80,7 +69,7 @@ export default {
 		selectImage () {
           this.$refs.fileInput.click()
       },
-      pickFile () {
+      pickFile () {	
         let input = this.$refs.fileInput
         let file = input.files
 		  
@@ -101,20 +90,20 @@ export default {
 			let input = this.$refs.fileInput
 			this.previewImage = null;
 			input.value = ''
+			this.$emit('deleteImage')
 		},
 		noShowPreviewImg(){
 			let input = this.$refs.fileInput
 			this.previewImage = null;
 			input.value = ''
+			this.$emit('deleteImage')
 		},
-		
-		
-
-
-		
-
-		
-
+		showRubricImg(image){
+			console.log('хочу показать')
+			console.log(image)
+			this.previewImage = image
+			
+		},
 		showPopupImg() {
 		this.popupVisibleImg = true;
 	},
@@ -124,6 +113,7 @@ export default {
 	// 	this.popupVisibleImg = true;
 	//  }	
 	},
+	
 
 }
 
