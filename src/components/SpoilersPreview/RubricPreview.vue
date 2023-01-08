@@ -2,8 +2,10 @@
 		<div  class="main-preview-rubrics__block" >						
 							<div  
 							@click="toggleBlock"
+							v-touch:longtap="longtapHandler"
+							v-touch="touchHandler"
 							class="main-preview-rubrics__header" 
-							:class="{_focus: uiVisible}">
+							:class="{_focus: uiVisible, _drag_item: draggableRubric}">
 								<div class="main-preview-rubrics__label _label">
 									<span>Рубрики</span>
 									<button @click="showUi" class="buttons-panel__сorrect" >
@@ -12,22 +14,47 @@
 										</svg>
 									</button>
 								</div>
-								<div class="main-preview-rubrics__title _title" :class="{_active: uiVisible, '_toggle': toggleShow }">{{rubric.label}}</div>
-								<div class="main-preview-rubrics__text _text">{{rubric.text}}</div>
-											<div  v-if="this.rubric.img.length != 0" class="main-preview-rubrics__image _ibg">
-												<img v-bind:src="(`${rubric.img}`)" alt="">
-											</div>
+								<div class="main-preview-rubrics__title _title" :class="{_active: uiVisible, '_toggle': toggleShow && !draggableRubric }">{{rubric.label}}</div>
+								<transition name="ui">
+									<div v-show="!draggableRubric && !draggableDish">
+										<div  class="main-preview-rubrics__text _text">{{rubric.text}}</div>
+													<div  v-if="this.rubric.img.length != 0" class="main-preview-rubrics__image _ibg">
+														<img v-bind:src="(`${rubric.img}`)" alt="">
+													</div>
+									</div>
+								</transition>
 							</div>
 							<div class="_wrapper-body">
 							<transition name="show-block">
-								<div v-show="toggleShow">
-							<DishPreview 
+								<div v-show="draggableDish || (toggleShow && !draggableRubric)">
+							<!-- <DishPreview 
 							v-for="dish in rubric.dishs"
 							:key="dish.value"
 							:dish="dish"
+							:draggableDish="draggableDish"
 							@removedish="$emit('removedish',  dish)"
 							@seeEditingDish="$emit('seeEditingDish', dish)"
-							/>
+							/> -->
+							<draggable
+						class="list-group"
+						:list="rubric.dishs"
+						:disabled="!draggableDish"
+						group="dishs"
+						itemKey="value"
+						>
+							<template #item="{ element }">
+								<div class="list-group-item">
+									<DishPreview 
+									:draggableDish="draggableDish"
+									:dish="element"
+									@removedish="$emit('removedish',  element)"
+									@seeEditingDish="$emit('seeEditingDish', element)"
+									@longtapHandlerDish="longtapHandlerDish"
+									@touchHandlerDish="touchHandlerDish"
+									/>
+					         </div>
+							</template>
+						</draggable>
 							</div>
 						   </transition>
 						   </div>
@@ -48,10 +75,16 @@
 <script>
 import MyPenelUiRubric from  '@/components/UI/MyPenelUiRubric.vue'
 import DishPreview from  '@/components/SpoilersPreview/DishPreview.vue'
-
+import draggable from 'vuedraggable'
 
 export default {
 	props: {
+		draggableRubric: {
+			type: Boolean
+		},
+		draggableDish: {
+			type: Boolean
+		},
 		rubric:{
 			type: Object,
 			required: true,
@@ -65,6 +98,7 @@ export default {
 			isFocus: false,
 			uiVisible:false,
 			toggleShow: false,
+			enabled: false,
 		}
 	},
 	methods: {
@@ -83,11 +117,27 @@ export default {
 		}else{
 			this.toggleShow = true
 		}
-	  }
+	  },
+	  longtapHandler(mouseEvent){
+			this.$emit('longtapHandlerRubric')
+			this.$emit('draggableUnTuchDish')
+		},
+		touchHandler(){
+			this.$emit('touchHandlerRubric')
+		},
+		longtapHandlerDish(mouseEvent){
+			this.$emit('draggableTuchDish')
+			this.enabled = true	
+		},
+		touchHandlerDish(){
+			this.$emit('draggableUnTuchDish')
+			this.enabled = false	
+		}			
 	},
 	components: {
 		DishPreview,
 		MyPenelUiRubric,
+		draggable,
 	},
 
 }

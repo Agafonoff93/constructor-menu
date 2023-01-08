@@ -108,7 +108,7 @@ export default {
    left: 0;
    width: 100%;
    height: 100%;
-	background-color: #eb575780;
+	/* background-color: #eb575780; */
 	z-index: 5;
 }
 .ui__container {
@@ -185,6 +185,11 @@ export default {
   font-size: 16px;
   line-height: 20px;
   color: #F78408;
+  -moz-user-select: -moz-none;
+-o-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
 }
 .ui__button-cancel {
   box-shadow: 0px -2px 12px rgba(0, 0, 0, 0.12);

@@ -1,6 +1,12 @@
 <template>
-<div  class="main-preview-rubrics__body">
-	<div ref="target" class="main-preview-dishs__block"  :class="{_focus: uiVisible}">
+<div  v-touch:longtap="longtapHandler"
+		  v-touch="touchHandler"  class="main-preview-rubrics__body">
+	   <div 
+	    
+		  ref="target" 
+		  class="main-preview-dishs__block"  
+		  :class="{_focus: uiVisible,  _drag_item: draggableDish}"
+		  >
 		<div  class="main-preview-dishs__header">
 			<div class="main-preview-dishs__label _label">
 				<span>Блюдо</span>
@@ -13,6 +19,7 @@
 				<div class="main-preview-dishs__price _title _rub">{{ dish.price }}</div>
 			</div>										
 		</div>
+		<div v-show="!draggableDish">
 		<div class="_wrapper-body">
 		<transition name="show-block">
 		<div v-show="toggleShow" class="main-preview-dishs__description">
@@ -33,6 +40,7 @@
 			<span v-if="toggleShow">Свернуть описание</span>
 			<span v-else>Подробное описание</span>
 		</div>
+		</div>
 	</div>
 		<!-- ui panel  -->
 							<MyPenelUiDish
@@ -52,13 +60,16 @@ import MyPenelUiDish from  '@/components/UI/MyPenelUiDish.vue'
 import MySlider from '@/components/UI/MySlider.vue'
 export default {
 	props: {
+		draggableDish: {
+			type: Boolean,
+		},
 		dish:{
 			type: Object,
 			required: true,
 		},
 	},
 	
-	emits: ['removedish'],
+	emits: ['removedish','longtapHandlerDish','touchHandlerDish'],
 	data(){
 		return {
 			isFocus: false,
@@ -73,7 +84,6 @@ export default {
 		},
 		getFocus(){
 			// console.log(this.rubric)
-			console.log('фокус блюдо')
 			this.isFocus = true
 		},
 		toggleBlock(){
@@ -82,7 +92,13 @@ export default {
 		}else{
 			this.toggleShow = true
 		}
-	  }
+	  },
+	  longtapHandler(mouseEvent){
+			this.$emit('longtapHandlerDish')
+		},
+		touchHandler(){
+			this.$emit('touchHandlerDish')
+		}
 	},
 	components: {
 		MySlider,

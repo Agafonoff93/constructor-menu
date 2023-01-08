@@ -185,6 +185,7 @@ export default {
 	computed:{
 	focusEl(){
 		this.focusEl 
+		// немомню ,зачем?
 	}
 	}
 

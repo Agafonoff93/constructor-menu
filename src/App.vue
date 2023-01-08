@@ -9,7 +9,7 @@
 			<div class="header__image">
 				<img src="@/assets/logo.svg" alt="logo">
 			</div>
-			<div  class="header__title">
+			<div   class="header__title">
 				Конструктор Меню
 			</div>
 			<!-- <button v-click-outside="onClickOutside">Кликай</button>
@@ -85,7 +85,7 @@
 		@seeEditingCategory="seeEditingCategory"
 		@seeEditingRubric="seeEditingRubric"
 		@seeEditingDish="seeEditingDish"
-		@remove="removecategory"
+		@removecategory="removecategory"
 		@removerubric="removemyrubric"
 		@removemydish="removemydish"
 		
@@ -113,6 +113,7 @@ import EditingCategory from '@/components/Editing/EditingCategory.vue'
 import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
 import FormLogin from '@/components/FormLogin'
+
 // import MyPenelUi from '@/components/UI/MyPenelUi'
 
 export default {
@@ -129,6 +130,7 @@ export default {
   },
   data() {
 	return {
+		zhmyak: false,
 		title:'Леон',
 		text:'Ресторан Леон - лучший ресторан в городе и во всей стране тоже!',
 		about: 
@@ -136,7 +138,7 @@ export default {
 			id:'1',
 			title:'Леон',
 			text:'Самый лучший ресторан в мире',
-         img:'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg',
+         img:'https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png',
 		},
 
 		categories: [
@@ -149,7 +151,7 @@ export default {
 					value: 1,
 					label: 'Салаты',
 					text: 'Летние и горячие салаты из солнечной Италии.',
-					img:'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg',
+					img:'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg',
 					dishs:[
 						{
 							value: 1,
@@ -173,15 +175,15 @@ export default {
 					value: 2,
 					label: 'Закуски',
 					text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-					img: '',
-					dishs:''
+					img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg',
+					dishs:[],
 				},
 				{
 					value: 3,
 					label: 'Коктели',
 					text: 'Освежающий апепель shpritz и много всего',
 					img: '',
-					dishs:''
+					dishs:[],
 				},
 			]
 			},
@@ -194,7 +196,7 @@ export default {
 					value: 1,
 					label: 'Пицца',
 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-					img:'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg',
+					img:'',
 					dishs:[
 						{
 							value: 1,
@@ -213,8 +215,23 @@ export default {
 						},
 						{
 							value: 2,
-							label: 'Пицца 4ре сыра',
-							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+							label: 'Пицца Тайская',
+							text: 'Салат, Ананасы, Куриное филе,нет 4ре сыра',
+							price:'559',
+							weight: '330',
+							img:'',
+							sliderImage: [
+								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+							]
+						},
+						{
+							value: 3,
+							label: 'Пицца Капричеза',
+							text: 'Грибы и сыр',
 							price:'559',
 							weight: '330',
 							img:'',
@@ -262,9 +279,8 @@ export default {
 	  this.visibleEditingAbout = false
 	  this.visibleMainPreview = true
 	  console.log('сохранить эбаут')
-	 
-
   },
+ 
   hideAbout(){
 	console.log('отмена')
 	this.visibleEditingAbout = false
@@ -327,17 +343,18 @@ export default {
 	},
 	removecategory(category){
 		console.log(category)
+		console.log('удаление категории')
 		this.categories = this.categories.filter(p => p.value !== category.value)
 		this.popupVisible = false;
 	},
 	removemyrubric(rubric , category){
+		console.log('удаление рубрики')
 		let categoryFind = this.categories.find(p => p.value == category.value)
 		categoryFind.rubrics = categoryFind.rubrics.filter(p => p.value !== rubric.value)
 		this.popupVisible = false;
 	},
 	removemydish(dish, rubric, category){
-		
-		console.log('собираемся что то удалить')
+		console.log('удаление блюда')
 		let categoryFind = this.categories.find(p => p.value == category.value)
 		let rubricFind = categoryFind.rubrics.find(p => p.value == rubric.value)
 		rubricFind.dishs = rubricFind.dishs.filter(p => p.value !== dish.value)
@@ -734,6 +751,11 @@ body._lock {
   line-height: 17px;
   color: #4F4F4F;
   opacity: 0.8;
+  -moz-user-select: -moz-none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 ._label {
@@ -741,6 +763,11 @@ body._lock {
   font-size: 12px;
   line-height: 15px;
   opacity: 0.8;
+  -moz-user-select: -moz-none;
+	-o-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
 
@@ -910,6 +937,11 @@ transform: rotate(-90deg);
 	border: 2px solid orange;
 }
 
+._drag_item {
+	border: 2px solid darkgrey;
+	border-left: 7px double darkgrey;
+	padding: 6px 13px 6px 7px;
+}
 
 
 ._ibg {

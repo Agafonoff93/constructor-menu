@@ -52,7 +52,40 @@
 					v-if="categories.length > 0" 
 					class="main-preview-categories__wrapper" 
 					>
-						<TransitionGroup name="list-category"  >
+	 <draggable
+        :list="categories"
+        :disabled="!enabled"
+        item-key="value"
+        class="list-group"
+        ghost-class="ghost"
+        @start="dragging = true"
+        @end="dragging = false"
+      >
+        <template #item="{ element }">
+          <div class="list-group-item" :class="{ 'not-draggable': !enabled }">
+            <CategoryPreview 
+				:draggableCategory="draggable"
+				:draggableRubric="draggableRubric"
+				:draggableDish="draggableDish"
+				:category="element" 
+				@removecategory="$emit('remove', element)"
+				@removerubric="$emit('removerubric', $event, element)"
+				@removedish="(dish, rubric, category) => $emit('removemydish',dish, rubric, element)"
+				ref="CategoryPreview"
+				@seeEditingRubric="$emit('seeEditingRubric', $event, element)"
+				@seeMyEditingDish="(dish, rubric, category) => $emit('seeEditingDish',dish, rubric, element)"
+				@seeEditingCategory="$emit('seeEditingCategory', $event )" 
+				@longtapHandlerCategory="longtapHandler"
+				@touchHandlerCategory="touchHandler"
+				@draggableTuchRubric="draggableTuchRubric"
+				@draggableUnTuchRubric="draggableUnTuchRubric"
+				@draggableTuchDish="draggableTuchDish"
+				@draggableUnTuchDish="draggableUnTuchDish"
+				/>
+          </div>
+        </template>
+      </draggable>
+						<!-- <TransitionGroup name="list-category"  >
 							<CategoryPreview  
 							v-for="category in categories" 
 							:key="category.value"  
@@ -65,7 +98,7 @@
 							@seeMyEditingDish="(dish, rubric, category) => $emit('seeEditingDish',dish, rubric, category)"
 							@seeEditingCategory="$emit('seeEditingCategory', $event )"
 						/>
-						</TransitionGroup>
+						</TransitionGroup> -->
 					
 					</div>
 					<div 
@@ -101,7 +134,7 @@
 <script>
 import CategoryPreview from '@/components/SpoilersPreview/CategoryPreview.vue'
 import MyPanelUiMain from '@/components/UI/MyPanelUiMain.vue'
-
+ import draggable from 'vuedraggable'
 
 export default {
 props: { 
@@ -123,27 +156,50 @@ props: {
 data() {
 	return {
 		uiMainVisible:false,
+		drag: false,
+		draggable: false,
+		draggableRubric: false,
+		draggableDish: false,
+		enabled: false,
 	}
 },
 
 components:{
 	CategoryPreview,
-	MyPanelUiMain
+	MyPanelUiMain,
+	 draggable,
 
 },
 expose: ['hideUiMain'],
 methods:{
    seeEditingAbout() {
 		this.$emit('seeAbout')
-	console.log('клик')
 	},
 	openUiMain(){
-	console.log('хотим добавить элемент')
 	this.uiMainVisible = true
-	
   },
   hideUiMain(){
 	this.uiMainVisible = false
+  },
+  longtapHandler(mouseEvent){
+	 this.draggable = true
+	 this.enabled = true	
+  },
+  touchHandler(){
+	this.draggable = false
+	this.enabled = false	
+  },
+  draggableTuchRubric(){
+	this.draggableRubric = true
+  },
+  draggableUnTuchRubric(){
+	this.draggableRubric = false
+  },
+  draggableTuchDish(){
+	this.draggableDish = true
+  },
+  draggableUnTuchDish(){
+	this.draggableDish = false
   },
 
 },
@@ -192,6 +248,10 @@ margin-left: 10px;
 .create__image {
 }
 .create__title {
+}
+
+.header__title._active{
+	background-color: pink;
 }
 
 .main-preview__add-info {
@@ -252,6 +312,7 @@ background: #FFFFFF;
 box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.04);
 border-radius: 5px;
 border: 2px solid transparent;
+transition: all 0.3s ease 0s;
 }
 
 
@@ -432,6 +493,11 @@ font-weight: 700;
 font-size: 18px;
 line-height: 22px;
 color: #333333;
+-moz-user-select: -moz-none;
+-o-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
 }
 
 ._ibg {
@@ -476,6 +542,7 @@ content: "г";
 
 
 /* animation-main-ui*/
+.ui-move,
 .ui-enter-active,
 .ui-leave-active {
   transition: opacity 0.3s ease-in-out;
@@ -489,6 +556,7 @@ content: "г";
 /* animation-main-ui*/
 
 /* animation-main-show-block*/
+.show-block-move,
 .show-block-enter-active,
 .show-block-leave-active {
   transition: all 0.5s ease-in-out;
