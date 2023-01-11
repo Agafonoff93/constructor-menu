@@ -173,6 +173,9 @@ export default {
   visibility: visible;
   transition: all 0.3s ease 0s;
   height:60px;
+  max-width: 600px;
+  margin: 0 auto;
+  
 }
 .ui__buttons._active {
 	height:150px;

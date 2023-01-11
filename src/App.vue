@@ -12,15 +12,18 @@
 			<div   class="header__title">
 				Конструктор Меню
 			</div>
-			<!-- <button v-click-outside="onClickOutside">Кликай</button>
-			<button v-click-outside="vcoConfig"> нажимай</button> -->
+		
 		</div>
 		<div class="header__version version">
 			<div class="version__label">Версия меню:</div>
-			<div class="version__lang select-lang">
-				<div class="select-lang__title">RU</div>
+			<div class="version__lang select-lang">				
+			   	<MySelectLang						
+					:langList="langList"
+					:langListReserve="langListReserve"
+					:languageId="languageId"
+					/>
 			</div>
-	
+	     
 		</div>
 	</div>
 	</div>
@@ -113,6 +116,7 @@ import EditingCategory from '@/components/Editing/EditingCategory.vue'
 import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
 import FormLogin from '@/components/FormLogin'
+import MySelectLang from '@/components/UI/MySelectLang'
 
 // import MyPenelUi from '@/components/UI/MyPenelUi'
 
@@ -125,14 +129,12 @@ export default {
 	EditingCategory,
 	EditingRubric,
 	EditingDish,
+	MySelectLang,
 	FormLogin,
 	// MyPenelUi
   },
   data() {
 	return {
-		zhmyak: false,
-		title:'Леон',
-		text:'Ресторан Леон - лучший ресторан в городе и во всей стране тоже!',
 		about: 
 		{
 			id:'1',
@@ -255,6 +257,24 @@ export default {
 			},
 		],
 		
+		langList: [
+		{ id: 1, name: 'RU', img: require('@/assets/icons/lang/russia_1.png'), unavailable: true },
+		{ id: 2, name: 'EN', img: require('@/assets/icons/lang/united-kingdom_1.png'), unavailable: false },
+		{ id: 3, name: 'FR', img: require('@/assets/icons/lang/france_1.png'), unavailable: false },
+		{ id: 4, name: 'GR', img: require('@/assets/icons/lang/germany_1.png'), unavailable: false },
+		{ id: 5, name: 'IT', img: require('@/assets/icons/lang/italy_1.png'), unavailable: false },
+		],
+
+      langListReserve: [
+		{ id: 6, name: 'SP', img: require('@/assets/icons/lang/spain_1.png'), unavailable: false },
+		{ id: 7, name: 'CH', img: require('@/assets/icons/lang/china_1.png'), unavailable: false },
+		{ id: 8, name: 'JP', img: require('@/assets/icons/lang/japan_1.png'), unavailable: false },
+		{ id: 9, name: 'UA', img: require('@/assets/icons/lang/ukraine_1.png'), unavailable: true },
+		{ id: 10, name: 'CZ', img: require('@/assets/icons/lang/czech-republic_1.png'), unavailable: false },
+		{ id: 11, name: 'TR', img: require('@/assets/icons/lang/turkey_1.png'), unavailable: false },
+		], 
+      
+		languageId: 1,
 		uiVisible:false,
 		popupVisible: false,
 		popupVisibleImg: false,
@@ -537,9 +557,8 @@ body._lock {
   background: #F2F2F2;
 }
 ._container {
-  max-width: 1170px;
+  max-width: 550px;
   margin: 0 auto;
-  max-width: 970px;
   padding: 0 15px;
 }
 
@@ -575,16 +594,7 @@ body._lock {
 	z-index: 5;
 	position: relative;
 }
-.select-lang__title {
-  color: #828282;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  
-}
-.select-lang__title span {
-	padding-right: 5px;
-}
+
 .footer__container {
   padding-bottom: 55px;
 }

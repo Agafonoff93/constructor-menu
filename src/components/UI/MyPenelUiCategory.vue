@@ -176,6 +176,8 @@ export default {
   border-radius: 20px 20px 0px 0px;
   padding: 15px 15px 25px 15px;
   transition: all 0.3s ease 0s;
+  max-width: 600px;
+  margin: 0 auto;
   /* height:60px; */
 }
 .ui__buttons._active {
