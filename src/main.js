@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import components from '@/components/UI/';
 // import VMyclickoutside from '@/directives/VMyclickoutside';
-import clickOutSide from '@/directives/clickOutSide.js'
+
 import Vue3TouchEvents from "vue3-touch-events";
 
 const app = createApp(App)
@@ -18,7 +18,7 @@ components.forEach(component => {
 	
 // });
 
-
+app.use(store)
 app.use(Vue3TouchEvents).mount('#app')
 
 

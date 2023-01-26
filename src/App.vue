@@ -4,35 +4,39 @@
 	
 	<header class="header">
 	<div class="header__container _container">
-	<div class="header__body">
-		<div class="header__logo">
-			<div class="header__image">
-				<img src="@/assets/logo.svg" alt="logo">
+		<div class="header__body">
+			<div class="header__logo">
+				<div class="header__image">
+					<img src="@/assets/logo.svg" alt="logo">
+				</div>
+				
+				<div   class="header__title">
+					Конструктор Меню
+				</div>
+			
 			</div>
-			<div   class="header__title">
-				Конструктор Меню
+			<div class="header__version version">
+				<div class="version__label">Версия меню:</div>
+				<div class="version__lang select-lang">				
+						<MySelectLang						
+						v-model:langList="langList"
+						:langListReserve="langListReserve"
+						:languageId="languageId"
+						@addLanguage="addLanguage"
+						@removeLanguage="removeLanguage"
+						/>
+				</div>
+			
 			</div>
-		
 		</div>
-		<div class="header__version version">
-			<div class="version__label">Версия меню:</div>
-			<div class="version__lang select-lang">				
-			   	<MySelectLang						
-					:langList="langList"
-					:langListReserve="langListReserve"
-					:languageId="languageId"
-					/>
-			</div>
-	     
-		</div>
-	</div>
+	<button @click="testUser()" class="footer__button-cancel">press</button>
 	</div>
 	
 	</header>
 	
   
 	<main  class="page">
-	  
+		
 		<transition name="about">
 		<EditingAbout
 		v-if="visibleEditingAbout"
@@ -81,9 +85,11 @@
 		<MainPreview 
 		v-show="visibleMainPreview"
 		v-model:visibleMain="visibleMainPreview"
+		v-model:isUserLoading="isUserLoading"
+		
 		ref="MainPreview"
 		:about="about"
-		:categories="categories"
+		:categories="categories"		
 		@seeAbout="seeAbout"
 		@seeEditingCategory="seeEditingCategory"
 		@seeEditingRubric="seeEditingRubric"
@@ -117,7 +123,8 @@ import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
 import FormLogin from '@/components/FormLogin'
 import MySelectLang from '@/components/UI/MySelectLang'
-
+import axios from 'axios';
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 // import MyPenelUi from '@/components/UI/MyPenelUi'
 
 export default {
@@ -135,145 +142,146 @@ export default {
   },
   data() {
 	return {
-		about: 
-		{
-			id:'1',
-			title:'Леон',
-			text:'Самый лучший ресторан в мире',
-         img:'https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png',
-		},
+		// about: 
+		// {
+		// 	id: 1,
+		// 	title:'',
+		// 	text:'',
+      //    img:'',
+		// },
 
-		categories: [
-			{
-			value: 1,
-			label: 'Специальное предложение',
-			text: 'Блюда недели, выгодные предложения и акции!',
-			rubrics: [
-				{
-					value: 1,
-					label: 'Салаты',
-					text: 'Летние и горячие салаты из солнечной Италии.',
-					img:'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg',
-					dishs:[
-						{
-							value: 1,
-							label: 'Цезарь',
-							text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-							price:'359',
-							weight: '350',
-							img:'',
-							sliderImage: [
-								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-							]
-						},
-					]
-				},
+		// categories: [
+		// 	{
+		// 	value: 1,
+		// 	label: 'Специальное предложение',
+		// 	text: 'Блюда недели, выгодные предложения и акции!',
+		// 	rubrics: [
+		// 		{
+		// 			value: 1,
+		// 			label: 'Салаты',
+		// 			text: 'Летние и горячие салаты из солнечной Италии.',
+		// 			img:'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg',
+		// 			dishs:[
+		// 				{
+		// 					value: 1,
+		// 					label: 'Цезарь',
+		// 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+		// 					price:'359',
+		// 					weight: '350',
+		// 					img:'',
+		// 					sliderImage: [
+		// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+		// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+		// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+		// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 					]
+		// 				},
+		// 			]
+		// 		},
 
-				{
-					value: 2,
-					label: 'Закуски',
-					text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-					img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg',
-					dishs:[],
-				},
-				{
-					value: 3,
-					label: 'Коктели',
-					text: 'Освежающий апепель shpritz и много всего',
-					img: '',
-					dishs:[],
-				},
-			]
-			},
-			{
-			value:  2,
-			label: 'Итальянская кухня',
-			text: 'Вкусы италии вкусы италии вкусы италии',
-			rubrics:[
-				{
-					value: 1,
-					label: 'Пицца',
-					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-					img:'',
-					dishs:[
-						{
-							value: 1,
-							label: 'Пицца 4ре сыра',
-							text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-							price:'549',
-							weight: '300',
-							img:'',
-							sliderImage: [
-								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg'},
-							]
-						},
-						{
-							value: 2,
-							label: 'Пицца Тайская',
-							text: 'Салат, Ананасы, Куриное филе,нет 4ре сыра',
-							price:'559',
-							weight: '330',
-							img:'',
-							sliderImage: [
-								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-							]
-						},
-						{
-							value: 3,
-							label: 'Пицца Капричеза',
-							text: 'Грибы и сыр',
-							price:'559',
-							weight: '330',
-							img:'',
-							sliderImage: [
-								{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-								{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-								{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-								{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-							]
-						},
-					]
-				},
-					]
-			},
-			{
-			value: 3,
-			label: 'Русская кухня',
-			text: 'Богатый вкус все блюда вкус все блюда',
-			rubrics:[],
-			},
-		],
+		// 		{
+		// 			value: 2,
+		// 			label: 'Закуски',
+		// 			text: 'Закуски вкусные и сытные разбавят ожидания блюда',
+		// 			img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg',
+		// 			dishs:[],
+		// 		},
+		// 		{
+		// 			value: 3,
+		// 			label: 'Коктели',
+		// 			text: 'Освежающий апепель shpritz и много всего',
+		// 			img: '',
+		// 			dishs:[],
+		// 		},
+		// 	]
+		// 	},
+		// 	{
+		// 	value:  2,
+		// 	label: 'Итальянская кухня',
+		// 	text: 'Вкусы италии вкусы италии вкусы италии',
+		// 	rubrics:[
+		// 		{
+		// 			value: 1,
+		// 			label: 'Пицца',
+		// 			text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+		// 			img:'',
+		// 			dishs:[
+		// 				{
+		// 					value: 1,
+		// 					label: 'Пицца 4ре сыра',
+		// 					text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+		// 					price:'549',
+		// 					weight: '300',
+		// 					img:'',
+		// 					sliderImage: [
+		// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+		// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+		// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+		// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg'},
+		// 					]
+		// 				},
+		// 				{
+		// 					value: 2,
+		// 					label: 'Пицца Тайская',
+		// 					text: 'Салат, Ананасы, Куриное филе,нет 4ре сыра',
+		// 					price:'559',
+		// 					weight: '330',
+		// 					img:'',
+		// 					sliderImage: [
+		// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+		// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+		// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+		// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 					]
+		// 				},
+		// 				{
+		// 					value: 3,
+		// 					label: 'Пицца Капричеза',
+		// 					text: 'Грибы и сыр',
+		// 					price:'559',
+		// 					weight: '330',
+		// 					img:'',
+		// 					sliderImage: [
+		// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+		// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+		// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+		// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+		// 					]
+		// 				},
+		// 			]
+		// 		},
+		// 			]
+		// 	},
+		// 	{
+		// 	value: 3,
+		// 	label: 'Русская кухня',
+		// 	text: 'Богатый вкус все блюда вкус все блюда',
+		// 	rubrics:[],
+		// 	},
+		// ],
 		
-		langList: [
-		{ id: 1, name: 'RU', img: require('@/assets/icons/lang/russia_1.png'), unavailable: true },
-		{ id: 2, name: 'EN', img: require('@/assets/icons/lang/united-kingdom_1.png'), unavailable: false },
-		{ id: 3, name: 'FR', img: require('@/assets/icons/lang/france_1.png'), unavailable: false },
-		{ id: 4, name: 'GR', img: require('@/assets/icons/lang/germany_1.png'), unavailable: false },
-		{ id: 5, name: 'IT', img: require('@/assets/icons/lang/italy_1.png'), unavailable: false },
-		],
+		// langList: [
+		// { id: 1, name: 'RU', img: require('@/assets/icons/lang/russia_1.png'), unavailable: true },
+		// { id: 2, name: 'EN', img: require('@/assets/icons/lang/united-kingdom_1.png'), unavailable: false },
+		// { id: 3, name: 'FR', img: require('@/assets/icons/lang/france_1.png'), unavailable: false },
+		// { id: 4, name: 'GR', img: require('@/assets/icons/lang/germany_1.png'), unavailable: false },
+		// { id: 5, name: 'IT', img: require('@/assets/icons/lang/italy_1.png'), unavailable: false },
+		// ],
 
-      langListReserve: [
-		{ id: 6, name: 'SP', img: require('@/assets/icons/lang/spain_1.png'), unavailable: false },
-		{ id: 7, name: 'CH', img: require('@/assets/icons/lang/china_1.png'), unavailable: false },
-		{ id: 8, name: 'JP', img: require('@/assets/icons/lang/japan_1.png'), unavailable: false },
-		{ id: 9, name: 'UA', img: require('@/assets/icons/lang/ukraine_1.png'), unavailable: true },
-		{ id: 10, name: 'CZ', img: require('@/assets/icons/lang/czech-republic_1.png'), unavailable: false },
-		{ id: 11, name: 'TR', img: require('@/assets/icons/lang/turkey_1.png'), unavailable: false },
-		], 
+      // langListReserve: [
+		// { id: 6, name: 'SP', img: require('@/assets/icons/lang/spain_1.png'), unavailable: false },
+		// { id: 7, name: 'CH', img: require('@/assets/icons/lang/china_1.png'), unavailable: false },
+		// { id: 8, name: 'JP', img: require('@/assets/icons/lang/japan_1.png'), unavailable: false },
+		// { id: 9, name: 'UA', img: require('@/assets/icons/lang/ukraine_1.png'), unavailable: true },
+		// { id: 10, name: 'CZ', img: require('@/assets/icons/lang/czech-republic_1.png'), unavailable: false },
+		// { id: 11, name: 'TR', img: require('@/assets/icons/lang/turkey_1.png'), unavailable: false },
+		// ], 
       
+		// isUserLoading: false,
 		languageId: 1,
 		uiVisible:false,
 		popupVisible: false,
@@ -292,6 +300,13 @@ export default {
   },
   
   methods: {
+	...mapMutations({
+
+	}),
+	...mapActions({
+		fetchUser: 'user/fetchUser',
+		testUser:'user/fetchUser'
+	}),
 	saveAbout(data) {
     console.log('child component', data)
 	//  console.log(about.title)
@@ -329,6 +344,7 @@ export default {
 		}else{
 			this.categories.push(category);
 		}
+		this.testUser(this.categories)
 	},
 	createrubric(rubric, category_id){
 		console.log(rubric)
@@ -426,11 +442,40 @@ export default {
 	this.$refs.MainPreview.hideUiMain()
 	this.visibleMainPreview = false
   },
+
+  addLanguage(){
+	// if(this.langList.find(p => p.id == lang.id)){
+	// 		console.log('lj,fdkztv')
+	// 	}
+	this.langList.push(lang);
+   console.log('app добавляем язык')
+  },
+  removeLanguage(){
+	// this.langList = this.langList.filter(p => p.id !== langList.id)
+	// this.langListReserve.push(lang);
+   console.log('app удаляем язык')
 	
+  },
+
+ 
+	
+  },
+  computed: {
+	...mapState({
+		isUserLoading: state => state.user.isUserLoading,
+		about: state => state.user.about,
+		categories: state => state.user.categories,	
+		langList: state => state.user.langList,
+      langListReserve: state => state.user.langListReserve, 
+	}),
+	...mapGetters({
+
+	})
   },
   mounted() {
 		
-		
+	this.fetchUser()
+	// console.log(this.isUserLoading)
    //  console.log(this.about) // I'm text inside the component.
 	//  console.log('категории', category)
 	//  console.log('категории', this.category)
@@ -591,7 +636,7 @@ body._lock {
   color: #828282;
 }
 .select-lang {
-	z-index: 5;
+	z-index: 2;
 	position: relative;
 }
 
