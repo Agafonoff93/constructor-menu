@@ -163,6 +163,7 @@ export const userModule = {
 		}
 	},
 	actions: {
+	
 		async fetchUser({state, commit}) {
 			try {
 				commit('SET_LOADING', true)
@@ -176,7 +177,21 @@ export const userModule = {
 				commit('SET_LOADING', false)
 			}
 		  },
-	
+	   	async testUser({state, commit}, $event){
+			console.log($event)
+			try {
+				
+				const url = 'http://localhost:3000/user';
+			   const data =  JSON.stringify($event)
+				state.categories = $event
+				const response = await axios.post(url, data);
+				
+				console.log(data);
+				console.log(response.data);
+			} catch (error) {
+				console.error(error);
+			}
+		},
 	},
 	namespaced:true 
 }

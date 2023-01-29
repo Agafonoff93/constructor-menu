@@ -27,8 +27,8 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 60px;
   margin: 30px auto;
-  max-width: 232px;
+  
 }
 </style>

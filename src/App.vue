@@ -29,7 +29,7 @@
 			
 			</div>
 		</div>
-	<button @click="testUser()" class="footer__button-cancel">press</button>
+
 	</div>
 	
 	</header>
@@ -305,7 +305,7 @@ export default {
 	}),
 	...mapActions({
 		fetchUser: 'user/fetchUser',
-		testUser:'user/fetchUser'
+		testUser:'user/testUser'
 	}),
 	saveAbout(data) {
     console.log('child component', data)
@@ -344,7 +344,7 @@ export default {
 		}else{
 			this.categories.push(category);
 		}
-		this.testUser(this.categories)
+		// this.testUser()
 	},
 	createrubric(rubric, category_id){
 		console.log(rubric)
@@ -694,7 +694,7 @@ body._lock {
 }
 
 .page {
-  flex: 1 1 auto;
+  flex: 1 1 0;
   position:relative;
 }
 /* .page > div {
@@ -730,6 +730,15 @@ body._lock {
   line-height: 17px;
   text-align: center;
   color: #828282;
+}
+
+.page__main-preview,.input-page {
+	height:100%
+}
+.main-preview__container{
+	display: flex;
+    height: 100%;
+    flex-direction: column;
 }
 .input-page {
 	/* position:absolute;
@@ -1147,4 +1156,13 @@ opacity:1;
 }
 
 /* animation-main-blocks*/
+
+
+.ui__wrapper{
+	 flex: 1 1 100%;
+    display: flex;
+    align-items: flex-end;
+	
+}
+
 </style>

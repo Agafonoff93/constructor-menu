@@ -187,8 +187,8 @@ export default {
 <style scoped>
 
 .ui__container {
-  min-height: 50px;
-  padding-bottom: 55px;
+  /* min-height: 50px;
+  padding-bottom: 55px; */
 }
 
 .ui__fixed-wrapper {

@@ -130,6 +130,11 @@
 			@seeEditingDish="$emit('seeEditingDish')"
 			/>
 			</transition>
+			<button-orange 
+					
+					>
+					Выбрать дизайн
+					</button-orange>
 		</div>
 	</div>
 </template>
