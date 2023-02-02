@@ -183,10 +183,10 @@ export default {
 	//  }	
 	},
 	computed:{
-	focusEl(){
-		this.focusEl 
-		// немомню ,зачем?
-	}
+	// focusEl(){
+	// 	this.focusEl 
+	// 	// немомню ,зачем?
+	// }
 	}
 
 }

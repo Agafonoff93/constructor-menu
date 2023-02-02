@@ -11,7 +11,7 @@
     :modules="modules"
 	>
 	  <swiper-slide 
-	  v-for="image in dish.sliderImage"
+	  v-for="image in images.sliderImage"
 		:key="image.id"	
 		:image="image"
 		 @slideChange="onSlideChange"
@@ -40,11 +40,11 @@
 		 SwiperSlide,
 	  },
 	  props: {
-		dish:{
+		images:{
 			type: Object,
 			required: true,
 		},
-	},
+		},
 	  setup() {
 		 const onSwiper = (swiper) => {
 			// console.log(swiper);
@@ -54,9 +54,6 @@
 			// console.log('slide change');
 		 };
 
-		 
-        
-    
 		 return {
 			onSwiper,
 			onSlideChange,
@@ -69,7 +66,8 @@
 			return this.$refs.mySwiper.$swiper;
 		}
 
-	}
+		},
+		
 	};
  </script>
 

@@ -30,7 +30,7 @@
 			</div>
 			<div  class="main-preview-dishs__slider-wrapper">
 				<MySlider 
-				:dish="dish"
+				:images="dish"
 				/>
 			</div>		
 		</div>

@@ -131,10 +131,10 @@
 			/>
 			</transition>
 			<button-orange 
-					
-					>
-					Выбрать дизайн
-					</button-orange>
+			@click="$emit('seeChooseTemplate')"		
+			>
+			Выбрать дизайн
+			</button-orange>
 		</div>
 	</div>
 </template>
