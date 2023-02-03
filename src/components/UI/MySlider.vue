@@ -30,6 +30,7 @@
 	// Import Swiper Vue.js components
 	import { Swiper, SwiperSlide } from 'swiper/vue';
 	import { Pagination } from "swiper";
+
  
 	// Import Swiper styles
 	import 'swiper/css';

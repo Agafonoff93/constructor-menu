@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LayoutMain from '@/pages/LayoutMain'
 import PreviewTemplate from '@/pages/PreviewTemplate'
-import templateTheme_1 from '@/templates/templateTheme_1'
+import StockholmTheme from '@/templates/StockholmTheme'
+import HumburgTheme from '@/templates/HumburgTheme'
+import BucharestTheme from '@/templates/BucharestTheme'
 
 const routes = [
   {
@@ -15,9 +17,19 @@ const routes = [
     component: PreviewTemplate
   },
   {
-    path: '/template-theme_1',
-    name: 'templateTheme-1',
-    component: templateTheme_1
+    path: '/stockholm',
+    name: 'Stockholm',
+    component: StockholmTheme
+  },
+  {
+    path: '/humburg',
+    name: 'Humburg',
+    component: HumburgTheme
+  },
+  {
+    path: '/bucharest',
+    name: 'Bucharest',
+    component: BucharestTheme
   },
 //   {
 //     path: '/about',
