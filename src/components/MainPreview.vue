@@ -35,7 +35,7 @@
 						</div>
 					</div>
 					<div v-else class="main-preview__start-body start">
-							<div class="start__title">Добро пожаловать в конструткор меню!</div>
+							<div class="start__title _bold-light">Добро пожаловать в конструткор меню!</div>
 							<div class="start__text">
 								<p>Здесь Вы сможете создать электронное меню для своего заведения.</p>
 								<p>Процесс создания меню состоит из двух этапов: заполнение позиций и выбор дизайна.</p>
@@ -131,7 +131,7 @@
 			/>
 			</transition>
 			<button-orange 
-			@click="$emit('seeChooseTemplate')"		
+			@click="$router.push('/choose')" 		
 			>
 			Выбрать дизайн
 			</button-orange>
@@ -217,7 +217,7 @@ methods:{
   draggableUnTuchDish(){
 	this.draggableDish = false
   },
-
+ 
 },
 
 
@@ -342,8 +342,12 @@ box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.04);
 border-radius: 5px;
 border: 2px solid transparent;
 transition: all 0.3s ease 0s;
+cursor:pointer;
+transition: all 0.3s ease 0s;
 }
-
+.main-preview-categories__header:hover{
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 
 
 .main-preview-categories__label {

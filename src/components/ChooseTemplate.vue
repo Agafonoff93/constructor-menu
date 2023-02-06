@@ -8,7 +8,7 @@
 				class="templates__item item-template">
 				<Popover v-slot="{ open }" class="relative">
 					<div :class="{ '_open': open }" class="item-template__wrapper">
-					<PopoverButton>
+					<PopoverButton style="padding:9px;border-radius: 5px;">
 					<div class="item-template__slider">	
 						<MySlider 
 						:images="theme"
@@ -33,9 +33,13 @@
 				</div>
 			</div>
 		</div>
-		<!-- <MyPanelUiChoose
+		<MyPanelUiBottom>
+									
+				<span class="ui__button-choose-span">Выберите шаблон</span> <button class="ui__button-choose-button" @click="$router.back()">Назад</button>
+			
+		</MyPanelUiBottom>
 		
-		/> -->
+	
 	</div>
 </template>
 
@@ -46,7 +50,7 @@
 
 <script>
 
-import MyPanelUiChoose from  '@/components/UI/MyPanelUiChoose.vue'
+import MyPanelUiBottom from  '@/components/UI/MyPanelUiBottom.vue'
 import MyPanelUiChooseItem from  '@/components/UI/MyPanelUiChooseItem.vue'
 import MySlider from '@/components/UI/MySlider.vue'
 export default {
@@ -73,31 +77,11 @@ export default {
 			console.log('закрываем')
 			close()
 		}
-	// 	showUi(){
-	// 		this.uiVisible = true
-	// 		console.log('click show')
-	// 	},
-	// 	getFocus(){
-	// 		// console.log(this.rubric)
-	// 		this.isFocus = true
-	// 	},
-	// 	toggleBlock(){
-	// 	if(this.toggleShow == true){
-	// 		this.toggleShow = false
-	// 	}else{
-	// 		this.toggleShow = true
-	// 	}
-	//   },
-	//   longtapHandler(mouseEvent){
-	// 		this.$emit('longtapHandlerDish')
-	// 	},
-	// 	touchHandler(){
-	// 		this.$emit('touchHandlerDish')
-	// 	}
+	
 	},
 	components: {
 		MySlider,
-		MyPanelUiChoose,
+		MyPanelUiBottom,
 		MyPanelUiChooseItem,
 	},
 
@@ -106,6 +90,41 @@ export default {
 
 <style scoped>
 
+button::-moz-focus-inner,:focus-visible {
+  padding: 0;
+  border: 0;
+}
+
+.ui__button-choose-svg {
+  margin-right: 9px;
+}
+.ui__button-choose-span {
+	font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+color: #828282;
+  -moz-user-select: -moz-none;
+-o-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+}
+
+.ui__button-choose-button {
+	font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 17px;
+color: #333333;
+  -moz-user-select: -moz-none;
+-o-user-select: none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+}
 .ui__animate{
 	transition: all 0.3s ease 0s;
   
@@ -153,7 +172,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	padding: 9px;
+	padding: 0px;
 	border: 1px solid transparent;
 	background: #FFFFFF;
 	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.04);
@@ -164,7 +183,9 @@ export default {
 .item-template__wrapper._open {
 	border: 1px solid #F78408;
 }
-
+button.item-template__button {
+	padding: 9px;
+}
 .item-template__slider {
 	width: 100%;
 	margin: 0 0 10px 0;

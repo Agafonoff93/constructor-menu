@@ -1,39 +1,16 @@
 <template>
  	
 	<div class="wrapper">
+		
 	
-	<header class="header">
-	<div class="header__container _container">
-		<div class="header__body">
-			<div class="header__logo">
-				<div class="header__image">
-					<img src="@/assets/logo.svg" alt="logo">
-				</div>
-				
-				<div   class="header__title">
-					Конструктор Меню
-				</div>
-			
-			</div>
-			<div class="header__version version">
-				<div class="version__label">Версия меню:</div>
-				<div class="version__lang select-lang">				
-						<MySelectLang						
-						v-model:langList="langList"
-						:langListReserve="langListReserve"
-						:languageId="languageId"
-						@addLanguage="addLanguage"
-						@removeLanguage="removeLanguage"
-						/>
-				</div>
-			
-			</div>
-		</div>
-
-	</div>
-	
-	</header>
-	
+		<MainHeader
+		class="header"
+		v-model:langList="langList"
+		:langListReserve="langListReserve"
+		:languageId="languageId"
+		@addLanguage="addLanguage"
+		@removeLanguage="removeLanguage"
+		/>
   
 	<main  class="page">
 		
@@ -78,14 +55,14 @@
 		@createdish="createdish"
 		/> 
 	   </transition>
-
+<!-- 
 		<transition name="category">
 			<ChooseTemplate 
 			:themes="themes"
 			v-if="visibleChooseTemplate"
 		
 			/> 
-		</transition>
+		</transition> -->
 
 		<MainPreview 
 		v-show="visibleMainPreview"
@@ -99,7 +76,7 @@
 		@seeEditingCategory="seeEditingCategory"
 		@seeEditingRubric="seeEditingRubric"
 		@seeEditingDish="seeEditingDish"
-		@seeChooseTemplate="seeChooseTemplate"
+		
 		@removecategory="removecategory"
 		@removerubric="removemyrubric"
 		@removemydish="removemydish"
@@ -123,13 +100,14 @@
 
 <script>
 
+import MainHeader from '@/components/MainHeader.vue'
 import MainPreview from '@/components/MainPreview.vue'
 import EditingAbout from '@/components/Editing/EditingAbout.vue'
 import EditingCategory from '@/components/Editing/EditingCategory.vue'
 import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
 import ChooseTemplate from '@/components/ChooseTemplate.vue'
-import MySelectLang from '@/components/UI/MySelectLang'
+
 import axios from 'axios';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 // import MyPenelUi from '@/components/UI/MyPenelUi'
@@ -139,11 +117,11 @@ export default {
 
   components: {
 	MainPreview,
+	MainHeader,
 	EditingAbout,
 	EditingCategory,
 	EditingRubric,
 	EditingDish,
-	MySelectLang,
 	ChooseTemplate,
 	// MyPenelUi
   },
@@ -297,7 +275,7 @@ export default {
 		visibleEditingCategory: false,
 		visibleEditingRubric: false,
 		visibleEditingDish: false,
-		visibleChooseTemplate: false,
+		// visibleChooseTemplate: false,
 		visibleMainPreview: true,
 		categoriesObject: '',
 		rubricsObject: '',
@@ -451,10 +429,10 @@ export default {
 	this.visibleMainPreview = false
   },
   
-  seeChooseTemplate(){
-		this.visibleChooseTemplate = true
-		this.visibleMainPreview = false
-  },
+//   seeChooseTemplate(){
+// 		this.visibleChooseTemplate = true
+// 		this.visibleMainPreview = false
+//   },
 
   addLanguage(){
 	// if(this.langList.find(p => p.id == lang.id)){
@@ -563,7 +541,7 @@ button {
   background-color: inherit;
 }
 
-button::-moz-focus-inner {
+button::-moz-focus-inner,:focus-visible {
   padding: 0;
   border: 0;
 }
@@ -640,6 +618,7 @@ body._lock {
   font-size: 16px;
   line-height: 20px;
   max-width: 150px;
+  text-align:left;
 }
 .version {
   text-align: right;
@@ -716,6 +695,18 @@ body._lock {
 } */
 .start__body {
   padding: 10px 0;
+}
+._bold-600-light{
+	font-weight: 700;
+  color: #F78408;
+  font-weight: 600;
+	font-size: 16px;
+}
+._bold-light{
+	font-size:14px;
+	line-height: 17px;
+	font-weight: 700;
+  color: #F78408;
 }
 .start__title {
   font-weight: 700;
@@ -838,6 +829,7 @@ body._lock {
 
 ._label {
   font-weight: 500;
+  color: #828282;
   font-size: 12px;
   line-height: 15px;
   opacity: 0.8;

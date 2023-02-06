@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LayoutMain from '@/pages/LayoutMain'
-import PreviewTemplate from '@/pages/PreviewTemplate'
-import StockholmTheme from '@/templates/StockholmTheme'
-import HumburgTheme from '@/templates/HumburgTheme'
-import BucharestTheme from '@/templates/BucharestTheme'
+import LayoutMain from '@/pages/LayoutMain.vue'
+import LayoutChoose from '@/pages/LayoutChoose.vue'
+import ResultPage from '@/pages/ResultPage.vue'
+import PreviewTemplate from '@/pages/PreviewTemplate.vue'
+
 
 const routes = [
   {
@@ -12,25 +12,21 @@ const routes = [
     component: LayoutMain
   },
   {
-    path: '/menu',
-    name: 'previewTemplate',
-    component: PreviewTemplate
+    path: '/choose',
+    name: 'LayoutChoose',
+	 component:LayoutChoose, 
   },
   {
-    path: '/stockholm',
-    name: 'Stockholm',
-    component: StockholmTheme
+    path: '/choose/:name',
+    name: 'PreviewTemplate',
+    component: PreviewTemplate,
   },
   {
-    path: '/humburg',
-    name: 'Humburg',
-    component: HumburgTheme
+    path: '/result',
+    name: 'ResultPage',
+    component: ResultPage,
   },
-  {
-    path: '/bucharest',
-    name: 'Bucharest',
-    component: BucharestTheme
-  },
+
 //   {
 //     path: '/about',
 //     name: 'about',
@@ -42,7 +38,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 })
 

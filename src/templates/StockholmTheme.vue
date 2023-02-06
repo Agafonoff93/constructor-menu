@@ -1,20 +1,20 @@
 <template>
-	<div :style="{ 'background': `linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(${require('@/assets/bg-templates/bg-template-1.jpg')}) repeat 10%` }" class="wrapper">
-		<header class="header">
+	<div :style="{ 'background': ` linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(${require('@/assets/bg-templates/bg-template-1.jpg')}) repeat 10%` }" class="wrapper">
+		<header class="header"> 
 			<div class="header__container _container">
 				<div class="header__top">
-					<div class="header__logo">
+					<div v-if="about.img != ''" class="header__logo">
 						<img v-bind:src="(`${about.img}`)" alt="logo">
 					</div>
 					<Menu v-slot="{ open }">
-					<MenuButton @change="test" :class="{'_active': open }" ref="menuWatch" class="icon-menu">
+					<MenuButton  :class="{'_active': open }" ref="menuWatch" class="icon-menu">
 						<span></span>
 						<span></span>
 						<span></span>
 					</MenuButton>
 					<transition name="menu">
-					<MenuItems :style="{ 'background': `linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(${require('@/assets/bg-templates/bg-template-1.jpg')}) repeat 10%` }" class="menu__body _container">
-						<div class="menu__header-logo"><img v-bind:src="(`${about.img}`)" alt="logo"></div>
+					<MenuItems :style="{ 'background': ` linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(${require('@/assets/bg-templates/bg-template-1.jpg')}) repeat 10%` }" class="menu__body _container">
+						<div v-if="about.img != ''" class="menu__header-logo"><img v-bind:src="(`${about.img}`)" alt="logo"></div>
 						
 						<Disclosure 
 						as="div"
@@ -105,12 +105,12 @@
 										:slides-per-view="1"
 										:space-between="0"
 										@swiper="onSwiper"
-
+										:modules="[Pagination]"
 										:pagination="{
 										type: 'fraction',
 										el: '.controls-slider-box__wrapper'
 										}"
-										:modules="modules"
+										
 										>
 										<swiper-slide 
 										v-for="image in dish.sliderImage"
@@ -205,11 +205,7 @@ export default {
 		fetchUser: 'user/fetchUser',
 		testUser:'user/testUser'
 	}),
-	test(){
-		console.log(this.$refs.menuWatch.$el.getAttribute('aria-expanded'))
-		console.log(this.unlock)
-		// this.$refs.menuWatch.getAttribute('aria-expanded')
-	}
+	
  
 	
   },
@@ -228,16 +224,11 @@ export default {
 	swiper() {
 			return this.$refs.mySwiper.$swiper;
 		},
-		unlock(){
-			if(this.$refs.menuWatch.$el.getAttribute('aria-expanded') == true){
-				console.log('hidden')
-			}else{
-				console.log('not hidden')
-			}
-		}
+	
   },
   mounted() {
 	  this.fetchUser()
+	  console.log(this.about.img.length)
 	  document.body.classList.add('bg-light')
 
 	//   const observer = this.$refs.menuWatch.$el.getAttribute('aria-expanded')
@@ -288,9 +279,9 @@ observer.observe(targetNode, config);
 
 //     this._observer.observe(this.$refs.menuWatch.$el, { childList: true })
 //   },
-  beforeUnmount() {
-    this.observer.disconnect()
-  },
+//   beforeUnmount() {
+//     this.observer.disconnect()
+//   },
   beforeDestroy() {
     this.observer.disconnect()
   },
@@ -408,17 +399,18 @@ body._lock {
 }
 
 .wrapper {
+	font-family: "Bitter";
 	width: 100%;
 	min-height: 100%;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	/* background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(../img/bg-template-1.jpg) repeat 10%; */
+	background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9));
 }
 
 ._container {
 	margin: 0 auto;
-	max-width: 600px;
+	max-width: 570px;
 	padding: 0 10px;
 }
 
@@ -499,6 +491,7 @@ body.ie ._ibg img {
 }
 
 .header__title {
+	font-family:inherit;
 	font-weight: 600;
 	font-size: 18px;
 	line-height: 122%;
@@ -1119,7 +1112,7 @@ max-width: 100%;
 display: block;
 }
 .main-preview-dishs__slider img {
-border-radius: 5px;
+border-radius: 0px;
 }
 .controls-slider-box {
 	position: absolute;

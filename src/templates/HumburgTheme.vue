@@ -1,20 +1,21 @@
 <template>
-	<div :style="{ 'background': `linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(${require('@/assets/bg-templates/bg-template-1.jpg')}) repeat 10%` }" class="wrapper">
+	<div :style="{ 'background': `linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(${require('@/assets/bg-templates/bg-template-2.jpg')}) repeat 10%` }" class="wrapper">
 		<header class="header">
 			<div class="header__container _container">
 				<div class="header__top">
-					<div class="header__logo">
+					<div v-if="about.img != ''" class="header__logo">
 						<img v-bind:src="(`${about.img}`)" alt="logo">
 					</div>
 					<Menu v-slot="{ open }">
-					<MenuButton @change="test" :class="{'_active': open }" ref="menuWatch" class="icon-menu">
+					<MenuButton  :class="{'_active': open }" ref="menuWatch" class="icon-menu">
 						<span></span>
 						<span></span>
 						<span></span>
 					</MenuButton>
 					<transition name="menu">
-					<MenuItems :style="{ 'background': `linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(${require('@/assets/bg-templates/bg-template-1.jpg')}) repeat 10%` }" class="menu__body _container">
-						<div class="menu__header-logo"><img v-bind:src="(`${about.img}`)" alt="logo"></div>
+					<MenuItems :style="{ 'background': `linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(${require('@/assets/bg-templates/bg-template-2.jpg')}) repeat 10%` }" class="menu__body _container">
+						<div class="menu__list">
+						<div v-if="about.img != ''" class="menu__header-logo"><img v-bind:src="(`${about.img}`)" alt="logo"></div>
 						
 						<Disclosure 
 						as="div"
@@ -44,7 +45,7 @@
 									</DisclosurePanel>
 									</transition>
 						</Disclosure>
-					
+					</div>
 					</MenuItems>
 				</transition>
 				</Menu>
@@ -105,12 +106,12 @@
 										:slides-per-view="1"
 										:space-between="0"
 										@swiper="onSwiper"
-
-											:pagination="{
-											type: 'fraction',
-											el: '.controls-slider-box__wrapper'
-											}"
-										:modules="modules"
+										:modules="[Pagination]"
+										:pagination="{
+										type: 'fraction',
+										el: '.controls-slider-box__wrapper'
+										}"
+										
 										>
 										<swiper-slide 
 										v-for="image in dish.sliderImage"
@@ -124,9 +125,9 @@
 										</div>
 										</swiper-slide>
 										<div class="box-slider__controls controls-slider-box">
-												<div class="controls-slider-box__wrapper" ></div>
+												<div class="controls-slider-box__wrapper"></div>
 										</div>
-										</swiper>
+									</swiper>
 
 								</div>
 
@@ -183,9 +184,6 @@ export default {
 	}
   },
   setup() {
-
-	
-
 		 const onSwiper = (swiper) => {
 			// console.log(swiper);
 			
@@ -208,11 +206,7 @@ export default {
 		fetchUser: 'user/fetchUser',
 		testUser:'user/testUser'
 	}),
-	test(){
-		console.log(this.$refs.menuWatch.$el.getAttribute('aria-expanded'))
-		console.log(this.unlock)
-		// this.$refs.menuWatch.getAttribute('aria-expanded')
-	}
+	
  
 	
   },
@@ -231,16 +225,11 @@ export default {
 	swiper() {
 			return this.$refs.mySwiper.$swiper;
 		},
-		unlock(){
-			if(this.$refs.menuWatch.$el.getAttribute('aria-expanded') == true){
-				console.log('hidden')
-			}else{
-				console.log('not hidden')
-			}
-		}
+	
   },
   mounted() {
 	  this.fetchUser()
+	  console.log(this.about.img.length)
 	  document.body.classList.add('bg-light')
 
 	//   const observer = this.$refs.menuWatch.$el.getAttribute('aria-expanded')
@@ -291,9 +280,9 @@ observer.observe(targetNode, config);
 
 //     this._observer.observe(this.$refs.menuWatch.$el, { childList: true })
 //   },
-  beforeUnmount() {
-    this.observer.disconnect()
-  },
+//   beforeUnmount() {
+//     this.observer.disconnect()
+//   },
   beforeDestroy() {
     this.observer.disconnect()
   },
@@ -307,7 +296,16 @@ observer.observe(targetNode, config);
 
 <style scoped>
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Bitter:regular,600,700&display=swap&subset=cyrillic-ext);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:regular,500,700&display=swap&subset=cyrillic-ext);
+
+
+@font-face {
+	font-family: "AdleryPro";
+	font-display: swap;
+	src: url("@/assets/fonts/AdleryProBlockletter.woff2") format("woff2"), url("@/assets/fonts/AdleryProBlockletter.woff") format("woff");
+	font-weight: 500;
+	font-style: normal;
+}
 
 * {
 	padding: 0px;
@@ -332,7 +330,7 @@ section {
 }
 
 html {
-	font-size: 14px;
+	font-size: 16px;
 }
 
 html,
@@ -343,7 +341,7 @@ body {
 
 body {
 	line-height: 1;
-	font-family: "Bitter";
+	font-family: "Roboto Condensed";
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
@@ -352,7 +350,7 @@ body {
 input,
 button,
 textarea {
-	font-family: "Bitter";
+	font-family: "Roboto Condensed";
 	font-size: inherit;
 }
 
@@ -403,7 +401,7 @@ h6 {
 }
 */
 body {
-	color: #333333;
+	color: #BDBDBD;
 }
 
 body._lock {
@@ -416,12 +414,14 @@ body._lock {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	/* background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(../img/bg-template-1.jpg) repeat 10%; */
+	font-family: "Roboto Condensed";
+	color: #BDBDBD;
+	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
 }
 
 ._container {
+	max-width: 570px;
 	margin: 0 auto;
-	max-width: 600px;
 	padding: 0 10px;
 }
 
@@ -502,36 +502,34 @@ body.ie ._ibg img {
 }
 
 .header__title {
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 18px;
 	line-height: 122%;
-	letter-spacing: 0.12em;
 	text-transform: uppercase;
-	color: #333333;
+	color: #ffffff;
 }
 
 .header__text {
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 122%;
-	letter-spacing: 0.04em;
-	color: #4F4F4F;
+	color: #BDBDBD;
 	margin-top: 5px;
 }
 
-.header__logo {
+.header__logo  {
 	width: 100%;
-	max-width: 150px;
-	max-height: 60px;
+max-width: 150px;
+max-height: 60px;
 }
-
 .header__logo img {
 	width: 100%;
-	max-width: 150px;
-	max-height: 60px;
-	object-fit: contain;
-	object-position: left;
+max-width: 150px;
+max-height: 60px;
+object-fit: contain;
+object-position: left ;
 }
+
 
 .icon-menu {
 	display: flex;
@@ -552,7 +550,7 @@ body.ie ._ibg img {
 	width: 4px;
 	height: 4px;
 	border-radius: 50%;
-	background-color: #333333;
+	background-color: #ffffff;
 }
 
 .icon-menu span:first-child {
@@ -596,7 +594,7 @@ body.ie ._ibg img {
 	overflow: auto;
 	top: 0;
 	left: 0;
-	background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9));
+	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
 	transition: left 0.3s ease 0s;
 	padding: 100px 20px 30px 10px;
 }
@@ -607,7 +605,7 @@ body.ie ._ibg img {
 	width: 100%;
 	height: 50px;
 	top: 0;
-	left: 0;
+	left: 100%;
 	transition: all 0.3s ease 0s;
 	z-index: 2;
 }
@@ -635,16 +633,16 @@ body.ie ._ibg img {
 }
 
 .menu__link {
-	font-weight: 500;
-	color: inherit;
+	
 	transition: color 0.3s ease 0s;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	font-size: 24px;
 	font-weight: 600;
+	color: #ffffff;
+	
 }
 
 .menu__link._active .menu__arrow {
@@ -657,6 +655,8 @@ body.ie ._ibg img {
 	font-size: 8px;
 }
 
+
+
 .menu__sub-list {
 	position: relative;
 	padding: 10px 0;
@@ -665,27 +665,32 @@ body.ie ._ibg img {
 }
 
 
+
+
+
 .menu__sub-item:not(:last-child) {
 	margin: 0px 0px 20px 0px;
 }
 
 .menu__sub-link {
-	color: #333333;
-	line-height: 120%;
+color: inherit;
 }
 
 
 
+
+
 ._icon-arrow-down::after {
+	
 	content: '';
 	position: relative;
 	top: 0px;
 	right: 0;
 	transition: all 0.3s ease 0s;
-	transform: rotate(0deg);
-	/* width: 12px;
-	height: 8px; */
-	/* background: url(../img/icons/arrow-down-s.svg) no-repeat; */
+	transform: rotate(180deg);
+	width: 12px;
+	height: 8px;
+	background: url(@/assets/icons/arrow-down-s-white.svg) no-repeat;
 }
 
 ._icon-arrow-down._active::after {
@@ -706,58 +711,59 @@ body.ie ._ibg img {
 }
 
 .page__title {
-	font-weight: 600;
-	font-size: 18px;
+	font-weight: 500;
+	font-size: 30px;
 	line-height: 122%;
 	text-transform: uppercase;
 	letter-spacing: 0.12em;
 	margin-top: 20px;
+   font-family:"AdleryPro";
+	color: #ffffff;
 }
 
 .category {
 	margin-top: 25px;
 	padding-top: 20px;
-	border-top: #111111 3px solid;
 }
 
 .category__title {
-	font-weight: 700;
-	font-size: 20px;
+	font-weight: 500;
+	font-size: 45px;
 	line-height: 122%;
-	letter-spacing: 0.12em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	text-align:left ;
+	color: #ffffff;
+	font-family:"AdleryPro";
 }
 
 .category__text {
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 122%;
-	letter-spacing: 0.04em;
-	color: #4F4F4F;
+	color: #BDBDBD;
 	margin-top: 5px;
 }
 
 .rup {
 	margin-top: 40px;
 	padding-top: 15px;
-	border-top: #111111 2px solid;
 }
 
 .rup__title {
-	font-weight: 600;
-	font-size: 18px;
+	font-weight: 500;
+	font-size: 30px;
 	line-height: 122%;
 	text-transform: uppercase;
-	letter-spacing: 0.12em;
+	letter-spacing: 0.06em;
+	color: #ffffff;
+	font-family:"AdleryPro";
 }
 
 .rup__text {
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 122%;
-	letter-spacing: 0.04em;
-	color: #4F4F4F;
+	color: #BDBDBD;
 	margin-top: 5px;
 }
 
@@ -769,23 +775,20 @@ body.ie ._ibg img {
 .item {
 	margin-top: 40px;
 	padding-top: 15px;
-	border-top: #111111 1px solid;
 }
 
 .item__title {
-	font-weight: 600;
-	font-size: 14px;
+	font-weight: 500;
+	font-size: 18px;
 	line-height: 122%;
-	letter-spacing: 0.12em;
 	text-transform: uppercase;
 }
 
 .item__text {
 	font-weight: 400;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 122%;
-	letter-spacing: 0.04em;
-	color: #4F4F4F;
+	color: #ffffff;
 	margin-top: 5px;
 }
 
@@ -797,23 +800,18 @@ body.ie ._ibg img {
 }
 
 .item__price {
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 18px;
 	line-height: 22px;
 	letter-spacing: 0.04em;
+	color: #ffffff;
 }
 
 .item__weight {
 	font-weight: 400;
 	font-size: 14px;
 	line-height: 17px;
-	letter-spacing: 0.04em;
-}
-
-.item__weight::after {
-	content:'г';
-	position:relative;
-	
+	color: #bdbdbd;
 }
 
 .item__box-slider {
@@ -837,7 +835,7 @@ body.ie ._ibg img {
 	padding: 0 0 74% 0;
 }
 
-.controls-slider-box {
+/* .controls-slider-box {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -848,25 +846,30 @@ body.ie ._ibg img {
 }
 
 .controls-slider-box__wrapper {
-	background-color: #FFF7EB;
+	background-color: #0B1015;
 	border-radius: 50px;
 	padding: 4px 10px;
 	width: 47px;
 	height: 25px;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: 400;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
+} */
 
 ._button {
-	background: #111111;
-	font-weight: 600;
-	font-size: 16px;
+	
+	background: #FF9900;
+	border-radius: 5px;
+	font-weight: 700;
+	font-size: 18px;
 	line-height: 122%;
 	text-align: center;
 	letter-spacing: 0.12em;
 	text-transform: uppercase;
-	color: #F2F2F2;
+	color: rgba(11, 16, 21, 0.9);
 	width: 100%;
 	display: inline-flex;
 	align-items: center;
@@ -879,32 +882,28 @@ body.ie ._ibg img {
 
 
 
-
 /* select */
 
 
 .select {
 	position: relative;
 	margin-bottom: 40px;
-}
-
-.select__item {
+ }
+ .select__item {
 	position: relative;
-}
-
-.select__title {
+ }
+ .select__title {
 	color: inherit;
 	border: none;
 	background-color: transparent;
 	cursor: pointer;
 	border-radius: 4px;
-}
-
-.select__title._active>.select__value._icon-arrow-down::after {
+ }
+ .select__title._active>.select__value._icon-arrow-down::after{
 	transform: rotate(0deg);
 }
 
-.select__value {
+ .select__value {
 	display: flex;
 	font-weight: 700;
 	font-size: 16px;
@@ -913,22 +912,20 @@ body.ie ._ibg img {
 	padding: 0px 0px;
 	align-items: center;
 	justify-content: space-between;
-}
-
-.select__value span {
+ }
+ .select__value span {
 	display: flex;
 	width: 100%;
 	height: 1em;
 	overflow: hidden;
-}
+ }
 
-.select__input {
+ .select__input {
 	width: 100%;
 	background-color: transparent;
 	height: 100%;
-}
-
-.select__options {
+ }
+ .select__options {
 	color: #000;
 	position: relative;
 	top: 0px;
@@ -940,20 +937,18 @@ body.ie ._ibg img {
 	border: none;
 	z-index: 100;
 	overflow: hidden;
-}
-
-.options {
+ }
+ 
+ .options {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-}
-
-.options__item {
+ }
+ .options__item {
 	position: relative;
 	cursor: pointer;
-}
-
-.options__input {
+ }
+ .options__input {
 	position: absolute;
 	width: 0;
 	height: 0;
@@ -961,7 +956,7 @@ body.ie ._ibg img {
 	left: 0;
 	top: 0;
 	visibility: hidden;
-}
+ }
 
 .select__value img {
 	margin-right: 10px;
@@ -971,34 +966,40 @@ body.ie ._ibg img {
 	top: 4px;
 }
 
-
-
+.select__value span{
+   font-size: 22px;
+	font-family:"AdleryPro";
+	color: #ffffff;
+	font-weight: 500;
+}
 
 
 .select__option {
-	font-weight: 600;
-	font-size: 14px;
+	font-weight: 500;
+	font-size: 18px;
 	cursor: pointer;
-	padding: 8px 0px 0px 0px;
+	padding: 8px  0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-
+	font-family:"AdleryPro";
+	color: #ffffff;
 }
-
 .select__option img {
 	margin-right: 10px;
 	position: relative;
-	top: 0px;
+	top: 2px;
 }
+
 
 .select__form {
 	width: 100%;
 	font-family: inherit;
 	font-weight: 700;
-}
+ }
 
 
 
-.popup {
+
+ .popup {
 	-webkit-overflow-scrolling: touch;
 	z-index: 100;
 	padding: 0px;
@@ -1052,7 +1053,7 @@ body.ie ._ibg img {
 	-webkit-transition: all 0.3s ease 0s;
 	-o-transition: all 0.3s ease 0s;
 	transition: all 0.3s ease 0s;
-	background-color: #fff;
+	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
 	padding: 0px;
 	width: 100%;
 	max-width: 800px;
@@ -1086,7 +1087,7 @@ body.ie ._ibg img {
 	
 }
 .popup__close svg use {
-	fill:#212121;
+	fill:#ffffff;
 }
 
 .popup__button {
@@ -1099,7 +1100,7 @@ body.ie ._ibg img {
 }
 .footer__container {
 	width: 100%;
-	background: #fff;
+	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
 	position: fixed;
 	bottom: 0;
 	left: 50%;
@@ -1109,6 +1110,7 @@ body.ie ._ibg img {
 ._button:first-child {
 	margin: 15px 0;
 }
+
 
 .swiper-slide {
 	width: 100% !important;
@@ -1122,7 +1124,7 @@ max-width: 100%;
 display: block;
 }
 .main-preview-dishs__slider img {
-border-radius: 5px;
+border-radius: 0px;
 }
 .controls-slider-box {
 	position: absolute;
