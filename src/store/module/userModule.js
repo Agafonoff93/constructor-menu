@@ -243,27 +243,27 @@ export const userModule = {
 				commit('SET_CATEGORIES', response.data.project.categories)		
 			} catch (e) {
 				console.log(e)
-				alert('Ошибка')
+				// alert('Ошибка')
 			} finally {
 				commit('SET_LOADING', false)
 			}
 		},
 	   	
-		async testUser({state, commit}, $event){
-			console.log($event)
-			try {
+		// async testUser({state, commit}, $event){
+		// 	console.log($event)
+		// 	try {
 				
-				const url = 'http://localhost:3000/user';
-			   const data =  JSON.stringify($event)
-				state.categories = $event
-				const response = await axios.post(url, data);
+		// 		const url = 'http://localhost:3000/user';
+		// 	   const data =  JSON.stringify($event)
+		// 		state.categories = $event
+		// 		const response = await axios.post(url, data);
 				
-				console.log(data);
-				console.log(response.data);
-			} catch (error) {
-				console.error(error);
-			}
-		},
+		// 		console.log(data);
+		// 		console.log(response.data);
+		// 	} catch (error) {
+		// 		console.error(error);
+		// 	}
+		// },
 
 		async removeCategory({ commit }, category) {
 			// const url = 'http://localhost:3000/user';
