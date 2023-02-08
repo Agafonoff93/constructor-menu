@@ -132,10 +132,44 @@
 			</transition>
 			<button-orange 
 			v-if="categories.length != 0"
-			@click="$router.push('/choose')" 		
+			@click="showPopup"
+					
 			>
 			Выбрать дизайн
 			</button-orange>
+			<transition name="popup-transition">
+					<my-popup 
+						
+						v-model:show="popupVisible"
+						>
+						<div class="popup__title">
+							Переход к следующему этапу
+							</div>
+							<div class="popup__text">
+								Вы уверены что закончили заполнять меню и готовы перейти к выбору дизайна?
+								В любом случае, вы сможете вернуться к редактированию меню в любое время!
+								
+							
+							</div>
+							<div class="popup__buttons">
+								<button 
+								class="popup__cancel"
+								@click="hidePopup"
+								>
+									Отменить
+								</button>
+								<button 
+								@click="$router.push('/choose')"  
+							
+								class="popup__agree"
+								>
+										Да, перейти
+								</button>
+							
+							</div>
+							
+				   </my-popup>
+				</transition>
 		</div>
 	</div>
 </template>
@@ -177,6 +211,7 @@ data() {
 		draggableRubric: false,
 		draggableDish: false,
 		enabled: false,
+		popupVisible: false,
 	}
 },
 
@@ -188,7 +223,12 @@ components:{
 },
 expose: ['hideUiMain'],
 methods:{
-
+	showPopup() {
+		this.popupVisible = true;
+	},
+	hidePopup() {
+		this.popupVisible = false;	
+	},
    seeEditingAbout() {
 		this.$emit('seeAbout')
 	},
@@ -603,5 +643,128 @@ content: "г";
 }
 
 /* animation-main-show-block*/
+
+</style>
+
+<style scoped>
+.popup__title {
+	font-weight: 700;
+font-size: 16px;
+line-height: 20px;
+margin-bottom: 10px;
+}
+.popup__text {
+	font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+margin-bottom: 20px;
+}
+
+.popup {
+  /* -webkit-overflow-scrolling: touch; */
+  z-index: 100;
+  padding: 30px 10px;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+.popup::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+
+
+.popup__container{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.popup__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  width: 100%;
+  max-width: 500px;
+  padding:10px 15px 15px 15px;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+	justify-content: center;
+	background: #FFFFFF;
+	box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+  z-index: 150;
+  position: relative;
+}
+
+.popup__body {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  background-color: #fff;
+  padding: 50px;
+  width: 100%;
+  max-width: 800px;
+}
+
+
+
+.popup__buttons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.popup__cancel {
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: right;
+	color: #828282;
+}
+.popup__agree {
+	font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+text-align: right;
+color: #219653;
+
+}
+
+/* animation */
+
+.popup-transition-enter-active,
+.popup-transition-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.popup-transition-enter-from,
+.popup-transition-leave-to {
+  opacity: 0;
+}
 
 </style>

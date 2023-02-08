@@ -1097,7 +1097,7 @@ color: inherit;
 
 .footer {
 	margin-top: 100px;
-	
+	height: 50px;
 }
 .footer__container {
 	width: 100%;

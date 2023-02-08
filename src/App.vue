@@ -72,6 +72,9 @@ button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
+button:focus {
+  outline: none;
+}
 
 a,
 a:visited {

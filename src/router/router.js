@@ -3,6 +3,7 @@ import LayoutMain from '@/pages/LayoutMain.vue'
 import LayoutChoose from '@/pages/LayoutChoose.vue'
 import ResultPage from '@/pages/ResultPage.vue'
 import PreviewTemplate from '@/pages/PreviewTemplate.vue'
+import PageMenu from '@/pages/PageMenu.vue'
 
 
 const routes = [
@@ -20,6 +21,11 @@ const routes = [
     path: '/choose/:name',
     name: 'PreviewTemplate',
     component: PreviewTemplate,
+  },
+  {
+    path: '/menu/:name',
+    name: 'PageMenu',
+    component: PageMenu,
   },
   {
     path: '/result',

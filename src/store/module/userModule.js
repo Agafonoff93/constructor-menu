@@ -3,6 +3,7 @@ import axios from 'axios'
 export const userModule = {
 	state:() => ({
 			isUserLoading: false,
+			templateUrl:'',
 			about: {
 				title: 'Леон',
 				text: 'Самый лучший ресторан в мире',
@@ -174,7 +175,10 @@ export const userModule = {
 			// this.categories = this.categories.filter(p => p.value !== category.value)
 			console.log('del category')
 			state.categories = state.categories.filter(p => p.value !== category.value)
-		}
+		},
+		ADD_URL(state, urlTheme ) {
+         state.templateUrl = urlTheme 
+		},
 	},
 	actions: {
 		async addCategories({ commit, state }, category) {
@@ -235,8 +239,8 @@ export const userModule = {
 			try {
 				commit('SET_LOADING', true)
 				const response = await axios.get('http://localhost:3000/user')
-				// commit('SET_ABOUT', response.data.project.about)		
-				// commit('SET_CATEGORIES', response.data.project.categories)		
+				commit('SET_ABOUT', response.data.project.about)		
+				commit('SET_CATEGORIES', response.data.project.categories)		
 			} catch (e) {
 				console.log(e)
 				alert('Ошибка')
@@ -279,6 +283,9 @@ export const userModule = {
 			//   console.log('ERROR => ', 'Unable to delete work!', e);
 			// }
 		 },
+		 addUrl({ commit }, urlTheme) {
+			commit("ADD_URL", urlTheme);
+		 }
 	
 	},
 	namespaced:true 

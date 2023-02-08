@@ -55,14 +55,7 @@
 		@createdish="createdish"
 		/> 
 	   </transition>
-<!-- 
-		<transition name="category">
-			<ChooseTemplate 
-			:themes="themes"
-			v-if="visibleChooseTemplate"
-		
-			/> 
-		</transition> -->
+
 
 		<MainPreview 
 		v-show="visibleMainPreview"
@@ -474,11 +467,8 @@ export default {
   },
   mounted() {
 		
-	this.fetchUser()
-	// console.log(this.isUserLoading)
-   //  console.log(this.about) // I'm text inside the component.
-	//  console.log('категории', category)
-	//  console.log('категории', this.category)
+	// this.fetchUser()
+	// JSON db off =)
   }
 }
 
