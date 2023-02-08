@@ -210,7 +210,10 @@ export default {
 
 	},
 	mounted() {
-		// console.log(this.dish.sliderImage) пусто
+		if(this.categoryId != null){
+			this.formlabel_id = this.categoryId
+			this.formlabel_rubric_id = this.rubricId
+		}
 		if(this.dishObject !=  undefined){
 			this.dish = this.dishObject 
 			if(this.dish.sliderImage != ''){

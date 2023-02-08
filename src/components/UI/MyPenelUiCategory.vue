@@ -48,8 +48,34 @@
 </transition>
 	<transition name="popup-transition">
 		<my-popup 
-			@remove="$emit('remove', category)"
-			v-model:show="popupVisible">
+			@removecategory="$emit('removecategory', category)"
+			v-model:show="popupVisible"
+			>
+			<div class="popup__title">
+					Удаление категории
+				</div>
+				<div class="popup__text">
+					Вы уверены, что хотите удалить категорию <span class="_bold-light">“{{ category.label }}”</span>? <span v-if="category.rubrics.length != 0" >Вместе с ней будут удалены все рубрики ({{ category.rubrics.length}}) <span v-if="dishsLength != 0">и блюда ({{ dishsLength }})</span>.</span> 
+					
+				
+				</div>
+				<div class="popup__buttons">
+					<button 
+					class="popup__cancel"
+					@click="hidePopup"
+					>
+						Отменить
+					</button>
+					<button 
+					@click="$emit('removecategory', category)" 
+				
+					class="popup__agree"
+					>
+						Да, удалить
+					</button>
+				
+				</div>
+				
 	 </my-popup>
 	</transition>
 	
@@ -67,17 +93,21 @@ export default {
 			type:Boolean,
 			default:false
 		},
+		category: {
+			type: Object,
+			required: true,		
+		},
 
 	},
 	data() {
 	return {
-		
+		dishsQuantity: null,
 		popupVisible: false,
 	}
   },
 
 
-  emits: ['remove','getClose','seeEditingRubric','seeEditingCategory'],
+  emits: ['removecategory','getClose','seeEditingRubric','seeEditingCategory'],
 	methods: {
 	showPopup() {
 		this.popupVisible = true;
@@ -101,7 +131,20 @@ export default {
 		this.$emit('update:showUi', false)
 		// this.$refs.MyInputImgDish.noShowPreviewImg();
 	},
+	hidePopup() {
+		this.popupVisible = false;	
+		},
+	
   },
+  computed: {
+	dishsLength(){
+		let sum = 0; 
+		for (let rubric of this.category.rubrics) {
+			sum += rubric.dishs.length;
+		}
+      return sum;		
+	}
+	},
 }
 </script>
 
@@ -253,6 +296,124 @@ export default {
   font-size: 16px;
   line-height: 18px;
 }
+
+.popup__title {
+	font-weight: 700;
+font-size: 16px;
+line-height: 20px;
+margin-bottom: 10px;
+}
+.popup__text {
+	font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+margin-bottom: 20px;
+}
+
+.popup {
+  /* -webkit-overflow-scrolling: touch; */
+  z-index: 100;
+  padding: 30px 10px;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+.popup::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+
+
+.popup__container{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.popup__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  width: 100%;
+  max-width: 500px;
+  padding:10px 15px 15px 15px;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+	justify-content: center;
+	background: #FFFFFF;
+	box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+  z-index: 150;
+  position: relative;
+}
+
+.popup__body {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  background-color: #fff;
+  padding: 50px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.popup__close {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  z-index: 30;
+  content: 'нет';
+}
+
+.popup__buttons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.popup__cancel {
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: right;
+	color: #828282;
+}
+.popup__agree {
+	font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+text-align: right;
+color: #EB5757;
+
+}
+
 
 /* animation */
 

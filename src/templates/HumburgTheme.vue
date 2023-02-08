@@ -732,6 +732,7 @@ color: inherit;
 	line-height: 122%;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
+	text-align:left;
 	color: #ffffff;
 	font-family:"AdleryPro";
 }

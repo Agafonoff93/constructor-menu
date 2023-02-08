@@ -48,6 +48,8 @@
 									<DishPreview 
 									:draggableDish="draggableDish"
 									:dish="element"
+									:rubric="rubric"
+									:category="category"
 									@removedish="$emit('removedish',  element)"
 									@seeEditingDish="$emit('seeEditingDish', element)"
 									@longtapHandlerDish="longtapHandlerDish"
@@ -63,6 +65,7 @@
 							<MyPenelUiRubric 
 							v-model:showUi="uiVisible"
 							:rubric="rubric"
+							:category="category"
 							@removerubric="$emit('removerubric', rubric)"
 							@seeEditingDish="$emit('seeEditingDish')"
 							@seeEditingRubric="$emit('seeEditingRubric', rubric)"
@@ -87,6 +90,10 @@ export default {
 			type: Boolean
 		},
 		rubric:{
+			type: Object,
+			required: true,
+		},
+		category:{
 			type: Object,
 			required: true,
 		},

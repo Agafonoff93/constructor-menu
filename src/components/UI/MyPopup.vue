@@ -6,41 +6,7 @@
 	>
 		<div class="popup__container">
 			<div @click.stop class="popup__content"> 
-				<div class="popup__title">
-			   	Удаление категории
-				</div>
-				<div class="popup__text">
-					Вы уверены, что хотите удалить <span>категорию “Итальянская кухня”</span>? Вместе с ней будут удалены все <span>рубрики (12)</span>  <span>и блюда (45)</span> .
-				</div>
-				<div class="popup__buttons">
-					<button 
-					class="popup__cancel"
-					@click="hidePopup"
-					>
-						Отменить
-					</button>
-					<button 
-					@click="$emit('remove', category)" 
-				
-					class="popup__agree"
-					>
-						Да, удалить
-					</button>
-					<button 
-					@click="$emit('removerubric', rubric)" 
-				
-					class="popup__agree"
-					>
-						Да, удалить рубрику
-					</button>
-					<button 
-					@click="$emit('removedish', dish)" 
-				
-					class="popup__agree"
-					>
-						Да, удалить блюдо
-					</button>
-				</div>
+			<slot></slot>
 			</div>
 		
 		</div>
@@ -55,18 +21,25 @@ export default {
 			type:Boolean,
 			default:false
 		},
+		category:{
+			type: Object
+		},
 		rubric:{
 			type: Object
 		},
 		dish:{
 			type: Object
 		},
+		title:{
+			type: String
+		},
+		titleText:{
+			type: String
+		},
 	},
 
 	methods: {
-		hidePopup() {
-			this.$emit('update:show', false)		
-		},
+		
 		clickTest(){
 			console.log($emit('remove', category))
 		}

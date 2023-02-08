@@ -27,7 +27,8 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "@vueuse/core": "^9.6.0",
-    "@vueuse/nuxt": "^9.5.0"
+    "@vueuse/nuxt": "^9.5.0",
+    "msw": "^1.0.0"
   },
   "browserslist": [
     "> 1%",

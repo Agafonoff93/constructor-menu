@@ -27,12 +27,12 @@
 							</div>
 								<transition name="popup-transition">
 									<my-popup-img 
-									labelImage="Удаление фото рубрики"	
-						      :previewImage="previewImage"
-								v-model:show="popupVisibleImg"
-								@removeabout="$emit('removeabout', about)"
-								@showPreviewImg="showPreviewImg"
-								>								
+									labelImage="Удаление фото рубрики"		
+									:previewImage="previewImage"
+									v-model:show="popupVisibleImg"
+									@removeabout="$emit('removeabout', about)"
+									@showPreviewImg="showPreviewImg"
+									>								
 								<div class="popup__image _ibg" v-if=" this.previewImage !== null ">	
 									<img  v-bind:src="(`${previewImage}`)" alt="">
 								</div>

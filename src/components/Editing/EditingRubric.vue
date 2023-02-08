@@ -161,7 +161,9 @@ export default {
 	},
 
 	mounted() {
-		
+		if(this.categoryId != null){
+			this.form.label_id = this.categoryId 
+		}
 		if(this.rubricsObject !=  undefined){
 			this.rubric = this.rubricsObject 
 			if(this.rubric.img != ''){
@@ -172,11 +174,13 @@ export default {
 			this.form.label_id = this.categoryId 
 			// this.form.label_id = 
 		}
+	
    //  console.log(this.about) // I'm text inside the component.
 	//  console.log('категории', category)
 	
 	 console.log(this.rubricsObject)
 	 console.log(this.rubric)
+	 console.log(this.categoryId )
   }
 
 	

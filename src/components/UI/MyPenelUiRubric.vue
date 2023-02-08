@@ -48,9 +48,33 @@
 </transition>
 	<transition name="popup-transition">
 		<my-popup 
-		   
+		  
 			@removerubric="$emit('removerubric', rubric)"
-			v-model:show="popupVisible">
+			v-model:show="popupVisible"
+			>
+			   <div class="popup__title">
+					Удаление рубрики
+				</div>
+				<div class="popup__text">
+					Вы уверены, что хотите удалить рубрику <span class="_bold-light">“{{ rubric.label }}”</span> из категории “{{ category.label }}”? <span v-if="rubric.dishs.length != 0"> Вместе с ней будут удалены все блюда ({{rubric.dishs.length}}).</span> 
+				
+				</div>
+				<div class="popup__buttons">
+					<button 
+					class="popup__cancel"
+					@click="hidePopup"
+					>
+						Отменить
+					</button>
+					<button 
+					@click="$emit('removerubric', rubric)" 				
+					class="popup__agree"
+					>
+						Да, удалить
+					</button>
+				
+				</div>
+					
 	 </my-popup>
 	</transition>
 	
@@ -60,6 +84,11 @@
 
 export default {
   props:{
+
+	category:{
+			type: Object,
+			required: true,
+		},
 	rubric:{
 			type: Object,
 			required: true,
@@ -105,6 +134,9 @@ export default {
 		this.$emit('seeEditingDish')
 		this.$emit('update:showUi', false)	
 	},
+	hidePopup() {
+		this.popupVisible = false;	
+		},
   },
 }
 </script>
@@ -251,7 +283,122 @@ export default {
   font-size: 16px;
   line-height: 18px;
 }
+.popup__title {
+	font-weight: 700;
+font-size: 16px;
+line-height: 20px;
+margin-bottom: 10px;
+}
+.popup__text {
+	font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+margin-bottom: 20px;
+}
 
+.popup {
+  /* -webkit-overflow-scrolling: touch; */
+  z-index: 100;
+  padding: 30px 10px;
+  position: fixed;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+.popup::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 1;
+}
+
+
+
+.popup__container{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.popup__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  width: 100%;
+  max-width: 500px;
+  padding:10px 15px 15px 15px;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+	justify-content: center;
+	background: #FFFFFF;
+	box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+  z-index: 150;
+  position: relative;
+}
+
+.popup__body {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+  background-color: #fff;
+  padding: 50px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.popup__close {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+  z-index: 30;
+  content: 'нет';
+}
+
+.popup__buttons {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+}
+.popup__cancel {
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 17px;
+	text-align: right;
+	color: #828282;
+}
+.popup__agree {
+	font-weight: 500;
+font-size: 14px;
+line-height: 17px;
+text-align: right;
+color: #EB5757;
+
+}
 
 
 .popup-transition-enter-active,

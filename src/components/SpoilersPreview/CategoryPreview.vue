@@ -47,6 +47,7 @@
 									:draggableRubric="draggableRubric"
 									:draggableDish="draggableDish"
 									:rubric="element"
+									:category="category"
 									@removerubric="$emit('removerubric', $event, category)"
 									@removedish="$emit('removedish',$event, element, category)"
 									@seeEditingDish="$emit('seeMyEditingDish', $event, element, category)"
@@ -70,10 +71,10 @@
 	         <MyPenelUiCategory
 				v-model:showUi="uiVisible"
 			   @getClose="getClose"
-				@remove="$emit('remove', category)"
+				@removecategory="$emit('removecategory', category)"
 				@seeEditingRubric="$emit('seeEditingRubric')"
 				@seeEditingCategory="$emit('seeEditingCategory', category)"
-				
+				:category="category"
 				/>
 		
            

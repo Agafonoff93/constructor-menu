@@ -3,14 +3,19 @@ import axios from 'axios'
 export const userModule = {
 	state:() => ({
 			isUserLoading: false,
-			about: 
-			{
-				id:'',
-				title:'',
-				text:'',
-				img:'',
-			},
-
+			about: {
+				title: 'Леон',
+				text: 'Самый лучший ресторан в мире',
+				img: 'https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png'
+			 },
+			// about: 
+			// {
+			// 	id:'',
+			// 	title:'',
+			// 	text:'',
+			// 	img:'',
+			// },
+         // categories: [],
 			categories: [
 				{
 				value: 1,
@@ -160,15 +165,77 @@ export const userModule = {
 		},
 		SET_LOADING (state, bool) {
 			state.isUserLoading = bool
+		},
+		ADD_CATEGORIES(state, category) {
+			console.log('add category')
+			state.categories.push(category);
+		 },
+		DELETE_CATEGORIES(state, category) {
+			// this.categories = this.categories.filter(p => p.value !== category.value)
+			console.log('del category')
+			state.categories = state.categories.filter(p => p.value !== category.value)
 		}
 	},
 	actions: {
+		async addCategories({ commit, state }, category) {
+			
+			
+			  const url = 'http://localhost:3000/user?project.categories=value';
+			  const requestOptions = {
+				 method: 'POST',
+				 headers: { 'Content-Type': 'application/json' },
+				 body: JSON.stringify(category)
+			  };
+			  
 	
+			  try {
+				 const response = await fetch(url,requestOptions);
+				
+	
+				 commit("ADD_CATEGORIES", category);
+	
+			
+	
+				 return response.data;
+	
+			  } catch (e) {
+				 console.log('ERROR => ', 'Unable to create category!', e);
+			  }
+			
+		 },
+
+		// async addCategories({ commit, state }, category) {
+			
+	
+		// 	//   const url = 'http://localhost:3000/user/project/categories';
+			
+		// 	   commit("ADD_CATEGORIES", category);
+		// 	   const categories =  JSON.stringify(state.categories)
+			   
+		// 	  try {
+		// 		// const response = await axios.post(url, data);
+		// 		const response = await axios({
+		// 			method: "post",
+		// 			url: "http://localhost:3000/user.project_categories",
+		// 			data:{
+		// 				categories
+		// 			}
+					
+		// 		});
+				
+		// 		return response.data
+		// 		//  commit("ADD_CATEGORIES", category);
+		// 		//  commit('SET_CATEGORIES', response.data.project.categories)
+		// 	  } catch (e) {
+		// 		 console.log('ERROR => ', 'Unable to create category!', e);
+		// 	  }
+			
+		//  },
 		async fetchUser({state, commit}) {
 			try {
 				commit('SET_LOADING', true)
 				const response = await axios.get('http://localhost:3000/user')
-				commit('SET_ABOUT', response.data.project.about)		
+				// commit('SET_ABOUT', response.data.project.about)		
 				// commit('SET_CATEGORIES', response.data.project.categories)		
 			} catch (e) {
 				console.log(e)
@@ -176,8 +243,9 @@ export const userModule = {
 			} finally {
 				commit('SET_LOADING', false)
 			}
-		  },
-	   	async testUser({state, commit}, $event){
+		},
+	   	
+		async testUser({state, commit}, $event){
 			console.log($event)
 			try {
 				
@@ -192,6 +260,26 @@ export const userModule = {
 				console.error(error);
 			}
 		},
+
+		async removeCategory({ commit }, category) {
+			// const url = 'http://localhost:3000/user';
+			// const requestOptions = {
+			//   method: 'POST',
+			//   headers: authHeader(),
+			//   body: JSON.stringify({id: category.id})
+			// };
+			// requestOptions.headers['Content-Type'] = 'application/json';
+	
+			// try {
+			//   const response = await fetch(url, requestOptions);
+	
+			  commit("DELETE_CATEGORIES", category);
+	
+			// } catch (e) {
+			//   console.log('ERROR => ', 'Unable to delete work!', e);
+			// }
+		 },
+	
 	},
 	namespaced:true 
 }

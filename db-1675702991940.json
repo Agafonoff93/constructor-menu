@@ -1,0 +1,18 @@
+{
+	"user": [
+		{
+	  "id": 1,
+	  "userId": 1,
+	  "name": "Evgeniy",
+	  "project": {
+		 "title": "Меню ресторана",
+		 "about": {
+			"title": "Леон",
+			"text": "Самый лучший ресторан в мире",
+			"img": "https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png"
+		 },
+		 "categories": []
+	  }
+	}
+	]
+ }

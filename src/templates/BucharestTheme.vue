@@ -755,6 +755,7 @@ object-position: left ;
 	line-height: 122%;
 	text-transform: uppercase;
 	color: #ffffff;
+	text-align:left;
 }
 
 .category__text {

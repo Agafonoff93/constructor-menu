@@ -41,7 +41,11 @@ export default {
   computed: {
 	
   },
-
+  mounted() {
+	const currentUrl = window.location.href;
+   console.log(currentUrl); // => https://ru.hexlet.io/qna
+	console.log(this.$route.fullPath)
+}
 
 }
 

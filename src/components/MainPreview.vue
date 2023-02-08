@@ -71,7 +71,7 @@
 									:draggableRubric="draggableRubric"
 									:draggableDish="draggableDish"
 									:category="element" 
-									@removecategory="$emit('remove', element)"
+									@removecategory="$emit('removecategory', element)"
 									@removerubric="$emit('removerubric', $event, element)"
 									@removedish="(dish, rubric, category) => $emit('removemydish',dish, rubric, element)"
 									ref="CategoryPreview"
@@ -131,6 +131,7 @@
 			/>
 			</transition>
 			<button-orange 
+			v-if="categories.length != 0"
 			@click="$router.push('/choose')" 		
 			>
 			Выбрать дизайн

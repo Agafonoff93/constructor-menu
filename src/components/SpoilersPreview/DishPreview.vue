@@ -46,6 +46,8 @@
 							<MyPenelUiDish
 							v-model:showUi="uiVisible" 
 							:dish="dish"
+							:rubric="rubric"
+							:category="category"
 							@removedish="$emit('removedish', dish)"
 							@seeEditingDish="$emit('seeEditingDish', dish)"
 							/>
@@ -64,6 +66,14 @@ export default {
 			type: Boolean,
 		},
 		dish:{
+			type: Object,
+			required: true,
+		},
+		rubric:{
+			type: Object,
+			required: true,
+		},
+		category:{
 			type: Object,
 			required: true,
 		},

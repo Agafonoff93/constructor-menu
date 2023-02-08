@@ -291,7 +291,10 @@ export default {
 	}),
 	...mapActions({
 		fetchUser: 'user/fetchUser',
-		testUser:'user/testUser'
+		testUser:'user/testUser',
+		addCategories: 'user/addCategories',
+		removeCategory: 'user/removeCategory',
+		
 	}),
 	saveAbout(data) {
     console.log('child component', data)
@@ -310,17 +313,19 @@ export default {
   hideCategory(){
 	console.log('отмена')
 	this.visibleEditingCategory = false
-	  this.visibleMainPreview = true
+	this.visibleMainPreview = true
   },
   hideRubric(){
+	this.categoryId = null
 	console.log('отмена')
 	this.visibleEditingRubric = false
-	  this.visibleMainPreview = true
+	this.visibleMainPreview = true
   },
   hideDish(){
+	this.categoryId = null
 	console.log('отмена')
 	this.visibleEditingDish = false
-	  this.visibleMainPreview = true
+	this.visibleMainPreview = true
   },
 
 
@@ -328,7 +333,9 @@ export default {
 		if(this.categories.find(p => p.value == category.value)){
 			console.log('вносим изменения')
 		}else{
-			this.categories.push(category);
+         console.log('добавление категории')
+			this.addCategories(category)
+			// this.categories.push(category);
 		}
 		// this.testUser()
 	},
@@ -366,7 +373,8 @@ export default {
 	removecategory(category){
 		console.log(category)
 		console.log('удаление категории')
-		this.categories = this.categories.filter(p => p.value !== category.value)
+		// this.categories = this.categories.filter(p => p.value !== category.value)
+		this.removeCategory(category)
 		this.popupVisible = false;
 	},
 	removemyrubric(rubric , category){
