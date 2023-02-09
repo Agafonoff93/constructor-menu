@@ -184,16 +184,16 @@ export const userModule = {
 		async addCategories({ commit, state }, category) {
 			
 			
-			  const url = 'http://localhost:3000/user?project.categories=value';
-			  const requestOptions = {
-				 method: 'POST',
-				 headers: { 'Content-Type': 'application/json' },
-				 body: JSON.stringify(category)
-			  };
+			//   const url = 'http://localhost:3000/user?project.categories=value';
+			//   const requestOptions = {
+			// 	 method: 'POST',
+			// 	 headers: { 'Content-Type': 'application/json' },
+			// 	 body: JSON.stringify(category)
+			//   };
 			  
 	
 			  try {
-				 const response = await fetch(url,requestOptions);
+				//  const response = await fetch(url,requestOptions);
 				
 	
 				 commit("ADD_CATEGORIES", category);
@@ -238,9 +238,9 @@ export const userModule = {
 		async fetchUser({state, commit}) {
 			try {
 				commit('SET_LOADING', true)
-				const response = await axios.get('http://localhost:3000/user')
-				commit('SET_ABOUT', response.data.project.about)		
-				commit('SET_CATEGORIES', response.data.project.categories)		
+				// const response = await axios.get('http://localhost:3000/user')
+				// commit('SET_ABOUT', response.data.project.about)		
+				// commit('SET_CATEGORIES', response.data.project.categories)		
 			} catch (e) {
 				console.log(e)
 				// alert('Ошибка')
