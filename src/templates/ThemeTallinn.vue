@@ -1,6 +1,6 @@
 <template>
-	<div :style="{ 'background': ` url(${require('@/assets/bg-templates/bg-template-12.jpeg')})` }" class="wrapper">
-		<header class="header">
+	<div  class="wrapper">
+		<header class="header"> 
 			<div class="header__container _container">
 				<div class="header__top">
 					<div v-if="about.img != ''" class="header__logo">
@@ -13,14 +13,19 @@
 						<span></span>
 					</MenuButton>
 					<transition name="menu">
-					<MenuItems :style="{ 'background': `url(${require('@/assets/bg-templates/bg-template-12.jpeg')})` }" class="menu__body _container">
-						<div class="menu__list">
-						<div v-if="about.img != ''" class="menu__header-logo"><img v-bind:src="(`${about.img}`)" alt="logo"></div>
+					<MenuItems  class="menu__container">
+						<div class="menu__body">
+				
+							<div v-if="about.img != ''" class="menu__header-logo">
+								<div class="menu__header-wrapper">
+									<img v-bind:src="(`${about.img}`)" alt="logo">
+								</div>
+							</div>
 						
 						<Disclosure 
 						as="div"
 						v-slot="{ open }"
-						v-for="category in this.categories"
+						v-for="category in categories"
 						:key="category.value"
 						class="menu__item">
 									<DisclosureButton as="button" :class="{'_active': open }" class="menu__link category__title _icon-arrow-down" 
@@ -45,7 +50,9 @@
 									</DisclosurePanel>
 									</transition>
 						</Disclosure>
-					</div>
+						</div>
+					
+					
 					</MenuItems>
 				</transition>
 				</Menu>
@@ -63,7 +70,7 @@
 				<div class="page__title">Меню</div>
 				<div 
 				class="page__category category"
-				v-for="category in this.categories"
+				v-for="category in categories"
 				:key="category.value"
 				>
 					<div class="category__header-block">
@@ -93,7 +100,7 @@
 								<div class="item__title">{{ dish.label }}</div>
 								<div class="item__text">{{ dish.text }}</div>
 								<div class="item__info">
-									<div class="item__price rub">{{ dish.price }}</div>
+									<div class="item__price">{{ dish.price }}</div>
 									<div class="item__weight">{{ dish.weight }}</div>
 								</div>
 
@@ -105,7 +112,7 @@
 									<swiper
 										:slides-per-view="1"
 										:space-between="0"
-										@swiper="onSwiper"
+					
 										:modules="[Pagination]"
 										:pagination="{
 										type: 'fraction',
@@ -117,7 +124,7 @@
 										v-for="image in dish.sliderImage"
 											:key="image.id"	
 											:image="image"
-											@slideChange="onSlideChange"
+											
 											
 										>
 										<div class="main-preview-dishs__slider _ibg">
@@ -143,20 +150,18 @@
 
 		</main>
 		<footer class="footer">
-			<!-- <div class="footer__container _container">
-				<div class="footer__box-btns">
-					 <button href="#subscription" class="footer__button _button _popup-link">Подписка на новости</button> 
-					<button href="#subscription" class="footer__button _button _popup-link">Получи месяц бесплатного
-						использования после оценки</button>
-				</div>
-			</div> -->
+			
 		</footer>
+		
+
 	</div>
 </template>
 
 <script setup>
   import { Menu, MenuButton, MenuItems, MenuItem, 
-	Disclosure, DisclosureButton, DisclosurePanel, } from '@headlessui/vue'
+	Disclosure, DisclosureButton, DisclosurePanel, 
+	Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
+	
 </script>
 
 <script>
@@ -170,7 +175,7 @@ import { Pagination } from "swiper";
 import 'swiper/css';
 
 export default {
-  name: 'App',
+  
 
   components: {
 	Swiper,
@@ -184,19 +189,7 @@ export default {
 	}
   },
   setup() {
-		 const onSwiper = (swiper) => {
-			// console.log(swiper);
-			
-		 };
-		 const onSlideChange = () => {
-			// console.log('slide change');
-		 };
-
-		 return {
-			onSwiper,
-			onSlideChange,
-			modules: [Pagination],
-		 };
+		
 	  },
   methods: {
 	...mapMutations({
@@ -232,29 +225,22 @@ export default {
 	  console.log(this.about.img.length)
 	  document.body.classList.add('bg-light')
 
-	//   const observer = this.$refs.menuWatch.$el.getAttribute('aria-expanded')
-	//   new MutationObserver((mutationsList, observer) => {
-   //      console.log(mutationsList);
-   //      console.log(observer);
-   //  }).observe(this.$el, { attributes: true });
-	//   console.log(this.$nextTick())
-		// Select the node that will be observed for mutations
-const targetNode = this.$refs.menuWatch.$el;
+	  const targetNode = this.$refs.menuWatch.$el;
 
 // Options for the observer (which mutations to observe)
 const config = { attributes: true };
 
 // Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {
-  for (const mutation of mutationList) {
-    if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'true') {
-      // console.log('Выключить скррол');
+for (const mutation of mutationList) {
+	if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'true') {
+		// console.log('Выключить скррол');
 		document.body.classList.add('_lock')
-    } else if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'false') {
+	} else if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'false') {
 		document.body.classList.remove('_lock')
-      // console.log('включаем скролл');
-    }
-  }
+		// console.log('включаем скролл');
+	}
+}
 };
 
 // Create an observer instance linked to the callback function
@@ -265,7 +251,9 @@ observer.observe(targetNode, config);
 
 // Later, you can stop observing
 
-
+  },
+  beforeUpDate() {
+		
 
   },
 //   async mounted() {
@@ -293,10 +281,8 @@ observer.observe(targetNode, config);
 }
 
 </script>
-
 <style scoped>
 @charset "UTF-8";
-
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:regular,600,700&display=swap&subset=cyrillic-ext);
 
 * {
@@ -322,7 +308,7 @@ section {
 }
 
 html {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 html,
@@ -393,7 +379,7 @@ h6 {
 }
 */
 body {
-	color: #ffffff;
+	color: #BDBDBD;
 }
 
 body._lock {
@@ -406,19 +392,16 @@ body._lock {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	background: url(@/assets/bg-templates/bg-template-12.jpeg);
-	background-size: contain;
-	color: #ffffff;
+	background: #111111;
+	color: #BDBDBD;
+	font-family: "Open Sans";
 }
 
 ._container {
-	max-width: 570px;
+	max-width: 1170px;
 	margin: 0 auto;
+	max-width: 570px;
 	padding: 0 10px;
-}
-
-.rub:after {
-	content: "₽";
 }
 
 ._ibg {
@@ -447,8 +430,10 @@ body.ie ._ibg img {
 	visibility: hidden;
 }
 
+/* slider swiper style general start */
 .swiper {
 	overflow: hidden;
+	z-index:0;
 }
 
 .swiper .swiper-wrapper {
@@ -480,12 +465,34 @@ body.ie ._ibg img {
 	display: none !important;
 }
 
+.controls-slider-box {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	pointer-events: none;
+	z-index: 1;
+}
 
 
+.swiper-slide {
+	width: 100% !important;
+}
 
 
+.main-preview-dishs__slider {
+min-width:0;	
+padding: 0 0 74% 0;
+max-width: 100%;
+display: block;
+}
+.main-preview-dishs__slider img {
+border-radius: 0px;
+}
 
-
+/* slider swiper general all end */
 
 
 .header__container {
@@ -497,16 +504,25 @@ body.ie ._ibg img {
 	justify-content: space-between;
 	width: 100%;
 	align-items: center;
-	padding-bottom: 20px;
-	padding: 10px 10px 20px 10px;
+	margin-bottom: 20px;
 	position: relative;
-	/* padding: 10px; */
-	background: rgba(0, 0, 0, 0.5);
 }
 
-.header__bottom {
-	background: rgba(0, 0, 0, 0.5);
-	padding: 0 10px 10px 10px;
+.header__title {
+	max-width: none;
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 122%;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.header__text {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 122%;
+	margin-top: 5px;
+	text-align: center;
 }
 
 .header__logo  {
@@ -523,29 +539,15 @@ object-position: left ;
 }
 
 
-.header__title {
-	font-weight: 600;
-	line-height: 122%;
-	text-transform: uppercase;
-	font-size: 16px;
-}
-
-.header__text {
-	font-weight: 400;
-	line-height: 122%;
-	margin-top: 5px;
-}
-
 .icon-menu {
 	display: flex;
 	position: absolute;
 	top: 18px;
-	right: 23px;
+	right: 10px;
 	width: 25px;
 	height: 18px;
 	cursor: pointer;
 	z-index: 15;
-	background-color: transparent;
 }
 
 .icon-menu span {
@@ -588,12 +590,11 @@ object-position: left ;
 	height: 3px;
 }
 
-.menu__list{
-	background: rgba(0, 0, 0, 0.5);
-	padding: 10px 22px 10px 10px;
+.menu {
+	flex: 0 1 420px;
 }
 
-.menu__body {
+.menu__container {
 	z-index: 5;
 	position: fixed;
 	width: 100%;
@@ -601,62 +602,43 @@ object-position: left ;
 	overflow: auto;
 	top: 0;
 	left: 0;
-	background: url(@/assets/bg-templates/bg-template-12.jpeg);
+	background: #111111;
 	transition: left 0.3s ease 0s;
-	padding: 10px 10px 30px 10px;
-	
+	padding: 100px 20px 30px 10px;
 }
 
-.menu__body::before {
-	content: "";
-	position: fixed;
-	width: 100%;
-	height: 50px;
-	top: 0;
-	left: 100%;
-	transition: all 0.3s ease 0s;
-	z-index: 2;
-	
+.menu__body {
+	margin: 0 auto;
+	max-width: 570px;
 }
-
-/* .menu__body._active {
-	left: 0;
-}
-
-.menu__body._active::before {
-	
-	
-	width: 100%;
-
-} */
-
 .menu__item {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	margin: 0px 0px 15px 0px;
+	padding: 5px 0px;
 	position: relative;
-	padding: 0px 0px 30px 0px;
-
-
 }
 
 .menu__item:last-child {
 	margin-bottom: 0;
 }
 
-.menu__link {
 
+button.menu__link {
+
+	text-align:left ;
 	transition: color 0.3s ease 0s;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-   background: transparent;
+	border-bottom: none;
+	padding: 0;
+	
 }
-
-
 
 
 
@@ -665,29 +647,26 @@ object-position: left ;
 	position: relative;
 	padding: 10px 0;
 	flex: 1 1 100%;
-	
-	/* padding: 20px 0px 10px 10px;
-	background: rgba(0, 0, 0, 0.5); */
+	margin: 10px 0px 0px 0px;
 }
 
 
-
-
-
 .menu__sub-item:not(:last-child) {
-	margin: 0px 0px 15px 0px;
+	margin: 0px 0px 20px 0px;
 }
 
 .menu__sub-link {
 	color: inherit;
+	line-height: 120%;
 }
-
+a.menu__sub-link {
+	border-bottom: none;
+}
 
 
 
 
 ._icon-arrow-down::after {
-
 	content: '';
 	position: relative;
 	top: 0px;
@@ -702,116 +681,106 @@ object-position: left ;
 ._icon-arrow-down._active::after {
 	transform: rotate(0deg);
 }
-.menu__header-logo img {
-	position: relative;
-	z-index: 2;
-	max-width: 150px;
-	max-height: 60px;
-}
-.menu__header-logo {
-	position: relative;
-	padding: 10px;
-}
 
-/* .menu__header-logo::after {
-	content: '';
-	height: 90px;
+.menu__header-logo {
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0;
 	left: 0;
-	background: rgba(0, 0, 0, 0.5);
-	z-index: 0;
-} */
-
-
-
+	padding: 10px;
+}
 
 .page {
 	flex: 1 1 auto;
 }
-.page__title{
-	padding: 10px 15px 10px 15px;
-	margin: 20px 0;
-	background: rgba(0, 0, 0, 0.5);
+
+.page__title {
+	font-weight: 700;
 	font-size: 18px;
-	font-weight: 600;
+	line-height: 122%;
 	text-transform: uppercase;
+	margin-top: 20px;
+	color: #ffffff;
+	text-align: center;
 }
 
 .category {
-	margin-top: 20px;
-}
+	margin-top: 25px;
+	padding-top: 20px;
 
-.category__header-block {
-	padding: 10px;
-	background: rgba(0, 0, 0, 0.5);
 }
 
 .category__title {
 	font-weight: 700;
-	font-size: 20px;
+	font-size: 24px;
 	line-height: 122%;
 	text-transform: uppercase;
+	text-align: center;
 	color: #ffffff;
-	text-align:left;
+	border-bottom: 1px solid #ffffff;
+	padding: 10px;
 }
 
 .category__text {
 	font-weight: 400;
+	font-size: 14px;
 	line-height: 122%;
-	padding-top: 5px;
+	margin-top: 15px;
+	text-align: center;
 }
 
 .rup {
-	margin-top: 15px;
-	padding-top: 5px;
+	margin-top: 40px;
+	padding-top: 15px;
 }
-
-.rup__header-block {
-	padding: 10px;
-	background: rgba(0, 0, 0, 0.5);
-}
-
 
 .rup__title {
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 18px;
 	line-height: 122%;
+	color: #ffffff;
 	text-transform: uppercase;
+	text-align: center;
+	padding: 10px;
+	border-bottom: 1px solid #ffffff;
 }
-
 
 .rup__text {
 	font-weight: 400;
 	line-height: 122%;
-	margin-top: 5px;
+	margin-top: 15px;
+	text-align: center;
 }
 
 .rup__image {
-	margin-top: 10px;
+	margin-top: 20px;
 	padding: 0 0 74% 0;
+	
 }
 
+
 .item {
-	margin-top: 20px;
+	margin-top: 40px;
 	padding-top: 15px;
-	padding: 10px;
-	background: rgba(0, 0, 0, 0.5);
+	border-top: 1px solid #ffffff;
 }
 
 .item__title {
-	font-weight: 600;
-	font-size: 16px;
+	font-weight: 700;
+	font-size: 18px;
 	line-height: 122%;
 	text-transform: uppercase;
+	text-align: center;
+	color: #ffffff;
 }
 
 .item__text {
 	font-weight: 400;
+	font-size: 14px;
 	line-height: 122%;
 	margin-top: 5px;
+	text-align: center;
 }
 
 .item__info {
@@ -822,29 +791,28 @@ object-position: left ;
 }
 
 .item__price {
-	font-weight: 600;
+	font-weight: 700;
 	font-size: 16px;
 	line-height: 22px;
+	color: #ffffff;
 }
-
 
 .item__weight {
 	font-weight: 400;
-	line-height: 15px;
+	font-size: 14px;
+	line-height: 17px;
 }
 
 .item__box-slider {
-	margin-top: 10px;
-
-
+	margin-top: 20px;
 }
 
 .item__image {
-	margin-top: 10px;
+	margin-top: 20px;
 	padding: 0 0 74% 0;
-
-
+	
 }
+
 
 .box-slider {
 	position: relative;
@@ -852,15 +820,15 @@ object-position: left ;
 
 .box-slider__slide {
 	min-width: 100%;
-
-
+	
 }
 
 .box-slider__image {
 	padding: 0 0 74% 0;
 }
 
-/* .controls-slider-box {
+
+.controls-slider-box {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -871,42 +839,21 @@ object-position: left ;
 }
 
 .controls-slider-box__wrapper {
-	background: rgba(0, 0, 0, 0.7);
+	background-color: #111111;
 	border-radius: 50px;
 	padding: 4px 10px;
 	width: 47px;
 	height: 25px;
-	font-size: 14px;
-	font-weight: 400;
-	color: #ffffff;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-} */
-
-._button {
-
-	background: rgba(0, 0, 0, 0.81);
-	;
-	font-weight: 400;
-	font-size: 18px;
-	line-height: 122%;
-	text-align: center;
-	text-transform: uppercase;
 	color: #ffffff;
-	width: 100%;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	padding: 10px;
-	transition: background-color 0.3s ease 0s;
-	margin-bottom: 10px;
 }
 
 
 
 /* select */
+
 
 .select {
 	position: relative;
@@ -925,7 +872,6 @@ object-position: left ;
  .select__title._active>.select__value._icon-arrow-down::after{
 	transform: rotate(0deg);
 }
-
  .select__value {
 	display: flex;
 	font-weight: 700;
@@ -991,20 +937,19 @@ object-position: left ;
 
 .select__value span{
    font-size: 16px;
-	color: #ffffff;
-	font-family: 'Open Sans';
+	color: #fff;
 	font-weight: 600;
 }
 
 
 .select__option {
 	font-weight: 400;
-	font-family: 'Open Sans';
 	font-size: 14px;
 	cursor: pointer;
 	padding: 8px  0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-	color: #ffffff;
+	color: #fff;
+	
 }
 .select__option img {
 	margin-right: 10px;
@@ -1012,167 +957,26 @@ object-position: left ;
 	top: 2px;
 }
 
-.select {
-	width: 100%;
-}
+
 .select__form {
 	width: 100%;
 	font-family: inherit;
 	font-weight: 700;
  }
 
+
+
  
 
-.popup {
-	-webkit-overflow-scrolling: touch;
-	z-index: 100;
-	padding: 0px;
-	position: fixed;
-	top: 0px;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	transition: transform 0.3s ease 0s;
-	transform: translate(-100%, 0px);
-}
-
-
-
-
-.popup._active {
-	overflow: auto;
-	visibility: visible;
-	transform: translate(0%, 0px);
-}
-
-.popup._active::before {
-	/* opacity: 1; */
-}
-
-.popup._active .popup__body {
-	-webkit-transition: all 0.3s ease 0.2s;
-	-o-transition: all 0.3s ease 0.2s;
-	transition: all 0.3s ease 0.2s;
-	/* -webkit-transform: scale(1);
-		 -ms-transform: scale(1);
-			  transform: scale(1); */
-}
-
-.popup__content {
-
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-
-}
-
-.popup__body {
-	/* -webkit-transform: scale(0);
-		 -ms-transform: scale(0);
-			  transform: scale(0); */
-	position: relative;
-	-webkit-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;
-	background: url(@/assets/bg-templates/bg-template-12.jpeg);
-	padding: 0px;
-	width: 100%;
-	max-width: 800px;
-	height: 100%;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-flex: 1;
-	-ms-flex: 1 1 auto;
-	flex: 1 1 auto;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	align-items: center;
-	padding: 15px;
-}
-
-.popup__close {
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	cursor: pointer;
-	z-index: 30;
+.footer {
+	min-height: 100px;
 	
 }
-.popup__close svg use {
-	fill:#ffffff;
-}
 
-.popup__button {
-	max-width: 450px;
-}
-
-.footer {
-	margin-top: 100px;
-	height: 50px;
-}
-.footer__container {
-	width: 100%;
-	background: url(@/assets/bg-templates/bg-template-12.jpeg);
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	transform: translate(-50%,0px);
-}
 
 ._button:first-child {
 	margin: 15px 0;
 }
-
-
-.swiper-slide {
-	width: 100% !important;
-}
-
-
-.main-preview-dishs__slider {
-min-width:0;	
-padding: 0 0 74% 0;
-max-width: 100%;
-display: block;
-}
-.main-preview-dishs__slider img {
-border-radius: 0px;
-}
-.controls-slider-box {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	padding: 10px;
-	pointer-events: none;
-	z-index: 5;
-}
-
-.controls-slider-box__wrapper {
-	background-color: #FFFFFF;
-	border-radius: 40px;
-	padding: 4px 10px;
-	width: 47px;
-	color: #828282;
-	height: 25px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 
 /* animate */
 .menu-enter-active,.menu-leave-active {
@@ -1192,9 +996,6 @@ border-radius: 0px;
 	transform: scale(0.9);
 	opacity: 0;
 }
-
-
 /* animate */
-
 
 </style>

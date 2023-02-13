@@ -6,7 +6,7 @@ export const templatesModule = {
 		themes: [
 				{
 					value: 1,
-					name: 'StockholmTheme',
+					name: 'ThemeStockholm',
 					url: 'stockholm',	
 					label: 'Стокгольм',
 					text: 'Отличный лёгкий шаблон. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.',
@@ -21,7 +21,7 @@ export const templatesModule = {
 				},
 				{
 					value: 2,
-					name: 'HumburgTheme',
+					name: 'ThemeHumburg',
 					url: 'humburg',
 					label: 'Гамбург',
 					text: 'Отличный лёгкий шаблон Гамбург. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.',
@@ -36,7 +36,7 @@ export const templatesModule = {
 				},
 				{
 					value: 3,
-					name: 'BucharestTheme',
+					name: 'ThemeBucharest',
 					url: 'bucharest',
 					label: 'Бухарест',
 					text: 'Отличный лёгкий шаблон Бухарест. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.',

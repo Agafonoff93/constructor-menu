@@ -22,19 +22,7 @@
 	</div>			
 </template>
 
-<!-- <script setup>
-import {useRoute, useRouter} from "vue-router"
-import {onMounted,ref} from "vue"
-import cars from "../data.json"
-const route = useRoute()
-const router = useRouter()
-const car = ref(null)
-const {id} = route.params
-onMounted(() => {
-   const c = cars.find(c => c.id === parseInt(id));
-   car.value = c
-})
-</script> -->
+
 
 
 
@@ -44,10 +32,6 @@ onMounted(() => {
 export default {
 	props: {
 		
-		theme:{
-			type: Object,
-			required: true,
-		},
 		
 	},
 	data() {
@@ -56,11 +40,7 @@ export default {
 		
 	}
   },
-
-
-  
 	methods: {
-	
 
   },
 }

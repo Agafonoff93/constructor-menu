@@ -1,6 +1,6 @@
 <template>
-	<div :style="{ 'background': `linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(${require('@/assets/bg-templates/bg-template-2.jpg')}) repeat 10%` }" class="wrapper">
-		<header class="header">
+	<div  class="wrapper">
+		<header class="header"> 
 			<div class="header__container _container">
 				<div class="header__top">
 					<div v-if="about.img != ''" class="header__logo">
@@ -13,14 +13,19 @@
 						<span></span>
 					</MenuButton>
 					<transition name="menu">
-					<MenuItems :style="{ 'background': `linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(${require('@/assets/bg-templates/bg-template-2.jpg')}) repeat 10%` }" class="menu__body _container">
-						<div class="menu__list">
-						<div v-if="about.img != ''" class="menu__header-logo"><img v-bind:src="(`${about.img}`)" alt="logo"></div>
+					<MenuItems  class="menu__container">
+						<div class="menu__body">
+				
+							<div v-if="about.img != ''" class="menu__header-logo">
+								<div class="menu__header-wrapper">
+									<img v-bind:src="(`${about.img}`)" alt="logo">
+								</div>
+							</div>
 						
 						<Disclosure 
 						as="div"
 						v-slot="{ open }"
-						v-for="category in this.categories"
+						v-for="category in categories"
 						:key="category.value"
 						class="menu__item">
 									<DisclosureButton as="button" :class="{'_active': open }" class="menu__link category__title _icon-arrow-down" 
@@ -45,7 +50,9 @@
 									</DisclosurePanel>
 									</transition>
 						</Disclosure>
-					</div>
+						</div>
+					
+					
 					</MenuItems>
 				</transition>
 				</Menu>
@@ -63,7 +70,7 @@
 				<div class="page__title">Меню</div>
 				<div 
 				class="page__category category"
-				v-for="category in this.categories"
+				v-for="category in categories"
 				:key="category.value"
 				>
 					<div class="category__header-block">
@@ -93,7 +100,7 @@
 								<div class="item__title">{{ dish.label }}</div>
 								<div class="item__text">{{ dish.text }}</div>
 								<div class="item__info">
-									<div class="item__price rub">{{ dish.price }}</div>
+									<div class="item__price">{{ dish.price }}</div>
 									<div class="item__weight">{{ dish.weight }}</div>
 								</div>
 
@@ -105,7 +112,7 @@
 									<swiper
 										:slides-per-view="1"
 										:space-between="0"
-										@swiper="onSwiper"
+					
 										:modules="[Pagination]"
 										:pagination="{
 										type: 'fraction',
@@ -117,7 +124,7 @@
 										v-for="image in dish.sliderImage"
 											:key="image.id"	
 											:image="image"
-											@slideChange="onSlideChange"
+											
 											
 										>
 										<div class="main-preview-dishs__slider _ibg">
@@ -143,20 +150,18 @@
 
 		</main>
 		<footer class="footer">
-			<!-- <div class="footer__container _container">
-				<div class="footer__box-btns">
-					 <button href="#subscription" class="footer__button _button _popup-link">Подписка на новости</button> 
-					<button href="#subscription" class="footer__button _button _popup-link">Получи месяц бесплатного
-						использования после оценки</button>
-				</div>
-			</div> -->
+			
 		</footer>
+		
+
 	</div>
 </template>
 
 <script setup>
   import { Menu, MenuButton, MenuItems, MenuItem, 
-	Disclosure, DisclosureButton, DisclosurePanel, } from '@headlessui/vue'
+	Disclosure, DisclosureButton, DisclosurePanel, 
+	 } from '@headlessui/vue'
+	
 </script>
 
 <script>
@@ -170,7 +175,6 @@ import { Pagination } from "swiper";
 import 'swiper/css';
 
 export default {
-  name: 'App',
 
   components: {
 	Swiper,
@@ -184,19 +188,7 @@ export default {
 	}
   },
   setup() {
-		 const onSwiper = (swiper) => {
-			// console.log(swiper);
-			
-		 };
-		 const onSlideChange = () => {
-			// console.log('slide change');
-		 };
-
-		 return {
-			onSwiper,
-			onSlideChange,
-			modules: [Pagination],
-		 };
+	
 	  },
   methods: {
 	...mapMutations({
@@ -232,29 +224,22 @@ export default {
 	  console.log(this.about.img.length)
 	  document.body.classList.add('bg-light')
 
-	//   const observer = this.$refs.menuWatch.$el.getAttribute('aria-expanded')
-	//   new MutationObserver((mutationsList, observer) => {
-   //      console.log(mutationsList);
-   //      console.log(observer);
-   //  }).observe(this.$el, { attributes: true });
-	//   console.log(this.$nextTick())
-		// Select the node that will be observed for mutations
-const targetNode = this.$refs.menuWatch.$el;
+	  const targetNode = this.$refs.menuWatch.$el;
 
 // Options for the observer (which mutations to observe)
 const config = { attributes: true };
 
 // Callback function to execute when mutations are observed
 const callback = (mutationList, observer) => {
-  for (const mutation of mutationList) {
-    if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'true') {
-      // console.log('Выключить скррол');
+for (const mutation of mutationList) {
+	if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'true') {
+		// console.log('Выключить скррол');
 		document.body.classList.add('_lock')
-    } else if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'false') {
+	} else if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'false') {
 		document.body.classList.remove('_lock')
-      // console.log('включаем скролл');
-    }
-  }
+		// console.log('включаем скролл');
+	}
+}
 };
 
 // Create an observer instance linked to the callback function
@@ -265,7 +250,9 @@ observer.observe(targetNode, config);
 
 // Later, you can stop observing
 
-
+  },
+  beforeUpDate() {
+		
 
   },
 //   async mounted() {
@@ -293,19 +280,17 @@ observer.observe(targetNode, config);
 }
 
 </script>
-
 <style scoped>
 @charset "UTF-8";
-@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:regular,500,700&display=swap&subset=cyrillic-ext);
 
 
 @font-face {
-	font-family: "AdleryPro";
+	font-family: "DuduCyrillic";
 	font-display: swap;
-	src: url("@/assets/fonts/AdleryProBlockletter.woff2") format("woff2"), url("@/assets/fonts/AdleryProBlockletter.woff") format("woff");
+	src: url("@/assets/fonts/DuduCyrillic.woff2") format("woff2"), url("@/assets/fonts/DuduCyrillic.woff") format("woff");
 	font-weight: 500;
 	font-style: normal;
-}
+ }
 
 * {
 	padding: 0px;
@@ -330,7 +315,7 @@ section {
 }
 
 html {
-	font-size: 16px;
+	font-size: 15px;
 }
 
 html,
@@ -341,7 +326,7 @@ body {
 
 body {
 	line-height: 1;
-	font-family: "Roboto Condensed";
+	font-family: "DuduCyrillic";
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
@@ -350,7 +335,7 @@ body {
 input,
 button,
 textarea {
-	font-family: "Roboto Condensed";
+	font-family: "DuduCyrillic";
 	font-size: inherit;
 }
 
@@ -401,7 +386,7 @@ h6 {
 }
 */
 body {
-	color: #BDBDBD;
+	color: #4F4F4F;
 }
 
 body._lock {
@@ -414,20 +399,17 @@ body._lock {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	font-family: "Roboto Condensed";
-	color: #BDBDBD;
-	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
+	background: #FAFFF8;
+	font-family: "DuduCyrillic";
+	color: #4f4f4f;
 }
 
 ._container {
-	max-width: 570px;
 	margin: 0 auto;
+	max-width: 570px;
 	padding: 0 10px;
 }
 
-.rub:after {
-	content: "₽";
-}
 
 ._ibg {
 	position: relative;
@@ -455,8 +437,10 @@ body.ie ._ibg img {
 	visibility: hidden;
 }
 
+/* slider swiper style general start */
 .swiper {
 	overflow: hidden;
+	z-index:0;
 }
 
 .swiper .swiper-wrapper {
@@ -488,6 +472,36 @@ body.ie ._ibg img {
 	display: none !important;
 }
 
+.controls-slider-box {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	pointer-events: none;
+	z-index: 1;
+}
+
+
+.swiper-slide {
+	width: 100% !important;
+}
+
+
+.main-preview-dishs__slider {
+min-width:0;	
+padding: 0 0 74% 0;
+max-width: 100%;
+display: block;
+}
+.main-preview-dishs__slider img {
+border-radius: 0px;
+}
+
+/* slider swiper general all end */
+
+
 .header__container {
 	margin-top: 10px;
 }
@@ -502,19 +516,24 @@ body.ie ._ibg img {
 }
 
 .header__title {
-	font-weight: 700;
+	max-width: none;
+	font-weight: 500;
 	font-size: 18px;
 	line-height: 122%;
 	text-transform: uppercase;
-	color: #ffffff;
+	text-align: center;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
 
 .header__text {
-	font-weight: 400;
-	font-size: 16px;
+	font-weight: 500;
 	line-height: 122%;
-	color: #BDBDBD;
 	margin-top: 5px;
+	text-align: center;
 }
 
 .header__logo  {
@@ -550,7 +569,7 @@ object-position: left ;
 	width: 4px;
 	height: 4px;
 	border-radius: 50%;
-	background-color: #ffffff;
+	background-color: #333333;
 }
 
 .icon-menu span:first-child {
@@ -586,7 +605,7 @@ object-position: left ;
 	flex: 0 1 420px;
 }
 
-.menu__body {
+.menu__container {
 	z-index: 5;
 	position: fixed;
 	width: 100%;
@@ -594,29 +613,16 @@ object-position: left ;
 	overflow: auto;
 	top: 0;
 	left: 0;
-	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
+	background: #FAFFF8;
 	transition: left 0.3s ease 0s;
 	padding: 100px 20px 30px 10px;
 }
 
-.menu__body::before {
-	content: "";
-	position: fixed;
-	width: 100%;
-	height: 50px;
-	top: 0;
-	left: 100%;
-	transition: all 0.3s ease 0s;
-	z-index: 2;
+.menu__body {
+	margin: 0 auto;
+	max-width: 570px;
 }
 
-/* .menu__body._active {
-	left: 0;
-}
-
-.menu__body._active::before {
-	left: 0;
-} */
 
 .menu__item {
 	display: flex;
@@ -632,28 +638,18 @@ object-position: left ;
 	margin-bottom: 0;
 }
 
-.menu__link {
-	
+button.menu__link {
+	text-align:left;
 	transition: color 0.3s ease 0s;
 	width: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	position: relative;
-	font-weight: 600;
-	color: #ffffff;
-	
+
 }
 
-.menu__link._active .menu__arrow {
-	transform: rotate(-180deg);
-}
 
-.menu__arrow {
-	margin: 0px 0px 0px 8px;
-	transition: all 0.3s ease 0s;
-	font-size: 8px;
-}
 
 
 
@@ -665,23 +661,20 @@ object-position: left ;
 }
 
 
-
-
-
 .menu__sub-item:not(:last-child) {
 	margin: 0px 0px 20px 0px;
 }
 
 .menu__sub-link {
-color: inherit;
+	color: inherit;
+	line-height: 120%;
 }
 
 
 
 
-
 ._icon-arrow-down::after {
-	
+   min-width:12px;	
 	content: '';
 	position: relative;
 	top: 0px;
@@ -690,11 +683,11 @@ color: inherit;
 	transform: rotate(180deg);
 	width: 12px;
 	height: 8px;
-	background: url(@/assets/icons/arrow-down-s-white.svg) no-repeat;
+	background: url(@/assets/icons/arrow-down-s.svg) no-repeat;
 }
 
 ._icon-arrow-down._active::after {
-	transform: rotate(180deg);
+	transform: rotate(0deg);
 }
 
 .menu__header-logo {
@@ -712,37 +705,41 @@ color: inherit;
 
 .page__title {
 	font-weight: 500;
-	font-size: 30px;
+	font-size: 20px;
 	line-height: 122%;
 	text-transform: uppercase;
-	letter-spacing: 0.12em;
 	margin-top: 20px;
-   font-family:"AdleryPro";
-	color: #ffffff;
+	text-align: center;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
-
 .category {
 	margin-top: 25px;
 	padding-top: 20px;
+
 }
 
 .category__title {
 	font-weight: 500;
-	font-size: 45px;
+	font-size: 26px;
 	line-height: 122%;
-	letter-spacing: 0.06em;
 	text-transform: uppercase;
-	text-align:left;
-	color: #ffffff;
-	font-family:"AdleryPro";
+	text-align: center;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
 
 .category__text {
-	font-weight: 400;
-	font-size: 16px;
+	font-weight: 500;
 	line-height: 122%;
-	color: #BDBDBD;
 	margin-top: 5px;
+	text-align: center;
 }
 
 .rup {
@@ -752,26 +749,32 @@ color: inherit;
 
 .rup__title {
 	font-weight: 500;
-	font-size: 30px;
+	font-size: 20px;
 	line-height: 122%;
 	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	color: #ffffff;
-	font-family:"AdleryPro";
+	text-align: center;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+	
 }
 
 .rup__text {
-	font-weight: 400;
-	font-size: 16px;
+	font-weight: 500;
 	line-height: 122%;
-	color: #BDBDBD;
 	margin-top: 5px;
+	text-align: center;
 }
 
 .rup__image {
 	margin-top: 10px;
 	padding: 0 0 74% 0;
+	border-radius: 0px;
+	overflow: hidden;
 }
+
 
 .item {
 	margin-top: 40px;
@@ -783,14 +786,19 @@ color: inherit;
 	font-size: 18px;
 	line-height: 122%;
 	text-transform: uppercase;
+	text-align: center;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
 
 .item__text {
-	font-weight: 400;
-	font-size: 16px;
+	font-weight: 500;
 	line-height: 122%;
-	color: #ffffff;
 	margin-top: 5px;
+	text-align: center;
 }
 
 .item__info {
@@ -801,18 +809,19 @@ color: inherit;
 }
 
 .item__price {
-	font-weight: 700;
-	font-size: 18px;
+	font-weight: 500;
+	font-size: 16px;
 	line-height: 22px;
-	letter-spacing: 0.04em;
-	color: #ffffff;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
 
 .item__weight {
-	font-weight: 400;
-	font-size: 14px;
+	font-weight: 500;
 	line-height: 17px;
-	color: #bdbdbd;
 }
 
 .item__box-slider {
@@ -822,7 +831,10 @@ color: inherit;
 .item__image {
 	margin-top: 10px;
 	padding: 0 0 74% 0;
+	border-radius: 15px;
+	overflow: hidden;
 }
+
 
 .box-slider {
 	position: relative;
@@ -830,13 +842,16 @@ color: inherit;
 
 .box-slider__slide {
 	min-width: 100%;
+	border-radius: 15px;
+	overflow: hidden;
 }
 
 .box-slider__image {
 	padding: 0 0 74% 0;
 }
 
-/* .controls-slider-box {
+
+.controls-slider-box {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -847,39 +862,18 @@ color: inherit;
 }
 
 .controls-slider-box__wrapper {
-	background-color: #0B1015;
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
 	border-radius: 50px;
 	padding: 4px 10px;
 	width: 47px;
 	height: 25px;
-	color: #ffffff;
-	font-size: 16px;
-	font-weight: 400;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-} */
-
-._button {
-	
-	background: #FF9900;
-	border-radius: 5px;
-	font-weight: 700;
-	font-size: 18px;
-	line-height: 122%;
-	text-align: center;
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
-	color: rgba(11, 16, 21, 0.9);
-	width: 100%;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	padding: 10px;
-	transition: background-color 0.3s ease 0s;
-	margin-bottom: 10px;
+	color: #ffffff;
 }
+
+
 
 
 
@@ -900,6 +894,7 @@ color: inherit;
 	cursor: pointer;
 	border-radius: 4px;
  }
+
  .select__title._active>.select__value._icon-arrow-down::after{
 	transform: rotate(0deg);
 }
@@ -968,21 +963,29 @@ color: inherit;
 }
 
 .select__value span{
-   font-size: 22px;
-	font-family:"AdleryPro";
-	color: #ffffff;
+   font-size: 20px;
+	font-family: 'DuduCyrillic';
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 	font-weight: 500;
 }
 
 
 .select__option {
 	font-weight: 500;
-	font-size: 18px;
+	font-size: 14px;
 	cursor: pointer;
 	padding: 8px  0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-	font-family:"AdleryPro";
-	color: #ffffff;
+	font-family: 'DuduCyrillic';
+	background: linear-gradient(90deg, #B00000 0%, #FF5C00 14.06%, #FFB423 29.17%, #00C213 47.4%, #02BE91 66.67%, #0075FF 82.81%, #7000FF 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
 }
 .select__option img {
 	margin-right: 10px;
@@ -994,162 +997,12 @@ color: inherit;
 .select__form {
 	width: 100%;
 	font-family: inherit;
-	font-weight: 700;
  }
 
 
-
-
- .popup {
-	-webkit-overflow-scrolling: touch;
-	z-index: 100;
-	padding: 0px;
-	position: fixed;
-	top: 0px;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	transition: transform 0.3s ease 0s;
-	transform: translate(-100%, 0px);
-}
-
-
-
-
-.popup._active {
-	overflow: auto;
-	visibility: visible;
-	transform: translate(0%, 0px);
-}
-
-.popup._active::before {
-	/* opacity: 1; */
-}
-
-.popup._active .popup__body {
-	-webkit-transition: all 0.3s ease 0.2s;
-	-o-transition: all 0.3s ease 0.2s;
-	transition: all 0.3s ease 0.2s;
-	/* -webkit-transform: scale(1);
-		 -ms-transform: scale(1);
-			  transform: scale(1); */
-}
-
-.popup__content {
-
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-
-}
-
-.popup__body {
-	/* -webkit-transform: scale(0);
-		 -ms-transform: scale(0);
-			  transform: scale(0); */
-	position: relative;
-	-webkit-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;
-	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
-	padding: 0px;
-	width: 100%;
-	max-width: 800px;
-	height: 100%;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-flex: 1;
-	-ms-flex: 1 1 auto;
-	flex: 1 1 auto;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	align-items: center;
-	padding: 15px;
-}
-
-.popup__close {
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	cursor: pointer;
-	z-index: 30;
-	
-}
-.popup__close svg use {
-	fill:#ffffff;
-}
-
-.popup__button {
-	max-width: 450px;
-}
-
 .footer {
-	margin-top: 100px;
-	height: 50px;
+	min-height: 100px;
 }
-.footer__container {
-	width: 100%;
-	/* background: linear-gradient(0deg, rgba(11, 16, 21, 0.9), rgba(11, 16, 21, 0.9)), url(../img/bg-template-2.jpg) repeat 10%; */
-	position: fixed;
-	bottom: 0;
-	left: 50%;
-	transform: translate(-50%,0px);
-}
-
-._button:first-child {
-	margin: 15px 0;
-}
-
-
-.swiper-slide {
-	width: 100% !important;
-}
-
-
-.main-preview-dishs__slider {
-min-width:0;	
-padding: 0 0 74% 0;
-max-width: 100%;
-display: block;
-}
-.main-preview-dishs__slider img {
-border-radius: 0px;
-}
-.controls-slider-box {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	padding: 10px;
-	pointer-events: none;
-	z-index: 5;
-}
-
-.controls-slider-box__wrapper {
-	background-color: #FFFFFF;
-	border-radius: 40px;
-	padding: 4px 10px;
-	width: 47px;
-	color: #828282;
-	height: 25px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
 
 /* animate */
 .menu-enter-active,.menu-leave-active {
@@ -1169,9 +1022,6 @@ border-radius: 0px;
 	transform: scale(0.9);
 	opacity: 0;
 }
-
-
 /* animate */
-
 
 </style>

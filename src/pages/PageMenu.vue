@@ -4,9 +4,9 @@
 </template>
 
 <script>
-import StockholmTheme from '@/templates/StockholmTheme'
-import HumburgTheme from '@/templates/HumburgTheme'
-import BucharestTheme from '@/templates/BucharestTheme'
+import ThemeStockholm from '@/templates/ThemeStockholm'
+import ThemeHumburg from '@/templates/ThemeHumburg'
+import ThemeBucharest from '@/templates/ThemeBucharest'
 import MyPanelUiAgree from  '@/components/UI/MyPanelUiAgree.vue'
 export default {
   name: 'PageMenu',
@@ -16,9 +16,9 @@ export default {
   },
 
   components: {
-	StockholmTheme,
-	HumburgTheme,
-	BucharestTheme,
+	ThemeStockholm,
+	ThemeHumburg,
+	ThemeBucharest,
 	MyPanelUiAgree
 
 	

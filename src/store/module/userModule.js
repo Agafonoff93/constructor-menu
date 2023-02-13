@@ -4,132 +4,132 @@ export const userModule = {
 	state:() => ({
 			isUserLoading: false,
 			templateUrl:'',
-			about: {
-				title: 'Леон',
-				text: 'Самый лучший ресторан в мире',
-				img: 'https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png'
-			 },
-			// about: 
-			// {
-			// 	id:'',
-			// 	title:'',
-			// 	text:'',
-			// 	img:'',
-			// },
-         // categories: [],
-			categories: [
-				{
-				value: 1,
-				label: 'Специальное предложение',
-				text: 'Блюда недели, выгодные предложения и акции!',
-				rubrics: [
-					{
-						value: 1,
-						label: 'Салаты',
-						text: 'Летние и горячие салаты из солнечной Италии.',
-						img:'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg',
-						dishs:[
-							{
-								value: 1,
-								label: 'Цезарь',
-								text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-								price:'359',
-								weight: '350',
-								img:'',
-								sliderImage: [
-									{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-									{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-									{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-									{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-									{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								]
-							},
-						]
-					},
+			// about: {
+			// 	title: 'Леон',
+			// 	text: 'Самый лучший ресторан в мире',
+			// 	img: 'https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png'
+			//  },
+			about: 
+			{
+				id:'',
+				title:'',
+				text:'',
+				img:'',
+			},
+         categories: [],
+			// categories: [
+			// 	{
+			// 	value: 1,
+			// 	label: 'Специальное предложение',
+			// 	text: 'Блюда недели, выгодные предложения и акции!',
+			// 	rubrics: [
+			// 		{
+			// 			value: 1,
+			// 			label: 'Салаты',
+			// 			text: 'Летние и горячие салаты из солнечной Италии.',
+			// 			img:'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg',
+			// 			dishs:[
+			// 				{
+			// 					value: 1,
+			// 					label: 'Цезарь',
+			// 					text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+			// 					price:'359',
+			// 					weight: '350',
+			// 					img:'',
+			// 					sliderImage: [
+			// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+			// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+			// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+			// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 					]
+			// 				},
+			// 			]
+			// 		},
 
-					{
-						value: 2,
-						label: 'Закуски',
-						text: 'Закуски вкусные и сытные разбавят ожидания блюда',
-						img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg',
-						dishs:[],
-					},
-					{
-						value: 3,
-						label: 'Коктели',
-						text: 'Освежающий апепель shpritz и много всего',
-						img: '',
-						dishs:[],
-					},
-				]
-				},
-				{
-				value:  2,
-				label: 'Итальянская кухня',
-				text: 'Вкусы италии вкусы италии вкусы италии',
-				rubrics:[
-					{
-						value: 1,
-						label: 'Пицца',
-						text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
-						img:'',
-						dishs:[
-							{
-								value: 1,
-								label: 'Пицца 4ре сыра',
-								text: 'сыр, Помидоры, Куриное филе,4ре сыра',
-								price:'549',
-								weight: '300',
-								img:'',
-								sliderImage: [
-									{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-									{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-									{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-									{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-									{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg'},
-								]
-							},
-							{
-								value: 2,
-								label: 'Пицца Тайская',
-								text: 'Салат, Ананасы, Куриное филе,нет 4ре сыра',
-								price:'559',
-								weight: '330',
-								img:'',
-								sliderImage: [
-									{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-									{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-									{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-									{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-									{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								]
-							},
-							{
-								value: 3,
-								label: 'Пицца Капричеза',
-								text: 'Грибы и сыр',
-								price:'559',
-								weight: '330',
-								img:'',
-								sliderImage: [
-									{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-									{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-									{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-									{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-									{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-								]
-							},
-						]
-					},
-						]
-				},
-				{
-				value: 3,
-				label: 'Русская кухня',
-				text: 'Богатый вкус все блюда вкус все блюда',
-				rubrics:[],
-				},
-			],
+			// 		{
+			// 			value: 2,
+			// 			label: 'Закуски',
+			// 			text: 'Закуски вкусные и сытные разбавят ожидания блюда',
+			// 			img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg',
+			// 			dishs:[],
+			// 		},
+			// 		{
+			// 			value: 3,
+			// 			label: 'Коктели',
+			// 			text: 'Освежающий апепель shpritz и много всего',
+			// 			img: '',
+			// 			dishs:[],
+			// 		},
+			// 	]
+			// 	},
+			// 	{
+			// 	value:  2,
+			// 	label: 'Итальянская кухня',
+			// 	text: 'Вкусы италии вкусы италии вкусы италии',
+			// 	rubrics:[
+			// 		{
+			// 			value: 1,
+			// 			label: 'Пицца',
+			// 			text: 'Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан',
+			// 			img:'',
+			// 			dishs:[
+			// 				{
+			// 					value: 1,
+			// 					label: 'Пицца 4ре сыра',
+			// 					text: 'сыр, Помидоры, Куриное филе,4ре сыра',
+			// 					price:'549',
+			// 					weight: '300',
+			// 					img:'',
+			// 					sliderImage: [
+			// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+			// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+			// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+			// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg'},
+			// 					]
+			// 				},
+			// 				{
+			// 					value: 2,
+			// 					label: 'Пицца Тайская',
+			// 					text: 'Салат, Ананасы, Куриное филе,нет 4ре сыра',
+			// 					price:'559',
+			// 					weight: '330',
+			// 					img:'',
+			// 					sliderImage: [
+			// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+			// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+			// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+			// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 					]
+			// 				},
+			// 				{
+			// 					value: 3,
+			// 					label: 'Пицца Капричеза',
+			// 					text: 'Грибы и сыр',
+			// 					price:'559',
+			// 					weight: '330',
+			// 					img:'',
+			// 					sliderImage: [
+			// 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+			// 						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+			// 						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+			// 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+			// 					]
+			// 				},
+			// 			]
+			// 		},
+			// 			]
+			// 	},
+			// 	{
+			// 	value: 3,
+			// 	label: 'Русская кухня',
+			// 	text: 'Богатый вкус все блюда вкус все блюда',
+			// 	rubrics:[],
+			// 	},
+			// ],
 			
 			langList: [
 			{ id: 1, name: 'RU', img: require('@/assets/icons/lang/russia_1.png'), unavailable: true },
@@ -238,9 +238,9 @@ export const userModule = {
 		async fetchUser({state, commit}) {
 			try {
 				commit('SET_LOADING', true)
-				// const response = await axios.get('http://localhost:3000/user')
-				// commit('SET_ABOUT', response.data.project.about)		
-				// commit('SET_CATEGORIES', response.data.project.categories)		
+				const response = await axios.get('http://localhost:3000/user')
+				commit('SET_ABOUT', response.data.project.about)		
+				commit('SET_CATEGORIES', response.data.project.categories)		
 			} catch (e) {
 				console.log(e)
 				// alert('Ошибка')

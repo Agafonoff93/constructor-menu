@@ -13,6 +13,7 @@
 							</svg>
 						<span>Предпросмотр</span>
 					</button>									
+									
 				</div>
 
 			</div>								

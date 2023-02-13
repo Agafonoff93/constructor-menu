@@ -467,7 +467,7 @@ export default {
   },
   mounted() {
 		
-	// this.fetchUser()
+	this.fetchUser()
 	// JSON db off =)
   }
 }

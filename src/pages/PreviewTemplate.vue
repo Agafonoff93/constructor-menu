@@ -1,31 +1,36 @@
 <template>
-	<component :is="$route.params.name"></component>
+	<component
+	:about="about"
+	:categories="categories"
+	:langList="langList"
+	:themes="themes"
+	:is="$route.params.name"
+	></component>
 <MyPanelUiAgree
 @changeUrl="changeUrl"
 />
 </template>
 
 <script>
-import StockholmTheme from '@/templates/StockholmTheme'
-import HumburgTheme from '@/templates/HumburgTheme'
-import BucharestTheme from '@/templates/BucharestTheme'
+import ThemeStockholm from '@/templates/ThemeStockholm'
+import ThemeHumburg from '@/templates/ThemeHumburg'
+import ThemeBucharest from '@/templates/ThemeBucharest'
 import MyPanelUiAgree from  '@/components/UI/MyPanelUiAgree.vue'
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
   name: 'PreviewTemplate',
   props: {
-	// componentId: {
-	// 	type: [Number,String],
-	// 	required: true
-	// },
+	name: {
+		type: [Number,String],
+	},
 	
   },
 
   components: {
-	StockholmTheme,
-	HumburgTheme,
-	BucharestTheme,
+	ThemeStockholm,
+	ThemeHumburg,
+	ThemeBucharest,
 	MyPanelUiAgree
 
 	// MyPenelUi
@@ -46,15 +51,20 @@ export default {
 	changeUrl() {
 		this.currentUrl
 		console.log(this.currentUrl)
-		this.comingUrl = this.currentUrl.replace('choose','menu')
+		this.comingUrl = this.currentUrl.replace('choose/Theme','')
 		console.log(this.comingUrl)
 		this.addUrl(this.comingUrl)
 	}
   },
   computed: {
-	...mapState({
+	 ...mapState({
+		isUserLoading: state => state.user.isUserLoading,
+		about: state => state.user.about,
+		categories: state => state.user.categories,	
+		langList: state => state.user.langList,
+      langListReserve: state => state.user.langListReserve, 
+		themes: state => state.templates.themes,
 		templateUrl: state => state.user.templateUrl,
-	
 	}),
 	...mapGetters({
 
@@ -62,7 +72,7 @@ export default {
   },
   mounted() {
 	this.currentUrl = window.location.href;
-   console.log(this.currentUrl); // => https://ru.hexlet.io/qna
+   console.log(this.currentUrl); 
 	console.log(this.$route.fullPath)
 }
 

@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+	 "render": "vue-cli-service build:prerender"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.4",
@@ -28,12 +29,18 @@
     "@vue/cli-service": "~5.0.0",
     "@vueuse/core": "^9.6.0",
     "@vueuse/nuxt": "^9.5.0",
-    "msw": "^1.0.0"
+    "msw": "^1.0.0",
+    "prerender-spa-plugin": "^3.4.0"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not dead",
     "not ie 11"
-  ]
+  ],
+  "vuePlugins": {
+	"service": [
+		"build.prerender.js"
+	]
+  }
 }

@@ -44,6 +44,10 @@
 			</transition>
 			</Popover>
 	</div>
+	<button 
+	style="width:100%; padding:15px;background-color: blue;color:white;" 
+	@click="$router.push({name:'PageMenuStockholmTheme', query:{ 'userId': 1}})"
+	>перейти по ссылке</button>
 	<div class="result__block">
 		<div class="result__item href-result">
 			<div class="href-result__label _label">
@@ -94,6 +98,7 @@ export default {
 	computed: {
 	...mapState({
 		templateUrl: state => state.user.templateUrl,
+		userId: state => state.user.userId,
 	
 	}),
 	...mapGetters({
@@ -107,7 +112,8 @@ export default {
 <style scoped>
 
 .result {
-	margin: 30px 0 45px 0;
+	margin-top: 30px;
+	margin-bottom: 45px;
 }
 
 .result__block {

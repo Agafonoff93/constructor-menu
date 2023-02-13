@@ -31,13 +31,17 @@
 </template>
 
 <script>
+
 import MainHeader from '@/components/MainHeader.vue'
 import ChooseTemplate from '@/components/ChooseTemplate.vue'
+
+
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 export default {
 	components: {
 		ChooseTemplate,
 		MainHeader,
+		
 	},
 	methods: {
 	
