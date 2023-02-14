@@ -44,10 +44,10 @@
 			</transition>
 			</Popover>
 	</div>
-	<button 
+	<!-- <button 
 	style="width:100%; padding:15px;background-color: blue;color:white;" 
 	@click="$router.push({name:'PageMenuStockholmTheme', query:{ 'userId': 1}})"
-	>перейти по ссылке</button>
+	>перейти по ссылке</button> -->
 	<div class="result__block">
 		<div class="result__item href-result">
 			<div class="href-result__label _label">

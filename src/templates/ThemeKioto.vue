@@ -704,7 +704,7 @@ object-position: left ;
 	transform: rotate(180deg);
 	width: 12px;
 	height: 8px;
-	background: url(@/assets/bg-templates/bg-template-16.jpeg) no-repeat;
+	background: url(@/assets/icons/arrow-down-s-green.svg) no-repeat;
 }
 
 ._icon-arrow-down._active::after {

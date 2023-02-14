@@ -1,0 +1,19 @@
+[
+	{
+		
+			"value": 1,
+			"name": "ThemeStockholm",
+			"url": "stockholm",	
+			"label": "Стокгольм",
+			"text": "Отличный лёгкий шаблон. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.",
+			"img":"",
+			"sliderImage": [
+				{ "id":1, "name": "img1", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"},
+				{ "id":2, "name": "img2", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"},
+				{ "id":3, "name": "img3", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"},
+				{ "id":4, "name": "img4", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"},
+				{ "id":5, "name": "img5", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"}
+			]
+		
+	}
+]
