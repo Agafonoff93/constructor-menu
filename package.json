@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-	 "render": "vue-cli-service build:prerender"
+    "render": "vue-cli-service build:prerender"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.4",
@@ -14,6 +14,7 @@
     "body-scroll-lock": "^4.0.0-beta.0",
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.8.3",
+    "json-server": "^0.17.1",
     "swiper": "^8.4.5",
     "v-click-outside": "^3.2.0",
     "vue": "^3.2.13",
@@ -39,8 +40,8 @@
     "not ie 11"
   ],
   "vuePlugins": {
-	"service": [
-		"build.prerender.js"
-	]
+    "service": [
+      "build.prerender.js"
+    ]
   }
 }

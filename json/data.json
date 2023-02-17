@@ -1,11 +1,6 @@
-{
-	"user": 
+
 		{
-	  "id": 1,
-	  "userId": 1,
-	  "name": "Evgeniy",
-	  "project": {
-			"title": "Меню ресторана",
+	  
 			"about": {
 				"title": "Леон",
 				"text": "Самый лучший ресторан в мире",
@@ -128,31 +123,31 @@
 				{
 					"id": 1,
 					"name": "RU",
-					"img": "require('@/assets/icons/lang/russia_1.png')",
+					"img": "icon-lang/russia_1.png",
 					"unavailable": true
 				},
 				{
 					"id": 2,
 					"name": "EN",
-					"img": "require('@/assets/icons/lang/united-kingdom_1.png')",
+					"img": "icon-lang/united-kingdom_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 3,
 					"name": "FR",
-					"img": "require('@/assets/icons/lang/france_1.png')",
+					"img": "icon-lang/france_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 4,
 					"name": "GR",
-					"img": "require('@/assets/icons/lang/germany_1.png')",
+					"img": "icon-lang/germany_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 5,
 					"name": "IT",
-					"img": "require('@/assets/icons/lang/italy_1.png')",
+					"img": "icon-lang/italy_1.png",
 					"unavailable": false
 				}
 			],
@@ -160,43 +155,42 @@
 				{
 					"id": 6,
 					"name": "SP",
-					"img": "require('@/assets/icons/lang/spain_1.png')",
+					"img": "icon-lang/spain_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 7,
 					"name": "CH",
-					"img": "require('@/assets/icons/lang/china_1.png')",
+					"img": "icon-lang/china_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 8,
 					"name": "JP",
-					"img": "require('@/assets/icons/lang/japan_1.png')",
+					"img": "icon-lang/japan_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 9,
 					"name": "UA",
-					"img": "require('@/assets/icons/lang/ukraine_1.png')",
+					"img": "icon-lang/ukraine_1.png",
 					"unavailable": true
 				},
 				{
 					"id": 10,
 					"name": "CZ",
-					"img": "require('@/assets/icons/lang/czech-republic_1.png')",
+					"img": "icon-lang/czech-republic_1.png",
 					"unavailable": false
 				},
 				{
 					"id": 11,
 					"name": "TR",
-					"img": "require('@/assets/icons/lang/turkey_1.png')",
+					"img": "icon-lang/turkey_1.png",
 					"unavailable": false
 				}
 			]
-			 
-			 
+
 	  }
-	}
 	
- }
+	
+ 

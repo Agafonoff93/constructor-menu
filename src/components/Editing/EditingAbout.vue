@@ -84,6 +84,7 @@ export default {
 		},
 		hideAbout(){
 			this.$emit('hideAbout')
+			
 		},
 		seeAboutImage(){
 			console.log('постораюсь показать')

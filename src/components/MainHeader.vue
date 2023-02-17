@@ -14,8 +14,9 @@
 			</button>
 			<div class="header__version version">
 				<div class="version__label">Версия меню:</div>
-				<div class="version__lang select-lang">				
-						<MySelectLang						
+				<div  	 class="version__lang select-lang">				
+						<MySelectLang		
+						
 						:langList="langList"
 						:langListReserve="langListReserve"
 						

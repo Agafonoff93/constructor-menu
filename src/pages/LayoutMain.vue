@@ -147,10 +147,14 @@ export default {
 	}),
 	...mapActions({
 		fetchUser: 'user/fetchUser',
+		fetchCategories: 'user/fetchCategories',
+		fetchLangList: 'user/fetchLangList',
+		fetchLangListReserve: 'user/fetchLangListReserve',
 		testUser:'user/testUser',
 		addCategories: 'user/addCategories',
+		editCategories: 'user/editCategories',
 		removeCategory: 'user/removeCategory',
-		
+		addRubric: 'user/addRubric',
 	}),
 	saveAbout(data) {
     console.log('child component', data)
@@ -187,7 +191,7 @@ export default {
 
 	createcategory(category){
 		if(this.categories.find(p => p.value == category.value)){
-			console.log('вносим изменения')
+			this.editCategories(this.categories)
 		}else{
          console.log('добавление категории')
 			this.addCategories(category)
@@ -202,7 +206,8 @@ export default {
 		if(categoryFind.rubrics.find(p => p.value == rubric.value)) {
 			console.log('вносим изменения')
 		}else{
-		this.categories.find(p => p.value == category_id).rubrics.push(rubric)
+			this.addRubric(rubric, category_id)
+		// this.categories.find(p => p.value == category_id).rubrics.push(rubric)
 	   }
 	},
 	createdish(dish,  formlabel_id, formlabel_rubric_id ){
@@ -329,8 +334,10 @@ export default {
 	})
   },
   mounted() {
-		
+	this.fetchCategories()	
 	this.fetchUser()
+	this.fetchLangList()
+	this.fetchLangListReserve()
 	// JSON db off =)
   }
 }
