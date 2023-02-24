@@ -258,9 +258,7 @@
       "value": "English",
       "img": "/icon-lang/united-kingdom_1.png",
       "unavailable": false
-    }
-  ],
-  "langListReserve": [
+    },
     {
       "id": 3,
       "name": "fr",
@@ -276,17 +274,19 @@
       "unavailable": false
     },
     {
-      "id": 5,
-      "name": "it",
-      "value": "Italy",
-      "img": "/icon-lang/italy_1.png",
-      "unavailable": false
-    },
-    {
       "id": 6,
       "name": "sp",
       "value": "Spain",
       "img": "/icon-lang/spain_1.png",
+      "unavailable": false
+    }
+  ],
+  "langListReserve": [
+    {
+      "id": 5,
+      "name": "it",
+      "value": "Italy",
+      "img": "/icon-lang/italy_1.png",
       "unavailable": false
     },
     {

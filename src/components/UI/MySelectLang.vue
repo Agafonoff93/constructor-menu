@@ -1,7 +1,7 @@
 <template>
 	<div class="select-lang__wrapper">
 		<Listbox  v-model="selectedLang">
-			<div @click="showPopupAdd" class="select-lang__title"><ListboxButton >
+			<div  class="select-lang__title"><ListboxButton >
 				<span v-if="selectedLang">{{ selectedLang.name }}</span>
 				<span v-else>RU</span>
 			</ListboxButton></div>

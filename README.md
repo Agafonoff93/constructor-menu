@@ -9,6 +9,10 @@ npm install
 ```
 npm run serve
 ```
+### Launch json server
+```
+json-server --watch json/data.json
+```
 
 ### Compiles and minifies for production
 ```
