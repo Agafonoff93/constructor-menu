@@ -14,16 +14,24 @@
 											<button @click="hideUiMain" class="buttons-panel__cancel">Отменить</button>
 										</div>
 										<div class="buttons-panel__bottom">
-											<button @click="seeEditingCategory" class="buttons-panel__button">
+											<button @click="seeEditingCategory"  class="buttons-panel__button">
 												
 												<img src="@/assets/icons/add-category.png" alt="категория">
 												<span>Категория</span>
 											</button>
-											<button @click="seeEditingRubric" class="buttons-panel__button">
+											<button 
+											@click="seeEditingRubric" 
+											class="buttons-panel__button"
+											:class="{ '_no-items': categories.length == 0 }"
+											>
 												<img src="@/assets/icons/add-rubric.png" alt="рублика">
 												<span>Рубрика</span>
 											</button>
-											<button @click="seeEditingDish" class="buttons-panel__button">
+											<button 
+											@click="seeEditingDish" 
+											class="buttons-panel__button"
+											:class="{ '_no-items': rubricsLength == 0 }"
+											>
 												<img src="@/assets/icons/add-dish.png" alt="блюдо">
 												<span>Блюдо</span>
 											</button>
@@ -55,6 +63,10 @@ export default {
 			type:Boolean,
 			default:false
 		},
+		categories: {
+		type: Array,
+		required: true
+	},
 		
 	},
 	data() {
@@ -96,6 +108,17 @@ export default {
 		// this.$refs.MyInputImgDish.noShowPreviewImg();
 	},
   },
+  computed: {
+	
+
+	rubricsLength(){
+		let sum = 0; 
+		for (let category of this.categories) {
+			sum += category.rubrics.length;
+		}
+      return sum;		
+	}
+	},
 }
 </script>
 
@@ -244,6 +267,12 @@ user-select: none;
   flex-direction: column;
   align-items: center;
   margin: 0 15px;
+}
+.buttons-panel__button._no-items {
+ pointer-events: none;
+}
+.buttons-panel__button._no-items img{
+ filter:grayscale(0.8) ;
 }
 .buttons-panel__button_dish img {
   filter: grayscale(1);

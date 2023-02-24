@@ -99,7 +99,11 @@ export const userModule = {
 
 		SET_CATEGORIES(state, categories) {
 			state.categories = categories
-			console.log(state.categories)
+			// console.log(state.categories)
+		},
+		UPDATE_CATEGORIES(state, categories) {
+			state.categories = categories
+			// console.log(state.categories)
 		},
 		ADD_CATEGORIES(state, category) {
 			console.log('add category')
@@ -184,11 +188,30 @@ export const userModule = {
 
 		SET_LANGLIST(state, langList) {
 			state.langList = langList
-			console.log(langList)
+			// console.log(langList)
 		},
 		SET_LANGLIST_RESERVE(state, langListReserve) {
 			state.langListReserve = langListReserve
-			console.log(langListReserve)
+			// console.log(langListReserve)
+		},
+		ADD_LANGLIST(state, lang) {
+			console.log(lang)
+			state.langList.push( lang);
+	
+		},
+		ADD_LANGLIST_RESERVE(state, lang) {			
+
+			state.langListReserve.push( lang);
+			console.log(state.langListReserve)
+		},
+		DELETE_LANGLIST(state, lang) {
+			
+			state.langList = state.langList.filter(p => p.id !== lang.id)
+			console.log(state.langList)
+		},
+		DELETE_LANGLIST_RESERVE(state, lang) {
+			state.langListReserve = state.langListReserve.filter(p => p.id !== lang.id)
+			console.log(state.langList)
 		},
 		SET_LOADING (state, bool) {
 			state.isUserLoading = bool
@@ -196,6 +219,37 @@ export const userModule = {
 		ADD_URL(state, urlTheme ) {
          state.templateUrl = urlTheme 
 		},
+		ADD_LANG_ITEM(state, lang){
+			console.log('добавляем язык')
+			console.log(state.categories)
+			state.about.title[lang.name] = state.about.title.ru
+			state.about.text[lang.name] = state.about.text.ru
+			for (let i = 0; i < state.categories.length; i++) {
+				const category = state.categories[i];
+				category.label[lang.name] = category.label.ru 
+				category.text[lang.name] = category.text.ru 
+
+				for (let i = 0; i < category.rubrics.length; i++){
+					const rubric = category.rubrics[i];
+					rubric.label[lang.name] = rubric.label.ru 
+					rubric.text[lang.name] = rubric.text.ru 
+
+					for (let i = 0; i < rubric.dishs.length; i++){
+						const dish = rubric.dishs[i];
+						dish.label[lang.name] = dish.label.ru 
+						dish.text[lang.name] = dish.text.ru 
+					}
+				}
+				
+				// category.text.ru
+				// или
+				// category["eu"] = category["ru"];
+				// если ключи могут содержать специальные символы
+				// или пробелы
+				
+			 }
+			 console.log(state.categories)
+		}
 	},
 	actions: {
 		// async addCategories({ commit, state }, category) {
@@ -293,12 +347,12 @@ export const userModule = {
 			try {
 				commit('SET_LOADING', true)
 				const response = await axios.get('http://localhost:3000/about')
-				console.log(response)
+				// console.log(response)
 				commit('SET_ABOUT', response.data)		
 				// commit('SET_CATEGORIES', response.data.categories)	
 				// commit('SET_LANGLIST', response.data.langList) 	
 				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
-				console.log(response)
+				// console.log(response)
 			} catch (e) {
 				console.log(e)
 				// alert('Ошибка')
@@ -310,12 +364,12 @@ export const userModule = {
 			try {
 			
 				const response = await axios.get('http://localhost:3000/categories')
-				console.log(response)
+				// console.log(response)
 				commit('SET_CATEGORIES', response.data)		
 				// commit('SET_CATEGORIES', response.data.categories)	
 				// commit('SET_LANGLIST', response.data.langList) 	
 				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
-				console.log(response)
+				// console.log(response)
 			} catch (e) {
 				console.log(e)
 				// alert('Ошибка')
@@ -353,22 +407,81 @@ export const userModule = {
 			
 			}
 		},
-	   	
-		// async testUser({state, commit}, $event){
-		// 	console.log($event)
-		// 	try {
+		async addLangList({state, commit, }, lang) {
+			try {
+			
+				console.log(lang)
+				const response = await axios({
+					method: "post",
+					url: "http://localhost:3000/langList",
+					data : lang
+					
+				});
+				commit('ADD_LANGLIST', response.data) 	
+				// commit('ADD_LANGLIST', lang) 	
+			  
+		
 				
-		// 		const url = 'http://localhost:3000/user';
-		// 	   const data =  JSON.stringify($event)
-		// 		state.categories = $event
-		// 		const response = await axios.post(url, data);
+			
+			} catch (e) {
+				console.log(e)
+				// alert('Ошибка')
+			} finally {
+			
+			}
+		},
+		async removeLangList({state, commit}, lang) {
+			try {				
+				// const response = await axios.delete('http://localhost:3000/langList/${lang.id}')			
+				commit('DELETE_LANGLIST', lang) 	
+			
+			} catch (e) {
+				console.log(e)
+				// alert('Ошибка')
+			} finally {
+			
+			}
+		},
+		async addLangListReserve({state, commit}, lang) {
+			try {
 				
-		// 		console.log(data);
-		// 		console.log(response.data);
-		// 	} catch (error) {
-		// 		console.error(error);
-		// 	}
-		// },
+				const response = await axios.get('http://localhost:3000/langListReserve')
+				
+				commit('ADD_LANGLIST_RESERVE', lang) 	
+ 	
+			} catch (e) {
+				console.log(e)
+				// alert('Ошибка')
+			} finally {
+			
+			}
+		},
+		async removeLangListReserve({ state, commit }, lang) {
+			try {
+			  const response = await axios.delete(`http://localhost:3000/langListReserve/${lang.id}`)
+			  commit('DELETE_LANGLIST_RESERVE', response.data)
+
+			} catch (e) {
+			  console.log(e)
+			  // alert('Ошибка')
+			} finally {
+			  // ...
+			}
+		 },
+		
+		 async addLangItem({ state, commit }, lang) {
+			const data = state.categories
+			try {
+				// const response = await axios.delete(`http://localhost:3000/categories`)
+				commit('ADD_LANG_ITEM', lang);
+			//   console.log(response.data);
+			//   commit('UPDATE_CATEGORIES', response.data); // обновление state.categories с помощью данных из ответа
+			} catch (error) {
+			  console.log(error);
+			  // обработка ошибки
+			}
+		 },
+		 
 
 		async removeCategory({ commit }, category) {
 			// const url = 'http://localhost:3000/user';

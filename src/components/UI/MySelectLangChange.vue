@@ -38,6 +38,7 @@
 
 			  >
 				 <ListboxOption
+				  
 					v-slot="{ active, selected }"
 					v-for="option in props.options"
 					:key="option.name"

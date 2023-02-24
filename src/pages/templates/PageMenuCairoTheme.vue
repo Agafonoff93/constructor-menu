@@ -230,7 +230,7 @@ computed: {
 		padding: 10px;
 		transition: background-color 0.3s ease 0s;
 		margin-bottom: 10px;
-		font-family: 'Rubik Mono One'
+		font-family: 'Rubik Mono One';;
 	}
 
 

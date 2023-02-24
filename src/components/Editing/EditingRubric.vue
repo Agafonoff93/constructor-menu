@@ -22,13 +22,13 @@
 							<my-input 							
 							type="text" 
 							placeholder="Название рубрики"
-							v-model="rubric.label"
+							v-model="rubric.label.ru"
 							:limit="100"
 							/>
 							<div class="box-input__wrapper">
 								<my-textarea 
 								
-								v-model="rubric.text"
+								v-model="rubric.text.ru"
 								:limit="1200"
 								></my-textarea>
 								
@@ -89,25 +89,17 @@ export default {
 		return {
 			rubric: {
 				// value:'',
-				label:'',
-				text:'',
+				label: {
+					ru: '',
+					},
+					text: {
+					ru: '',
+					},
 				img:'',
 				dishs:[],
 			},
 				
-			people: [
-				{ value:1, label: 'Wade Cooper' },
-				{ value:2, label: 'Arlene Mccoy' },
-				{ value:3, label: 'Devon Webb' },
-				{ value:4, label: 'Tom Cook' },
-				{ value:5, label: 'Tanya Fox' },
-				{ value:6, label: 'Hellen Schmidt' },
-			],
-			roles: [
-				{value: 1, label: "Marketing"},
-				{value: 2, label: "Front desk"},
-				{value: 3, label: "Support"}
-			],
+		
 			form:{
 				label_id: null,
 				role_ids:[]
@@ -137,8 +129,12 @@ export default {
 				this.$emit('createrubric', this.rubric,  this.form.label_id)
 				this.rubric = {
 					value: Date.now(),
-					label: '',
-					text: '',
+					label: {
+					ru: '',
+					},
+					text: {
+					ru: '',
+					},
 					img:''
 				};
 				this.form.label_id = null;

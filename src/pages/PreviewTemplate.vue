@@ -64,6 +64,7 @@ export default {
 	ThemeLapland,
 	ThemeCairo,
 	ThemeHumburg,
+	ThemeVenice,
 
 	MyPanelUiAgree
 

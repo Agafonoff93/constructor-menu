@@ -21,7 +21,41 @@
 									<img v-bind:src="(`${about.img}`)" alt="logo">
 								</div>
 							</div>
-						
+							<div class="select-lang__wrapper select">
+									<Listbox v-slot="{ open }"  v-model="selectedLang">
+										<div  class="select__title"><ListboxButton class="select__item">
+											<div :class="{'_active': open }" class="select__value _icon-arrow-down">
+												<span v-if="selectedLang"><img v-bind:src="(`${ selectedLang.img}`)" alt="lang-icon">{{ selectedLang.name }}</span>
+										   	<span  v-else>RU</span>
+											</div>
+											
+										</ListboxButton></div>
+										<transition
+										name="ui"
+										>
+									
+										<ListboxOptions  class="select__options">
+											<ListboxOption
+												v-for="lang in langList"
+												:key="lang.id"
+												:value="lang"
+												v-slot="{ selected }"
+												class="select__option"		
+												
+											>
+												<div class="select__option-wrapper" :class=" {'_hidden': selected}">
+													<img v-bind:src="(`${lang.img}`)" alt="lang-icon">
+													<span
+													:class=" {'_hidden': selected}"
+														>{{ lang.name }}</span
+													>
+												</div>	
+											</ListboxOption>
+										</ListboxOptions>
+										</transition>
+										
+									</Listbox>
+								</div>	
 						<Disclosure 
 						as="div"
 						v-slot="{ open }"
@@ -29,9 +63,10 @@
 						:key="category.value"
 						class="menu__item">
 									<DisclosureButton as="button" :class="{'_active': open }" class="menu__link category__title _icon-arrow-down" 
-										type="button">{{ category.label}}</DisclosureButton>
+										type="button">{{ category.label[locale]}}</DisclosureButton>
 										<transition name="menu-item">
 									<DisclosurePanel as="ul" class="menu__sub-list">
+									
 										<MenuItem  as="li"
 										v-for="rubric in category.rubrics"
 										:key="rubric.value"
@@ -43,7 +78,7 @@
 											:href="(`#rubric_${category.value}`+`${rubric.value}`)"
 											class="menu__sub-link rup__title "
 											@click="close"
-											>{{ rubric.label }}</a>
+											>{{ rubric.label[locale] }}</a>
 										</MenuItem>
 										
 
@@ -60,8 +95,8 @@
 			
 				</div>
 				<div class="header__bottom">
-					<div class="header__title">{{about.title}}</div>
-					<div class="header__text">{{about.text}}</div>
+					<div class="header__title">{{about.title[locale]}}</div>
+					<div class="header__text">{{about.text[locale]}}</div>
 				</div>
 			</div>
 		</header>
@@ -74,8 +109,8 @@
 				:key="category.value"
 				>
 					<div class="category__header-block">
-						<div  class="category__title">{{ category.label }}</div>
-						<div class="category__text">{{ category.text }}</div>
+						<div  class="category__title">{{ category.label[locale] }}</div>
+						<div class="category__text">{{ category.text[locale] }}</div>
 					</div>
 					<div 
 					class="category__body rup"
@@ -83,8 +118,8 @@
 					:key="rubric.value"
 					>
 						<div :id="(`rubric_${category.value}`+`${rubric.value}`)" class="rup__header-block">
-							<div  class="rup__title rup__title_cold-snacks">{{ rubric.label }}</div>
-							<div class="rup__text">{{ rubric.text }}</div>
+							<div  class="rup__title rup__title_cold-snacks">{{ rubric.label[locale] }}</div>
+							<div class="rup__text">{{ rubric.text[locale] }}</div>
 							<div 
 							v-if="rubric.img.length != 0"
 							class="rup__image _ibg">
@@ -97,8 +132,8 @@
 							v-for="dish in rubric.dishs"
 							:key="dish.value"
 							>
-								<div class="item__title">{{ dish.label }}</div>
-								<div class="item__text">{{ dish.text }}</div>
+								<div class="item__title">{{ dish.label[locale] }}</div>
+								<div class="item__text">{{ dish.text[locale] }}</div>
 								<div class="item__info">
 									<div class="item__price">{{ dish.price }}</div>
 									<div class="item__weight">{{ dish.weight }}</div>
@@ -160,8 +195,12 @@
 <script setup>
   import { Menu, MenuButton, MenuItems, MenuItem, 
 	Disclosure, DisclosureButton, DisclosurePanel, 
-	Popover, PopoverButton, PopoverPanel } from '@headlessui/vue'
-	
+	Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/vue'
+
+
+
+
+
 </script>
 
 <script>
@@ -174,66 +213,70 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination } from "swiper";
 import 'swiper/css';
 
+
+	import { ref, watch, defineProps, defineEmits } from 'vue'
+
 export default {
-  name: 'App',
+ 
 
   components: {
 	Swiper,
 	SwiperSlide,
 
-	// MyPenelUi
+	
   },
   data() {
 	return {
 		unLock: false,
+		locale:'ru',
+		selectedLang: null,
 	}
   },
-  setup() {
-		//  const onSwiper = (swiper) => {
-		// 	// console.log(swiper);
-			
-		//  };
-		//  const onSlideChange = () => {
-		// 	// console.log('slide change');
-		//  };
-
-		//  return {
-		// 	onSwiper,
-		// 	onSlideChange,
-		// 	modules: [Pagination],
-		//  };
-	  },
+ 
   methods: {
-	...mapMutations({
-
-	}),
 	...mapActions({
 		fetchUser: 'user/fetchUser',
-		testUser:'user/testUser'
+		fetchCategories: 'user/fetchCategories',
+		fetchLangList: 'user/fetchLangList',
 	}),
-	
- 
-	
   },
   computed: {
 	...mapState({
-		isUserLoading: state => state.user.isUserLoading,
 		about: state => state.user.about,
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
-      langListReserve: state => state.user.langListReserve, 
-		themes: state => state.templates.themes
 	}),
-	...mapGetters({
 
-	}),
 	swiper() {
 			return this.$refs.mySwiper.$swiper;
 		},
-	
+	updatedSelectedLang: function () {
+	// возвращаем первый элемент из langList
+	return this.langList[0]
+    }
   },
+
+  watch: {
+	selectedLang(newValue, oldValue) {
+		// передаем значение в родительский компонент
+		console.log(newValue)
+		this.locale = newValue.name
+		console.log(this.locale)
+	},
+		// watcher для langList
+		langList: function () {
+			// обновляем значение selectedLang при изменении langList
+			this.selectedLang = this.updatedSelectedLang
+		}
+	},
+
   mounted() {
-	  this.fetchUser()
+	this.fetchCategories()	
+	this.fetchUser()
+	this.fetchLangList()
+	this.selectedLang = this.updatedSelectedLang
+	console.log(this.langList)
+	console.log(this.selectedLang)
 	  console.log(this.about.img.length)
 	  document.body.classList.add('bg-light')
 
@@ -268,21 +311,7 @@ observer.observe(targetNode, config);
 		
 
   },
-//   async mounted() {
-//     await this.$nextTick()
-//     this._observer = new MutationObserver((mutationList) => {
-//       mutationList.forEach(mutation => {
-//         if (mutation.type === 'childList') {
-//           console.log('children added/removed', { added: mutation.addedNodes, removed: mutation.removedNodes})
-//         }
-//       })
-//     })
 
-//     this._observer.observe(this.$refs.menuWatch.$el, { childList: true })
-//   },
-//   beforeUnmount() {
-//     this.observer.disconnect()
-//   },
   beforeDestroy() {
     this.observer.disconnect()
   },
@@ -406,7 +435,7 @@ body._lock {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-	background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9));
+	background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(@/assets/bg-templates/bg-template-1.jpg);
 }
 
 ._container {
@@ -634,7 +663,7 @@ border-radius: 0px;
 	overflow: auto;
 	top: 0;
 	left: 0;
-	background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9));
+	background: linear-gradient(0deg, rgba(255, 247, 235, 0.9), rgba(255, 247, 235, 0.9)), url(@/assets/bg-templates/bg-template-1.jpg);
 	transition: left 0.3s ease 0s;
 	padding: 100px 20px 30px 10px;
 }
@@ -724,6 +753,7 @@ border-radius: 0px;
 	top: 0;
 	left: 0;
 	padding: 10px;
+	pointer-events:none;
 }
 .menu__header-wrapper {
 	max-width:570px;
@@ -894,15 +924,16 @@ button._button-footer,._button-footer {
 }
 
 .select__item {
-	position: relative;
+	width:100% ;
 }
 
 .select__title {
 	color: inherit;
 	border: none;
-	background-color: transparent;
+	background: transparent;
 	cursor: pointer;
 	border-radius: 4px;
+	width:100%;
 }
 
 .select__title._active>.select__value._icon-arrow-down::after {
@@ -917,7 +948,9 @@ button._button-footer,._button-footer {
 	height: 30px;
 	padding: 0px 0px;
 	align-items: center;
+	text-transform: uppercase;
 	justify-content: space-between;
+	
 }
 
 .select__value span {
@@ -927,11 +960,7 @@ button._button-footer,._button-footer {
 	overflow: hidden;
 }
 
-.select__input {
-	width: 100%;
-	background-color: transparent;
-	height: 100%;
-}
+
 
 .select__options {
 	color: #000;
@@ -945,6 +974,7 @@ button._button-footer,._button-footer {
 	border: none;
 	z-index: 100;
 	overflow: hidden;
+	background: transparent;
 }
 
 .options {
@@ -953,20 +983,7 @@ button._button-footer,._button-footer {
 	align-items: flex-start;
 }
 
-.options__item {
-	position: relative;
-	cursor: pointer;
-}
 
-.options__input {
-	position: absolute;
-	width: 0;
-	height: 0;
-	opacity: 0;
-	left: 0;
-	top: 0;
-	visibility: hidden;
-}
 
 .select__value img {
 	margin-right: 10px;
@@ -984,138 +1001,32 @@ button._button-footer,._button-footer {
 	font-weight: 600;
 	font-size: 14px;
 	cursor: pointer;
-	padding: 8px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
-
+	background: transparent;
+	text-transform: uppercase;
 }
 
+.select__option-wrapper._hidden {
+	display: none;
+}
+.select__option-wrapper {
+	padding: 8px 0px 0px 0px;
+}
 .select__option img {
 	margin-right: 10px;
 	position: relative;
 	top: 0px;
 }
 
-.select__form {
-	width: 100%;
-	font-family: inherit;
-	font-weight: 700;
-}
+/* select end */
 
 
 
-/* .popup {
-	-webkit-overflow-scrolling: touch;
-	z-index: 100;
-	padding: 0px;
-	position: fixed;
-	top: 0px;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	transition: transform 0.3s ease 0s;
-	
-} */
-
-.footer__box-btns {
-	/* z-index: 10;
-	position:relative; */
-}
-
-
-/* .popup__wrapper {
-	position: absolute;
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-} */
-
-
-
-/* .popup._active .popup__body {
-	-webkit-transition: all 0.3s ease 0.2s;
-	-o-transition: all 0.3s ease 0.2s;
-	transition: all 0.3s ease 0.2s;
-	-webkit-transform: scale(1);
-		 -ms-transform: scale(1);
-			  transform: scale(1);
-} */
-/* 
-.popup__content {
-
-	min-height: 100%;
-	width: 100%;
-	height: 100%;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-
-} */
-
-/* .popup__body {
-
-	position: relative;
-	-webkit-transition: all 0.3s ease 0s;
-	-o-transition: all 0.3s ease 0s;
-	transition: all 0.3s ease 0s;
-	background-color: #fff;
-	padding: 0px;
-	width: 100%;
-	max-width: 800px;
-	height: 100%;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-flex: 1;
-	-ms-flex: 1 1 auto;
-	flex: 1 1 auto;
-	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	align-items: center;
-	padding: 15px;
-}
-
-.popup__close {
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	top: 15px;
-	right: 15px;
-	cursor: pointer;
-	z-index: 30;
-	
-}
-.popup__close svg use {
-	fill:#212121;
-}
-
-.popup__button {
-	max-width: 450px;
-} */
 
 .footer {
 	min-height: 100px;
 	
 }
-/* .footer__container {
-	width: 100%;
-	background: #fff;
-	position: fixed;
-	bottom: 0;
-
-} */
-
-/* ._button-footer:first-child {
-	margin: 15px 0;
-} */
 
 
 

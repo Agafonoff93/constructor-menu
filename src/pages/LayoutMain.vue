@@ -10,6 +10,7 @@
 		:languageId="languageId"
 		@addLanguage="addLanguage"
 		@removeLanguage="removeLanguage"
+		@selectedLangChanged="handleSelectedLangChanged"
 		/>
   
 	<main  class="page">
@@ -56,6 +57,14 @@
 		/> 
 	   </transition>
 
+		<transition name="category">
+			<EditingLanguage
+			v-if="visibleEditingLanguage"
+			@hideEditingLanguage="hideEditingLanguage"
+			:locale="locale"
+			
+			/>
+	   </transition>
 
 		<MainPreview 
 		v-show="visibleMainPreview"
@@ -63,13 +72,14 @@
 		v-model:isUserLoading="isUserLoading"
 		
 		ref="MainPreview"
+		:locale="locale"
 		:about="about"
 		:categories="categories"		
 		@seeAbout="seeAbout"
 		@seeEditingCategory="seeEditingCategory"
 		@seeEditingRubric="seeEditingRubric"
 		@seeEditingDish="seeEditingDish"
-		
+		@seeEditingLanguage="seeEditingLanguage"
 		@removecategory="removecategory"
 		@removerubric="removemyrubric"
 		@removemydish="removemydish"
@@ -99,14 +109,15 @@ import EditingAbout from '@/components/Editing/EditingAbout.vue'
 import EditingCategory from '@/components/Editing/EditingCategory.vue'
 import EditingRubric from '@/components/Editing/EditingRubric.vue'
 import EditingDish from '@/components/Editing/EditingDish.vue'
-import ChooseTemplate from '@/components/ChooseTemplate.vue'
+import EditingLanguage from '@/components/Editing/EditingLanguage.vue'
+
 
 import axios from 'axios';
 import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 // import MyPenelUi from '@/components/UI/MyPenelUi'
 
 export default {
-  name: 'App',
+  name: 'LayoutMain',	
 
   components: {
 	MainPreview,
@@ -115,14 +126,14 @@ export default {
 	EditingCategory,
 	EditingRubric,
 	EditingDish,
-	ChooseTemplate,
-	// MyPenelUi
+	EditingLanguage,
   },
   data() {
 	return {
 
       
 		// isUserLoading: false,
+		locale:'ru',
 		languageId: 1,
 		uiVisible:false,
 		popupVisible: false,
@@ -131,7 +142,7 @@ export default {
 		visibleEditingCategory: false,
 		visibleEditingRubric: false,
 		visibleEditingDish: false,
-		// visibleChooseTemplate: false,
+			
 		visibleMainPreview: true,
 		categoriesObject: '',
 		rubricsObject: '',
@@ -145,17 +156,23 @@ export default {
 	...mapMutations({
 
 	}),
-	...mapActions({
-		fetchUser: 'user/fetchUser',
-		fetchCategories: 'user/fetchCategories',
-		fetchLangList: 'user/fetchLangList',
-		fetchLangListReserve: 'user/fetchLangListReserve',
-		testUser:'user/testUser',
-		addCategories: 'user/addCategories',
-		editCategories: 'user/editCategories',
-		removeCategory: 'user/removeCategory',
-		addRubric: 'user/addRubric',
+		...mapActions({
+			fetchUser: 'user/fetchUser',
+			fetchCategories: 'user/fetchCategories',
+			fetchLangList: 'user/fetchLangList',
+			fetchLangListReserve: 'user/fetchLangListReserve',
+			testUser:'user/testUser',
+			addCategories: 'user/addCategories',
+			editCategories: 'user/editCategories',
+			removeCategory: 'user/removeCategory',
+			addRubric: 'user/addRubric',
+			changeTranslationLabel: 'meaning/changeTranslationLabel',
+			changeTranslationText: 'meaning/changeTranslationText',
+			toggleEditingLanguage: 'meaning/toggleEditingLanguage',
 	}),
+
+
+
 	saveAbout(data) {
     console.log('child component', data)
 	//  console.log(about.title)
@@ -185,6 +202,11 @@ export default {
 	this.categoryId = null
 	console.log('отмена')
 	this.visibleEditingDish = false
+	this.visibleMainPreview = true
+  },
+  hideEditingLanguage(){
+
+	this.visibleEditingLanguage = false
 	this.visibleMainPreview = true
   },
 
@@ -298,15 +320,18 @@ export default {
 	this.visibleMainPreview = false
   },
   
-//   seeChooseTemplate(){
-// 		this.visibleChooseTemplate = true
-// 		this.visibleMainPreview = false
-//   },
-
+  seeEditingLanguage(event){
+	console.log(event.label[this.locale])
+	console.log(event.text[this.locale])
+	this.changeTranslationLabel(event.label)
+	this.changeTranslationText(event.text)
+	this.visibleEditingLanguage = true
+	this.visibleMainPreview = false
+  },
+   handleSelectedLangChanged(selectLang){
+		this.locale = selectLang.name
+	},
   addLanguage(){
-	// if(this.langList.find(p => p.id == lang.id)){
-	// 		console.log('lj,fdkztv')
-	// 	}
 	this.langList.push(lang);
    console.log('app добавляем язык')
   },
@@ -327,13 +352,31 @@ export default {
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
       langListReserve: state => state.user.langListReserve, 
-		themes: state => state.templates.themes
+		themes: state => state.templates.themes,
+		translationLabel: state => state.meaning.translationLabel,
+		translationText: state => state.meaning.translationText,
+		visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
 	}),
 	...mapGetters({
+		
+	}),
+	
+		
+	
 
-	})
+  },
+  created: function() {
+    this.$watch('visibleEditingLanguage', function(newVal, oldVal) {
+      if(newVal == true){
+			this.visibleMainPreview = false
+		}
+		if(newVal == false){
+			this.visibleMainPreview = true
+		}
+    });
   },
   mounted() {
+	console.log(this.visibleEditingLanguage)
 	this.fetchCategories()	
 	this.fetchUser()
 	this.fetchLangList()
@@ -489,7 +532,7 @@ body._lock {
   text-align:left;
 }
 .version {
-  text-align: right;
+  /* text-align: right; */
 }
 .version__label {
   font-weight: 500;
@@ -795,8 +838,14 @@ transition: all .3s ;
 
 /*End animation */
 
+
+._attention {
+	color: #EB5757;
+}
+
 ._icon-css{
 	position: relative;
+	flex:0 0 40px;
 	width: 40px;
 	height: 40px;
 	border: 2px dashed #BDBDBD;
@@ -1031,12 +1080,12 @@ opacity:1;
 
 /* animation-main-blocks*/
 
-
+/* 
 .ui__wrapper{
 	 flex: 1 1 100%;
     display: flex;
     align-items: flex-end;
 	
-}
+} */
 
 </style>

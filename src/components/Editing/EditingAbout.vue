@@ -12,13 +12,13 @@
 							<my-input 							
 							type="text" 
 							placeholder="Название ресторана"
-							v-model="about.title"
+							v-model="about.title.ru"
 							:limit="100"
 							/>
 							<div class="box-input__wrapper">
 								<my-textarea 
 								placeholder="Описанние"
-								v-model="about.text"
+								v-model="about.text.ru"
 								:limit="1200"
 								></my-textarea>
 								

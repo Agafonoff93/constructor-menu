@@ -4,7 +4,7 @@
 		<div class="main-preview__container _container">
 			<div class="main-preview__body">
 				<div v-if="!isUserLoading" class="main-preview__about-wrapper">
-					<button @click="seeEditingAbout" v-if="categories.length > 0 && about.title == '' &&  about.text == '' &&  about.img  == ''"  class="main-preview__add-info ">
+					<button @click="seeEditingAbout" v-if="categories.length > 0 && about.title.ru == '' &&  about.text.ru == '' &&  about.img  == ''"  class="main-preview__add-info ">
 						<div class="main-preview__icon _icon-css">
 							<span></span>
 						</div>
@@ -12,27 +12,38 @@
 							<p>Добавьте информацию о ресторане!</p>
 						</div>
 					</button>
-					<div v-else-if="about.title || about.text || about.img != '' " class="main-preview__header main-preview-header">
+					<div v-else-if="about.title.ru || about.text.ru || about.img != '' " class="main-preview__header main-preview-header">
 						<div v-if="this.about.img.length != 0" class="main-preview-header__logo">
 							<img v-bind:src="(`${about.img}`)" alt="">
 						
-						</div>
-						<div 
-						class="main-preview-header__title _title"
-						
-						>
-							{{about.title}}
-						</div>
-						<div class="main-preview-header__text _text">
-							{{about.text}}
-						</div>
-						<div class="main-preview-header__editing">
-							<button  @click="seeEditingAbout" class="main-preview-header__editing-btn">
-								<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M17.3333 5.03334C17.3339 4.92367 17.3129 4.81495 17.2715 4.71342C17.23 4.61188 17.1689 4.51954 17.0916 4.44167L13.5583 0.908337C13.4804 0.831103 13.3881 0.769998 13.2866 0.728528C13.185 0.687057 13.0763 0.666036 12.9666 0.66667C12.857 0.666036 12.7482 0.687057 12.6467 0.728528C12.5452 0.769998 12.4528 0.831103 12.375 0.908337L10.0166 3.26667L0.908307 12.375C0.831072 12.4529 0.769968 12.5452 0.728497 12.6467C0.687027 12.7483 0.666006 12.857 0.66664 12.9667V16.5C0.66664 16.721 0.754437 16.933 0.910718 17.0893C1.067 17.2455 1.27896 17.3333 1.49997 17.3333H5.03331C5.14991 17.3397 5.26655 17.3214 5.37566 17.2798C5.48476 17.2382 5.5839 17.1741 5.66664 17.0917L14.725 7.98334L17.0916 5.66667C17.1677 5.5859 17.2297 5.49295 17.275 5.39167C17.283 5.32525 17.283 5.2581 17.275 5.19167C17.2789 5.15288 17.2789 5.1138 17.275 5.075L17.3333 5.03334ZM4.69164 15.6667H2.33331V13.3083L10.6083 5.03334L12.9666 7.39167L4.69164 15.6667ZM14.1416 6.21667L11.7833 3.85834L12.9666 2.68334L15.3166 5.03334L14.1416 6.21667Z" fill="#828282"/>
-									</svg>
-							</button>
-						</div>
+							</div>
+							<div 
+							class="main-preview-header__title _title"						
+							>
+								{{ about.title[locale] }}
+							</div>
+							<div class="main-preview-header__text _text">
+								{{about.text[locale]}}
+							</div>
+							<div class="main-preview-header__editing">
+								<button  @click="seeEditingAbout" class="main-preview-header__editing-btn">
+									<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.3333 5.03334C17.3339 4.92367 17.3129 4.81495 17.2715 4.71342C17.23 4.61188 17.1689 4.51954 17.0916 4.44167L13.5583 0.908337C13.4804 0.831103 13.3881 0.769998 13.2866 0.728528C13.185 0.687057 13.0763 0.666036 12.9666 0.66667C12.857 0.666036 12.7482 0.687057 12.6467 0.728528C12.5452 0.769998 12.4528 0.831103 12.375 0.908337L10.0166 3.26667L0.908307 12.375C0.831072 12.4529 0.769968 12.5452 0.728497 12.6467C0.687027 12.7483 0.666006 12.857 0.66664 12.9667V16.5C0.66664 16.721 0.754437 16.933 0.910718 17.0893C1.067 17.2455 1.27896 17.3333 1.49997 17.3333H5.03331C5.14991 17.3397 5.26655 17.3214 5.37566 17.2798C5.48476 17.2382 5.5839 17.1741 5.66664 17.0917L14.725 7.98334L17.0916 5.66667C17.1677 5.5859 17.2297 5.49295 17.275 5.39167C17.283 5.32525 17.283 5.2581 17.275 5.19167C17.2789 5.15288 17.2789 5.1138 17.275 5.075L17.3333 5.03334ZM4.69164 15.6667H2.33331V13.3083L10.6083 5.03334L12.9666 7.39167L4.69164 15.6667ZM14.1416 6.21667L11.7833 3.85834L12.9666 2.68334L15.3166 5.03334L14.1416 6.21667Z" fill="#828282"/>
+										</svg>
+								</button>
+							</div>
+								<div  v-if="locale != 'ru'" class="main-preview__about-wrapper">
+									<button @click="seeEditingLanguage(about)" class="main-preview__add-info ">
+										<div class="main-preview__icon _icon-css">
+											<span></span>
+										</div>
+										<div class="main-preview__text ">
+											<p v-if="about.text[locale] == about.text.ru" class="_attention">Добавьте перевод информации о ресторане!</p>
+											<p v-else >Редактировать перевод информации о ресторане!</p>
+										</div>
+									</button>
+									
+						</div> 
 					</div>
 					<div v-else class="main-preview__start-body start">
 							<div class="start__title _bold-light">Добро пожаловать в конструткор меню!</div>
@@ -71,13 +82,16 @@
 									:draggableRubric="draggableRubric"
 									:draggableDish="draggableDish"
 									:category="element" 
+									:locale="locale"
 									@removecategory="$emit('removecategory', element)"
 									@removerubric="$emit('removerubric', $event, element)"
 									@removedish="(dish, rubric, category) => $emit('removemydish',dish, rubric, element)"
 									ref="CategoryPreview"
-									@seeEditingRubric="$emit('seeEditingRubric', $event, element)"
+
+									@seeEditingRubric="$emit('seeEditingRubric', $event, element)"				
 									@seeMyEditingDish="(dish, rubric, category) => $emit('seeEditingDish',dish, rubric, element)"
 									@seeEditingCategory="$emit('seeEditingCategory', $event )" 
+									
 									@longtapHandlerCategory="longtapHandler"
 									@touchHandlerCategory="touchHandler"
 									@draggableTuchRubric="draggableTuchRubric"
@@ -123,6 +137,7 @@
 			<MyPanelUiMain 
 			v-if="visibleMain"
 			@openUiMain="openUiMain"
+			:categories="categories"
 			:uiMainVisible="uiMainVisible"
 			@hideUiMain="hideUiMain"
 			@seeEditingCategory="$emit('seeEditingCategory')"
@@ -177,6 +192,7 @@
 <script>
 import CategoryPreview from '@/components/SpoilersPreview/CategoryPreview.vue'
 import MyPanelUiMain from '@/components/UI/MyPanelUiMain.vue'
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 import draggable from 'vuedraggable'
 
 
@@ -199,6 +215,10 @@ props: {
 	isUserLoading: {
 		type: Boolean,
 		default: true
+	},
+	locale: {
+		type: [String, Number],
+		required: true
 	},
 	
 
@@ -223,6 +243,23 @@ components:{
 },
 expose: ['hideUiMain'],
 methods:{
+
+	...mapActions({
+			changeTranslationLabel: 'meaning/changeTranslationLabel',
+			changeTranslationText: 'meaning/changeTranslationText',
+			toggleEditingLanguage:'meaning/toggleEditingLanguage',
+		}),
+	seeEditingLanguage(event) {
+		this.toggleEditingLanguage()
+		if(event){
+			event.label = event.title 
+		}
+		console.log(event.label[this.locale])
+		console.log(event.text[this.locale])
+		this.changeTranslationLabel(event.label)
+		this.changeTranslationText(event.text)
+	},	
+
 	showPopup() {
 		this.popupVisible = true;
 	},
@@ -260,7 +297,14 @@ methods:{
   },
  
 },
-
+computed: {
+	...mapState({
+			
+			translationLabel: state => state.meaning.translationLabel,
+			translationText: state => state.meaning.translationText,
+			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
+		}),
+},
 
  mounted() {
    //  console.log(this.about) // I'm text inside the component.
@@ -297,6 +341,7 @@ margin-bottom: 15px;
 .main-preview__text {
 color: #828282;
 margin-left: 10px;
+text-align:left;
 }
 .main-preview__create {
 }
@@ -338,10 +383,7 @@ align-items: center;
 	padding:7px;
 }
 
-.main-preview__text {
-color: #828282;
-margin-left: 10px;
-}
+
 
 .main-preview__header {
 margin-bottom: 10px;
@@ -395,14 +437,20 @@ transition: all 0.3s ease 0s;
 margin-bottom: 2px;
 display:flex;
 justify-content:space-between;
+
 }
-.main-preview-categories__title {
-display: flex;
-justify-content: space-between;
-align-items: center;
-position: relative;
-transition: all 0.3s ease 0s;
+.label-block__label-wrapper{
+	display:inline
 }
+
+.label-block__label-status {
+color:#EB5757;
+margin-left: 10px;
+}
+.label-block__label-status_green {
+color:#219653;
+}
+
 .main-preview-categories__title._active{
 	color: #F78408;
 }

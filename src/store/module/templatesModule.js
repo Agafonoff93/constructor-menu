@@ -184,23 +184,9 @@ export const templatesModule = {
 						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
 					]
 				},
+			
 				{
 					value: 13,
-					name: 'ThemeBucharest',
-					url: 'bucharest',
-					label: 'Бухарест',
-					text: 'Отличный лёгкий шаблон Бухарест. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.',
-					img:'',
-					sliderImage: [
-						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
-						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
-						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
-						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
-					]
-				},
-				{
-					value: 14,
 					name: 'ThemeDubai',
 					url: 'dubai',
 					label: 'Дубай',
@@ -215,7 +201,7 @@ export const templatesModule = {
 					]
 				},
 				{
-					value: 15,
+					value: 14,
 					name: 'ThemeAthens',
 					url: 'athens',
 					label: 'Афины',
@@ -230,7 +216,7 @@ export const templatesModule = {
 					]
 				},
 				{
-					value: 16,
+					value: 15,
 					name: 'ThemeBoston',
 					url: 'boston',
 					label: 'Бостон',
@@ -245,7 +231,7 @@ export const templatesModule = {
 					]
 				},
 				{
-					value: 17,
+					value: 16,
 					name: 'ThemeKioto',
 					url: 'kioto',
 					label: 'Киото',
@@ -260,7 +246,7 @@ export const templatesModule = {
 					]
 				},
 				{
-					value: 18,
+					value: 17,
 					name: 'ThemeOslo',
 					url: 'oslo',
 					label: 'Осло',
@@ -275,7 +261,7 @@ export const templatesModule = {
 					]
 				},
 				{
-					value: 19,
+					value: 18,
 					name: 'ThemeLapland',
 					url: 'lapland',
 					label: 'Лапландия',
@@ -290,11 +276,26 @@ export const templatesModule = {
 					]
 				},
 				{
-					value: 20,
+					value: 19,
 					name: 'ThemeCairo',
 					url: 'сairo',
 					label: 'Каир',
 					text: 'Отличный лёгкий шаблон Каир. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.',
+					img:'',
+					sliderImage: [
+						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+						{ id:2, name: 'img2', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg'},
+						{ id:3, name: 'img3', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg'},
+						{ id:4, name: 'img4', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg'},
+						{ id:5, name: 'img5', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},
+					]
+				},
+				{
+					value: 20,
+					name: 'ThemeVenice',
+					url: 'venice',
+					label: 'Венеция',
+					text: 'Отличный лёгкий шаблон Венеция. Используются разборчивые шрифты, столбчатая структура. Идеально подходит для стритфуда, лавки с мороженным или модного кафе.',
 					img:'',
 					sliderImage: [
 						{ id:1, name: 'img1', img: 'http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg'},

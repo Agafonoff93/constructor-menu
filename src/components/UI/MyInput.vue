@@ -9,7 +9,7 @@
 	:placeholder="placeholder"
 	v-bind="$attrs"
 	>
-	<!-- <div class="box-input__input-meaning">{{ meaning }}</div> -->
+	
 	<span class="box-input__counter-text counter-text counter-text_align">
 		{{ meaning }}
 	</span>
@@ -21,9 +21,9 @@
 export default {
 	name: 'my-input',
 	props: {
-		modelValue: [String, Number],
+		modelValue: [String, Number,Array,Object],
 		limit: Number,
-		meaning:  [String, Number],
+		meaning:  [String, Number,Array,Object],
 		placeholder:[String, Number],
 	},
 	methods: {
@@ -31,6 +31,9 @@ export default {
 			this.$emit('update:modelValue', event.target.value)
 		},
 		
+	},
+	mounted(){
+		console.log(this.meaning)
 	}
 }
 </script>

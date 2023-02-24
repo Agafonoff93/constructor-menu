@@ -12,13 +12,13 @@
 							<my-input 							
 							type="text" 
 							placeholder="Название категории"
-							v-model="category.label"
+							v-model="category.label.ru"
 							:limit="100"
 							/>
 							<div class="box-input__wrapper">
 								<my-textarea 
 								
-								v-model="category.text"
+								v-model="category.text.ru"
 								:limit="1200"
 								></my-textarea>
 								
@@ -61,8 +61,12 @@ export default {
 	data() {
 		return {
 			category: {
-				label:'',
-				text:'',
+				label: {
+					ru: '',
+					},
+					text: {
+					ru: '',
+					},
 				value: null,
 				rubrics:[],
 			},
@@ -78,8 +82,12 @@ export default {
 				}	
 				this.$emit('create', this.category, 'second param', '3 param')
 				this.category = {
-					label: '',
-					text: '',
+					label: {
+						ru: '',
+						},
+						text: {
+						ru: '',
+					},
 					rubrics:[],
 				}
 				this.$emit('hideCategory')

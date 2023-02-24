@@ -3,7 +3,8 @@
 						<button  
 							class="ui__button-orange" 							
 						>
-						<slot></slot></button>
+						<slot></slot>
+					</button>
 		</div>
 </template>
 
@@ -13,9 +14,13 @@ export default {
 }
 </script>
 
-<style>
+<style csoped>
+.ui__wrapper {
+	pointer-events:none;
+}
 
 .ui__button-orange {
+	pointer-events: all;
   background: #F78408;
   border-radius: 30px;
   font-weight: 500;

@@ -150,7 +150,7 @@ body._lock {
   max-width: 150px;
 }
 .version {
-  text-align: right;
+  /* text-align: right; */
 }
 .version__label {
   font-weight: 500;
@@ -684,7 +684,7 @@ opacity:1;
 	 flex: 1 1 100%;
     display: flex;
     align-items: flex-end;
-	
+	 
 }
 
 </style>

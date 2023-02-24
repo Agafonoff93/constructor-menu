@@ -40,6 +40,11 @@ export default {
 		counter() {
 			return `${this.modelValue.length}/${this.limit}`
 		}
+	},
+
+	mounted(){
+		
+		console.log(this.modelValue)
 	}
 }
 </script>

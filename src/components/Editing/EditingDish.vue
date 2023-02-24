@@ -30,14 +30,14 @@
 							<my-input 							
 							type="text" 
 							placeholder="Название блюда"
-							v-model="dish.label"
+							v-model="dish.label.ru"
 							:limit="100"
 							
 							/>
 							<div class="box-input__wrapper">
 								<my-textarea 
 								placeholder="Описание/состав"
-								v-model="dish.text"
+								v-model="dish.text.ru"
 								:limit="1200"
 								></my-textarea>
 								
@@ -75,8 +75,7 @@
 					
 
 					<button-orange 
-					@click="createdish"
-				
+					@click="createdish"				
 					>
 					Сохранить
 					</button-orange>
@@ -121,8 +120,12 @@ export default {
 	data() {
 		return {
 			dish: {
-				label:'',
-				text:'',
+				label: {
+					ru: '',
+					},
+					text: {
+					ru: '',
+					},
 				price: '',
 				weight: '',
 				img:'',
@@ -164,8 +167,12 @@ export default {
 						this.$emit('createdish', this.dish, this.formlabel_id, this.formlabel_rubric_id)
 						this.dish = {
 							value: Date.now(),
-							label: '',
-							text: '',
+							label: {
+								ru: '',
+								},
+								text: {
+								ru: '',
+								},
 							price:'',
 							weight:'',
 							sliderImage:[]

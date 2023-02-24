@@ -40,7 +40,7 @@
 				 <ListboxOption
 					v-slot="{ active, selected }"
 					v-for="option in props.options"
-					:key="option.label"
+					:key="option.label.ru"
 					:value="option.value"
 					as="template"
 				 >
@@ -55,7 +55,7 @@
 							selected ? 'select__option-selected' : 'select__option-normal',
 							'block truncate',
 						 ]"
-						 >{{ option.label }}</span
+						 >{{ option.label.ru }}</span
 					  >
 					
 					</li>
@@ -108,7 +108,7 @@ const label = computed(()=> {
 			}
 
 			return props.modelValue === option.value;
-		}).map(option => option.label).join(', ');
+		}).map(option => option.label.ru).join(', ');
 	}
 })
 

@@ -1,7 +1,7 @@
 <template>
 	<div class="select-lang__wrapper">
 		<Listbox  v-model="selectedLang">
-			<div @click="showPopupAdd" class="select-lang__title"><ListboxButton >
+			<div  class="select-lang__title"><ListboxButton>
 				<span v-if="selectedLang">{{ selectedLang.name }}</span>
 				<span v-else>RU</span>
 			</ListboxButton></div>
@@ -16,9 +16,10 @@
 					:value="lang"
 					v-slot="{ selected }"
 					class="select-lang__option"		
-					v-touch:longtap="() => longtapRemoveLang(lang)"
+					
 				>
-				     <img v-bind:src="(`${lang.img}`)" alt="lang-icon">
+				     <img v-bind:src="lang.img" alt="lang-icon">
+					  
 					  <span
 					  :class="[ {_active: selected}, ]"
 						 >{{ lang.name }}</span
@@ -27,74 +28,12 @@
 				</ListboxOption>
 				
 				
-				<MySelectAddLang
-				:langListReserve="langListReserve"
-				@addLangList="addLangItem" 
-				/>
+				
 	
 				</ListboxOptions>
 			</transition>
 			
 		</Listbox>
-		<transition name="popup-transition">
-		<my-popup 
-		
-			v-model:show="popupVisible"
-			>
-			<div class="popup__title">
-				Удаление языковой версии
-				</div>
-				<div class="popup__text">
-					Вы уверены, что хотите удалить языковую версию меню для языка 
-					<span class="_bold-light">“{{ langName.name }} ({{ langName.value }})”</span>? Отменить это действие будет невозможно.
-					
-					
-				
-				</div>
-				<div class="popup__buttons">
-					<button 
-					class="popup__cancel"
-					@click="hidePopup"
-					>
-						Отменить
-					</button>
-					<button 
-					@click="removeLangItem" 
-				
-					class="popup__agree"
-					>
-						Да, удалить
-					</button>
-				
-				</div>
-				
-	 </my-popup>
-
-	</transition>
-
-	<transition name="popup-transition">
-		<my-popup-hint 
-	 v-model:show="popupVisibleAdd"
-	 >
-			
-				<div class="popup__text">
-					<p>Чтобы добавить новую языковую версию меню, нажмите на “Плюс” и выберите нужный язык.</p> 
-					<p>Чтобы удалить существующую версию меню, зажмите нужную версию.</p>
-				</div>
-				<div class="popup__buttons">
-				
-					<button 
-					@click="hidePopup"
-				
-					class="popup__agree popup__agree_green"
-					>
-						Понятно!
-					</button>
-				
-				</div>
-				
-	 </my-popup-hint>
-	</transition>
  	</div>
  </template>
  
@@ -124,7 +63,6 @@ const emit = defineEmits(['removeLanguage', 'selectedLangChanged']);
 
 const selectedLang = ref(props.langList[0])
 const popupVisible = ref(false);
-const popupVisibleAdd = ref(false);
 const langName = ref();
 
 // const thisOption = ref()
@@ -146,12 +84,8 @@ watch(selectedLang, (newValue, oldValue) => {
 function showPopup() {
 	popupVisible.value = true;
 }
-function showPopupAdd() {
-	popupVisibleAdd.value = true;
-}
 function hidePopup() {
 	popupVisible.value = false;	
-	popupVisibleAdd.value = false;	
 }
 
 function longtapRemoveLang(lang) {
@@ -402,12 +336,6 @@ font-size: 14px;
 line-height: 17px;
 text-align: right;
 color: #EB5757;
-
-}
-
-.popup__agree_green {
-
-color: #219653;
 
 }
 

@@ -21,7 +21,41 @@
 									<img v-bind:src="(`${about.img}`)" alt="logo">
 								</div>
 							</div>
-						
+							<div class="select-lang__wrapper select">
+									<Listbox v-slot="{ open }"  v-model="selectedLang">
+										<div  class="select__title"><ListboxButton class="select__item">
+											<div :class="{'_active': open }" class="select__value _icon-arrow-down">
+												<span v-if="selectedLang"><img v-bind:src="(`${ selectedLang.img}`)" alt="lang-icon">{{ selectedLang.name }}</span>
+										   	<span  v-else>RU</span>
+											</div>
+											
+										</ListboxButton></div>
+										<transition
+										name="ui"
+										>
+									
+										<ListboxOptions  class="select__options">
+											<ListboxOption
+												v-for="lang in langList"
+												:key="lang.id"
+												:value="lang"
+												v-slot="{ selected }"
+												class="select__option"		
+												
+											>
+												<div class="select__option-wrapper" :class=" {'_hidden': selected}">
+													<img v-bind:src="(`${lang.img}`)" alt="lang-icon">
+													<span
+													:class=" {'_hidden': selected}"
+														>{{ lang.name }}</span
+													>
+												</div>	
+											</ListboxOption>
+										</ListboxOptions>
+										</transition>
+										
+									</Listbox>
+								</div>	
 						<Disclosure 
 						as="div"
 						v-slot="{ open }"
@@ -29,7 +63,7 @@
 						:key="category.value"
 						class="menu__item">
 									<DisclosureButton as="button" :class="{'_active': open }" class="menu__link category__title _icon-arrow-down" 
-										type="button">{{ category.label}}</DisclosureButton>
+										type="button">{{ category.label[locale]}}</DisclosureButton>
 										<transition name="menu-item">
 									<DisclosurePanel as="ul" class="menu__sub-list">
 										<MenuItem  as="li"
@@ -43,7 +77,7 @@
 											:href="(`#rubric_${category.value}`+`${rubric.value}`)"
 											class="menu__sub-link rup__title "
 											@click="close"
-											>{{ rubric.label }}</a>
+											>{{ rubric.label[locale] }}</a>
 										</MenuItem>
 										
 
@@ -60,8 +94,8 @@
 			
 				</div>
 				<div class="header__bottom">
-					<div class="header__title">{{about.title}}</div>
-					<div class="header__text">{{about.text}}</div>
+					<div class="header__title">{{about.title[locale]}}</div>
+					<div class="header__text">{{about.text[locale]}}</div>
 				</div>
 			</div>
 		</header>
@@ -74,8 +108,8 @@
 				:key="category.value"
 				>
 					<div class="category__header-block">
-						<div  class="category__title">{{ category.label }}</div>
-						<div class="category__text">{{ category.text }}</div>
+						<div  class="category__title">{{ category.label[locale] }}</div>
+						<div class="category__text">{{ category.text[locale] }}</div>
 					</div>
 					<div 
 					class="category__body rup"
@@ -83,8 +117,8 @@
 					:key="rubric.value"
 					>
 						<div :id="(`rubric_${category.value}`+`${rubric.value}`)" class="rup__header-block">
-							<div  class="rup__title rup__title_cold-snacks">{{ rubric.label }}</div>
-							<div class="rup__text">{{ rubric.text }}</div>
+							<div  class="rup__title rup__title_cold-snacks">{{ rubric.label[locale] }}</div>
+							<div class="rup__text">{{ rubric.text[locale] }}</div>
 							<div 
 							v-if="rubric.img.length != 0"
 							class="rup__image _ibg">
@@ -97,8 +131,8 @@
 							v-for="dish in rubric.dishs"
 							:key="dish.value"
 							>
-								<div class="item__title">{{ dish.label }}</div>
-								<div class="item__text">{{ dish.text }}</div>
+								<div class="item__title">{{ dish.label[locale] }}</div>
+								<div class="item__text">{{ dish.text[locale] }}</div>
 								<div class="item__info">
 									<div class="item__price">{{ dish.price }}</div>
 									<div class="item__weight">{{ dish.weight }}</div>
@@ -160,7 +194,7 @@
 <script setup>
   import { Menu, MenuButton, MenuItems, MenuItem, 
 	Disclosure, DisclosureButton, DisclosurePanel, 
-	} from '@headlessui/vue'
+	Listbox, ListboxButton, ListboxOptions, ListboxOption  } from '@headlessui/vue'
 	
 </script>
 
@@ -186,42 +220,53 @@ export default {
   data() {
 	return {
 		unLock: false,
+		locale:'ru',
+		selectedLang: null,
 	}
   },
-  setup() {
-		
-	  },
+  
   methods: {
-	...mapMutations({
-
-	}),
 	...mapActions({
 		fetchUser: 'user/fetchUser',
-		testUser:'user/testUser'
+		fetchCategories: 'user/fetchCategories',
+		fetchLangList: 'user/fetchLangList',
 	}),
-	
- 
-	
   },
   computed: {
 	...mapState({
-		isUserLoading: state => state.user.isUserLoading,
 		about: state => state.user.about,
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
-      langListReserve: state => state.user.langListReserve, 
-		themes: state => state.templates.themes
-	}),
-	...mapGetters({
-
 	}),
 	swiper() {
 			return this.$refs.mySwiper.$swiper;
 		},
-	
+	updatedSelectedLang: function () {
+	// возвращаем первый элемент из langList
+	return this.langList[0]
+    }
   },
+
+  watch: {
+	selectedLang(newValue, oldValue) {
+		// передаем значение в родительский компонент
+		console.log(newValue)
+		this.locale = newValue.name
+		console.log(this.locale)
+	},
+		// watcher для langList
+		langList: function () {
+			// обновляем значение selectedLang при изменении langList
+			this.selectedLang = this.updatedSelectedLang
+		}
+	},
+	
+  
   mounted() {
-	  this.fetchUser()
+	this.fetchCategories()	
+	this.fetchUser()
+	this.fetchLangList()
+	this.selectedLang = this.updatedSelectedLang
 	  console.log(this.about.img.length)
 	  document.body.classList.add('bg-light')
 
@@ -870,12 +915,12 @@ a.menu__sub-link {
 	margin-bottom: 40px;
  }
  .select__item {
-	position: relative;
- }
+	width:100% ;
+}
  .select__title {
 	color: inherit;
 	border: none;
-	background-color: transparent;
+	background: transparent;
 	cursor: pointer;
 	border-radius: 4px;
  }
@@ -892,6 +937,7 @@ a.menu__sub-link {
 	padding: 0px 0px;
 	align-items: center;
 	justify-content: space-between;
+	text-transform: uppercase;
  }
  .select__value span {
 	display: flex;
@@ -900,11 +946,7 @@ a.menu__sub-link {
 	overflow: hidden;
  }
 
- .select__input {
-	width: 100%;
-	background-color: transparent;
-	height: 100%;
- }
+ 
  .select__options {
 	color: #000;
 	position: relative;
@@ -912,31 +954,15 @@ a.menu__sub-link {
 	border-radius: 0 0 4px 4px;
 	min-width: 100%;
 	left: 0;
-	border-top: 0;
+		border-top: 0;
 	font-size: 14px;
 	border: none;
 	z-index: 100;
 	overflow: hidden;
- }
+	background: transparent;
+}
  
- .options {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
- }
- .options__item {
-	position: relative;
-	cursor: pointer;
- }
- .options__input {
-	position: absolute;
-	width: 0;
-	height: 0;
-	opacity: 0;
-	left: 0;
-	top: 0;
-	visibility: hidden;
- }
+
 
 .select__value img {
 	margin-right: 10px;
@@ -958,9 +984,17 @@ a.menu__sub-link {
 	font-weight: 400;
 	font-size: 12px;
 	cursor: pointer;
-	padding: 8px  0px 0px 0px;
-	margin: 8px 0px 0px 0px;
 	font-family: 'GlorySPU';
+	margin: 0px 0px 0px 0px;
+	background: transparent;
+	text-transform: uppercase;
+}
+
+.select__option-wrapper._hidden {
+	display: none;
+}
+.select__option-wrapper {
+	padding: 8px 0px 0px 0px;
 }
 .select__option img {
 	margin-right: 10px;

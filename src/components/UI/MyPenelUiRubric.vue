@@ -25,6 +25,9 @@
 							<span>Добавить блюдо</span>
 						</button>
 						<div class="buttons-panel__editing">
+							<button @click="seeEditingLanguage(rubric)" class="buttons-panel__сorrect buttons-panel__сorrect_tr">
+								[Tr]
+							</button>
 							<button 
 							@click="seeEditingRubric"
 							class="buttons-panel__сorrect">
@@ -56,7 +59,7 @@
 					Удаление рубрики
 				</div>
 				<div class="popup__text">
-					Вы уверены, что хотите удалить рубрику <span class="_bold-light">“{{ rubric.label }}”</span> из категории “{{ category.label }}”? <span v-if="rubric.dishs.length != 0"> Вместе с ней будут удалены все блюда ({{rubric.dishs.length}}).</span> 
+					Вы уверены, что хотите удалить рубрику <span class="_bold-light">“{{ rubric.label.ru }}”</span> из категории “{{ category.label.ru }}”? <span v-if="rubric.dishs.length != 0"> Вместе с ней будут удалены все блюда ({{rubric.dishs.length}}).</span> 
 				
 				</div>
 				<div class="popup__buttons">
@@ -81,6 +84,8 @@
 </template>
 
 <script>
+
+import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
 
 export default {
   props:{
@@ -113,6 +118,18 @@ export default {
   emits: ['removerubric','seeEditingDish','seeEditingRubric'],
 	methods: {
 	
+		...mapActions({
+			changeTranslationLabel: 'meaning/changeTranslationLabel',
+			changeTranslationText: 'meaning/changeTranslationText',
+			toggleEditingLanguage:'meaning/toggleEditingLanguage',
+		}),
+	seeEditingLanguage(event) {
+		this.toggleEditingLanguage()
+		console.log(event.label[this.locale])
+		console.log(event.text[this.locale])
+		this.changeTranslationLabel(event.label)
+		this.changeTranslationText(event.text)
+	},	
 	showPopup() {
 		this.popupVisible = true;
 	},
@@ -138,6 +155,14 @@ export default {
 		this.popupVisible = false;	
 		},
   },
+  computed:{
+	...mapState({
+			
+			translationLabel: state => state.meaning.translationLabel,
+			translationText: state => state.meaning.translationText,
+			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
+		}),
+  }
 }
 </script>
 
@@ -264,10 +289,15 @@ export default {
 }
 .buttons-panel__editing {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 }
 .buttons-panel__сorrect {
   margin-right: 22px;
+}
+.buttons-panel__сorrect_tr{
+	font-weight: 500;
+	color: #707070;
+  font-size: 16px;
 }
 .buttons-panel__сorrect-btn {
   display: flex;

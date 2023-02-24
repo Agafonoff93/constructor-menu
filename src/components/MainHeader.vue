@@ -19,7 +19,7 @@
 						
 						:langList="langList"
 						:langListReserve="langListReserve"
-						
+						@selectedLangChanged="$emit('selectedLangChanged',$event)"
 					
 						/>
 				</div>
@@ -50,6 +50,9 @@ export default {
 	// 	type:  [Number, String],
 	// 	required: true
 	// },
+},
+methods: {
+	
 },
 components: {
 	MySelectLang,
