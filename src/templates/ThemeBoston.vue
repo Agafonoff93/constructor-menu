@@ -228,7 +228,7 @@ export default {
 	  },
   methods: {
 	...mapActions({
-		fetchUser: 'user/fetchUser',
+		fetchAbout: 'user/fetchAbout',
 		fetchCategories: 'user/fetchCategories',
 		fetchLangList: 'user/fetchLangList',
 	}),
@@ -265,7 +265,7 @@ export default {
   
   mounted() {
 	this.fetchCategories()	
-	this.fetchUser()
+	this.fetchAbout()
 	this.fetchLangList()
 	this.selectedLang = this.updatedSelectedLang
 	  console.log(this.about.img.length)

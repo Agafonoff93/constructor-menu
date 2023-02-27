@@ -185,6 +185,28 @@
 							
 				   </my-popup>
 				</transition>
+			<transition name="popup-transition">
+					<my-popup-hint 
+						
+						v-model:show="popupHowDraggable"
+						>
+						<div class="popup__text">
+							<p>Вы можете менять категории, рубрики и блюда местами! Для этого зажмите необходимый элемент и, после того, как он будет выделен, перетащите в нужное место.</p> 
+						
+						</div>
+						<div class="popup__buttons">
+						
+							<button 
+							@click="hidePopup"
+						
+							class="popup__agree popup__agree_green"
+							>
+								Понятно!
+							</button>
+						
+						</div>
+				   </my-popup-hint>
+				</transition>
 		</div>
 	</div>
 </template>
@@ -232,6 +254,7 @@ data() {
 		draggableDish: false,
 		enabled: false,
 		popupVisible: false,
+		popupHowDraggable: false,
 	}
 },
 
@@ -248,6 +271,8 @@ methods:{
 			changeTranslationLabel: 'meaning/changeTranslationLabel',
 			changeTranslationText: 'meaning/changeTranslationText',
 			toggleEditingLanguage:'meaning/toggleEditingLanguage',
+			fetchUser: 'user/fetchUser',
+			editUserSecondContent: 'user/editUserSecondContent',
 		}),
 	seeEditingLanguage(event) {
 		this.toggleEditingLanguage()
@@ -265,12 +290,14 @@ methods:{
 	},
 	hidePopup() {
 		this.popupVisible = false;	
+		this.popupHowDraggable = false;
 	},
    seeEditingAbout() {
 		this.$emit('seeAbout')
 	},
 	openUiMain(){
 	this.uiMainVisible = true
+	
   },
   hideUiMain(){
 	this.uiMainVisible = false
@@ -299,14 +326,53 @@ methods:{
 },
 computed: {
 	...mapState({
-			
+	    	user: state => state.user.user,
 			translationLabel: state => state.meaning.translationLabel,
 			translationText: state => state.meaning.translationText,
 			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
 		}),
+		shouldShowPopup() {
+      // логика, которая определяет, нужно ли показывать подсказку
+      // в данном случае мы показываем подсказку, если количество категорий, рубрик или блюд больше 1
+		let test 
+		let categoriesItem = this.categories.length
+		let rubricsItem = this.categories[0].rubrics.length
+		let dishsItem = this.categories[0].rubrics[0].dishs.length
+		console.log(categoriesItem)
+		console.log(rubricsItem)
+		console.log(dishsItem)
+
+			if(categoriesItem  > 1 && this.user.issecondContentUser == false){
+				test = true
+			}else if( rubricsItem  > 1 && this.user.issecondContentUser == false){
+				test = true
+			}else if( dishsItem  > 1 && this.user.issecondContentUser == false){
+				test = true
+			}else{
+				test = false
+			}
+		
+			return test
+		}
+},
+watch: {
+	categories: {
+      handler: function() {
+        this.popupHowDraggable = this.shouldShowPopup;
+		  console.log(this.popupHowDraggable)
+		  
+		  if(this.popupHowDraggable){
+			this.editUserSecondContent(true)
+			console.log('ЩАА OFF DO NT')
+      
+		  }
+      },
+      deep: true
+    },
 },
 
  mounted() {
+	
    //  console.log(this.about) // I'm text inside the component.
 	//  console.log('категории', category)
 	//  console.log('категории', this.category)
@@ -322,6 +388,10 @@ computed: {
 
 
 </script>
+
+
+
+
 
 <style>
 .main-preview__body {

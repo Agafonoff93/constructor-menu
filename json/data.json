@@ -68,180 +68,8 @@
               ]
             }
           ]
-        },
-        {
-          "value": 2,
-          "label": {
-            "ru": "Закуски"
-          },
-          "text": {
-            "ru": "Закуски вкусные и сытные разбавят ожидания блюда"
-          },
-          "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg",
-          "dishs": []
-        },
-        {
-          "value": 3,
-          "label": {
-            "ru": "Коктели"
-          },
-          "text": {
-            "ru": "Освежающий апепель shpritz и много всего"
-          },
-          "img": "",
-          "dishs": []
         }
       ]
-    },
-    {
-      "value": 2,
-      "label": {
-        "ru": "Итальянская кухня"
-      },
-      "text": {
-        "ru": "Вкусы италии вкусы италии вкусы италии"
-      },
-      "rubrics": [
-        {
-          "value": 1,
-          "label": {
-            "ru": "Пицца"
-          },
-          "text": {
-            "ru": "Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан"
-          },
-          "img": "",
-          "dishs": [
-            {
-              "value": 1,
-              "label": {
-                "ru": "Пицца 4ре сыра"
-              },
-              "text": {
-                "ru": "сыр, Помидоры, Куриное филе,4ре сыра"
-              },
-              "price": "549 руб",
-              "weight": "300 г",
-              "img": "",
-              "sliderImage": [
-                {
-                  "id": 1,
-                  "name": "img1",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
-                },
-                {
-                  "id": 2,
-                  "name": "img2",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
-                },
-                {
-                  "id": 3,
-                  "name": "img3",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
-                },
-                {
-                  "id": 4,
-                  "name": "img4",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
-                },
-                {
-                  "id": 5,
-                  "name": "img5",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg"
-                }
-              ]
-            },
-            {
-              "value": 2,
-              "label": {
-                "ru": "Пицца Тайская"
-              },
-              "text": {
-                "ru": "Салат, Ананасы, Куриное филе,нет 4ре сыра"
-              },
-              "price": "559 руб",
-              "weight": "330 г",
-              "img": "",
-              "sliderImage": [
-                {
-                  "id": 1,
-                  "name": "img1",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
-                },
-                {
-                  "id": 2,
-                  "name": "img2",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
-                },
-                {
-                  "id": 3,
-                  "name": "img3",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
-                },
-                {
-                  "id": 4,
-                  "name": "img4",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
-                },
-                {
-                  "id": 5,
-                  "name": "img5",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
-                }
-              ]
-            },
-            {
-              "value": 3,
-              "label": {
-                "ru": "Пицца Капричеза"
-              },
-              "text": {
-                "ru": "Грибы и сыр"
-              },
-              "price": "559 руб",
-              "weight": "330 г",
-              "img": "",
-              "sliderImage": [
-                {
-                  "id": 1,
-                  "name": "img1",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
-                },
-                {
-                  "id": 2,
-                  "name": "img2",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
-                },
-                {
-                  "id": 3,
-                  "name": "img3",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
-                },
-                {
-                  "id": 4,
-                  "name": "img4",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
-                },
-                {
-                  "id": 5,
-                  "name": "img5",
-                  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "value": 3,
-      "label": {
-        "ru": "Русская кухня"
-      },
-      "text": {
-        "ru": "Богатый вкус все блюда вкус все блюда"
-      },
-      "rubrics": []
     }
   ],
   "langList": [
@@ -258,7 +86,9 @@
       "value": "English",
       "img": "/icon-lang/united-kingdom_1.png",
       "unavailable": false
-    },
+    }
+  ],
+  "langListReserve": [
     {
       "id": 3,
       "name": "fr",
@@ -274,19 +104,17 @@
       "unavailable": false
     },
     {
-      "id": 6,
-      "name": "sp",
-      "value": "Spain",
-      "img": "/icon-lang/spain_1.png",
-      "unavailable": false
-    }
-  ],
-  "langListReserve": [
-    {
       "id": 5,
       "name": "it",
       "value": "Italy",
       "img": "/icon-lang/italy_1.png",
+      "unavailable": false
+    },
+    {
+      "id": 6,
+      "name": "sp",
+      "value": "Spain",
+      "img": "/icon-lang/spain_1.png",
       "unavailable": false
     },
     {
@@ -324,5 +152,10 @@
       "img": "/icon-lang/turkey_1.png",
       "unavailable": false
     }
-  ]
+  ],
+  "user": {
+    "id": 1,
+    "isfirsttimeUser": true,
+    "issecondContentUser": true
+  }
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="select-lang__wrapper">
 		<Listbox  v-model="selectedLang">
-			<div  class="select-lang__title"><ListboxButton >
+			<div @click="showPopupAdd" class="select-lang__title"><ListboxButton >
 				<span v-if="selectedLang">{{ selectedLang.name }}</span>
 				<span v-else>RU</span>
 			</ListboxButton></div>
@@ -34,7 +34,29 @@
 	
 				</ListboxOptions>
 			</transition>
+			<transition name="popup-transition">
+		<my-popup-hint 
+	 v-model:show="popupVisibleAdd"
+	 >
 			
+				<div class="popup__text">
+					<p>Чтобы добавить новую языковую версию меню, нажмите на “Плюс” и выберите нужный язык.</p> 
+					<p>Чтобы удалить существующую версию меню, зажмите нужную версию.</p>
+				</div>
+				<div class="popup__buttons">
+				
+					<button 
+					@click="hidePopup"
+				
+					class="popup__agree popup__agree_green"
+					>
+						Понятно!
+					</button>
+				
+				</div>
+				
+	 </my-popup-hint>
+	</transition>
 		</Listbox>
 		<transition name="popup-transition">
 		<my-popup 
@@ -72,29 +94,7 @@
 
 	</transition>
 
-	<transition name="popup-transition">
-		<my-popup-hint 
-	 v-model:show="popupVisibleAdd"
-	 >
-			
-				<div class="popup__text">
-					<p>Чтобы добавить новую языковую версию меню, нажмите на “Плюс” и выберите нужный язык.</p> 
-					<p>Чтобы удалить существующую версию меню, зажмите нужную версию.</p>
-				</div>
-				<div class="popup__buttons">
-				
-					<button 
-					@click="hidePopup"
-				
-					class="popup__agree popup__agree_green"
-					>
-						Понятно!
-					</button>
-				
-				</div>
-				
-	 </my-popup-hint>
-	</transition>
+
  	</div>
  </template>
  
@@ -109,15 +109,16 @@ import {
 } from '@headlessui/vue'
 
 import MySelectAddLang from '@/components/UI/MySelectAddLang.vue'
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-import { useStore } from 'vuex';
+import {  useStore ,mapState, mapGetters, mapActions, mapMutations } from 'vuex'
+
 
 const props = defineProps({
   langList: Array,
   modelValue: [String, Number, Array],
   langListReserve: Array,
   languageId: [Number, String],
-
+  user: [Object],
+	
 })
 
 const emit = defineEmits(['removeLanguage', 'selectedLangChanged']);
@@ -136,6 +137,7 @@ const store = useStore();
 
 
 
+
 // слушаем изменения selectedLang
 watch(selectedLang, (newValue, oldValue) => {
   // передаем значение в родительский компонент
@@ -147,7 +149,16 @@ function showPopup() {
 	popupVisible.value = true;
 }
 function showPopupAdd() {
-	popupVisibleAdd.value = true;
+	console.log(props.user)
+	let userFirst = props.user.isfirsttimeUser
+	if(userFirst == false){
+		console.log('первый клик')
+		popupVisibleAdd.value = true;
+		store.dispatch('user/editUser', true);
+	}else{
+		console.log('уже был клик')
+	}
+	
 }
 function hidePopup() {
 	popupVisible.value = false;	

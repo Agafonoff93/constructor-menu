@@ -80,7 +80,7 @@ export default {
 
   methods: {
 	...mapActions({
-		fetchUser: 'user/fetchUser',
+		fetchAbout: 'user/fetchAbout',
 		addUrl:'user/addUrl'
 	}),
 	changeUrl() {

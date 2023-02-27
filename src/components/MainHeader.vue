@@ -16,7 +16,7 @@
 				<div class="version__label">Версия меню:</div>
 				<div  	 class="version__lang select-lang">				
 						<MySelectLang		
-						
+						:user="user"
 						:langList="langList"
 						:langListReserve="langListReserve"
 						@selectedLangChanged="$emit('selectedLangChanged',$event)"
@@ -44,6 +44,10 @@ export default {
 	},
 	langListReserve: {
 		type: Array,
+		required: true
+	},
+	user: {
+		type: Object,
 		required: true
 	},
 	// languageId: {

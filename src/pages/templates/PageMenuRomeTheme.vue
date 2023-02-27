@@ -65,7 +65,7 @@ export default {
 
   methods: {
 	...mapActions({
-		fetchUser: 'user/fetchUser',
+		fetchAbout: 'user/fetchAbout',
 		addUrl:'user/addUrl'
 	}),
 	showPopup(){
@@ -90,7 +90,7 @@ computed: {
 	})
   },
   mounted() {
-	this.fetchUser()
+	this.fetchAbout()
 
   }
 

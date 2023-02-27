@@ -1,202 +1,335 @@
 {
-	"user": 
-		{
-	  "id": 1,
-	  "userId": 1,
-	  "name": "Evgeniy",
-	  "project": {
-			"title": "Меню ресторана",
-			"about": {
-				"title": "Леон",
-				"text": "Самый лучший ресторан в мире",
-				"img": "https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png"
+	"about": {
+	  "title": {
+		 "ru": "Леон"
+	  },
+	  "text": {
+		 "ru": "Самый лучший ресторан в мире"
+	  },
+	  "img": "https://www.evgeniywebdev.com/template_for_menu/img/logo-example.png"
+	},
+	"categories": [
+	  {
+		 "value": 1,
+		 "label": {
+			"ru": "Специальное предложение"
+		 },
+		 "text": {
+			"ru": "Блюда недели, выгодные предложения и акции!"
+		 },
+		 "rubrics": [
+			{
+			  "value": 1,
+			  "label": {
+				 "ru": "Салаты"
+			  },
+			  "text": {
+				 "ru": "Летние и горячие салаты из солнечной Италии."
+			  },
+			  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg",
+			  "dishs": [
+				 {
+					"value": 1,
+					"label": {
+					  "ru": "Цезарь"
+					},
+					"text": {
+					  "ru": "Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан"
+					},
+					"price": "359 руб",
+					"weight": "350 г",
+					"img": "",
+					"sliderImage": [
+					  {
+						 "id": 1,
+						 "name": "img1",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  },
+					  {
+						 "id": 2,
+						 "name": "img2",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
+					  },
+					  {
+						 "id": 3,
+						 "name": "img3",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
+					  },
+					  {
+						 "id": 4,
+						 "name": "img4",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
+					  },
+					  {
+						 "id": 5,
+						 "name": "img5",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  }
+					]
+				 }
+			  ]
 			},
-			"categories": [
-				{
-				"value": 1,
-				"label": "Специальное предложение",
-				"text": "Блюда недели, выгодные предложения и акции!",
-				"rubrics": [
-					{
-						"value": 1,
-						"label": "Салаты",
-						"text": "Летние и горячие салаты из солнечной Италии.",
-						"img":"http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg",
-						"dishs":[
-							{
-								"value": 1,
-								"label": "Цезарь",
-								"text": "Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан",
-								"price":"359",
-								"weight": "350",
-								"img":"",
-								"sliderImage": [
-									{ "id":1, "name": "img1", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"},
-									{ "id":2, "name": "img2", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"},
-									{ "id":3, "name": "img3", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"},
-									{ "id":4, "name": "img4", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"},
-									{ "id":5, "name": "img5", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"}
-								]
-							}
-						]
+			{
+			  "value": 2,
+			  "label": {
+				 "ru": "Закуски"
+			  },
+			  "text": {
+				 "ru": "Закуски вкусные и сытные разбавят ожидания блюда"
+			  },
+			  "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg",
+			  "dishs": []
+			},
+			{
+			  "value": 3,
+			  "label": {
+				 "ru": "Коктели"
+			  },
+			  "text": {
+				 "ru": "Освежающий апепель shpritz и много всего"
+			  },
+			  "img": "",
+			  "dishs": []
+			}
+		 ]
+	  },
+	  {
+		 "value": 2,
+		 "label": {
+			"ru": "Итальянская кухня"
+		 },
+		 "text": {
+			"ru": "Вкусы италии вкусы италии вкусы италии"
+		 },
+		 "rubrics": [
+			{
+			  "value": 1,
+			  "label": {
+				 "ru": "Пицца"
+			  },
+			  "text": {
+				 "ru": "Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан"
+			  },
+			  "img": "",
+			  "dishs": [
+				 {
+					"value": 1,
+					"label": {
+					  "ru": "Пицца 4ре сыра"
 					},
-
-					{
-						"value": 2,
-						"label": "Закуски",
-						"text": "Закуски вкусные и сытные разбавят ожидания блюда",
-						"img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg",
-						"dishs":[]
+					"text": {
+					  "ru": "сыр, Помидоры, Куриное филе,4ре сыра"
 					},
-					{
-						"value": 3,
-						"label": "Коктели",
-						"text": "Освежающий апепель shpritz и много всего",
-						"img": "",
-						"dishs":[]
-					}
-				]
-				},
-				{
-				"value":  2,
-				"label": "Итальянская кухня",
-				"text": "Вкусы италии вкусы италии вкусы италии",
-				"rubrics":[
-					{
-						"value": 1,
-						"label": "Пицца",
-						"text": "Зелёный салат, Помидоры, Куриное филе, Белый хлеб, Соус “Цезарь”, Сливочное масло, Чеснок, Сыр Пармезан",
-						"img":"",
-						"dishs":[
-							{
-								"value": 1,
-								"label": "Пицца 4ре сыра",
-								"text": "сыр, Помидоры, Куриное филе,4ре сыра",
-								"price":"549",
-								"weight": "300",
-								"img":"",
-								"sliderImage": [
-									{ "id":1, "name": "img1", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"},
-									{ "id":2, "name": "img2", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"},
-									{ "id":3, "name": "img3", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"},
-									{ "id":4, "name": "img4", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"},
-									{ "id":5, "name": "img5", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg"}
-								]
-							},
-							{
-								"value": 2,
-								"label": "Пицца Тайская",
-								"text": "Салат, Ананасы, Куриное филе,нет 4ре сыра",
-								"price":"559",
-								"weight": "330",
-								"img":"",
-								"sliderImage": [
-									{ "id":1, "name": "img1", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"},
-									{ "id":2, "name": "img2", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"},
-									{ "id":3, "name": "img3", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"},
-									{ "id":4, "name": "img4", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"},
-									{ "id":5, "name": "img5", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"}
-								]
-							},
-							{
-								"value": 3,
-								"label": "Пицца Капричеза",
-								"text": "Грибы и сыр",
-								"price":"559",
-								"weight": "330",
-								"img":"",
-								"sliderImage": [
-									{ "id":1, "name": "img1", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"},
-									{ "id":2, "name": "img2", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"},
-									{ "id":3, "name": "img3", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"},
-									{ "id":4, "name": "img4", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"},
-									{ "id":5, "name": "img5", "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"}
-								]
-							}
-						]
-					}
-						]
-				},
-				{
-				"value": 3,
-				"label": "Русская кухня",
-				"text": "Богатый вкус все блюда вкус все блюда",
-				"rubrics":[]
-				}
-			],
-			"langList": [
-				{
-					"id": 1,
-					"name": "RU",
-					"img": "require('@/assets/icons/lang/russia_1.png')",
-					"unavailable": true
-				},
-				{
-					"id": 2,
-					"name": "EN",
-					"img": "require('@/assets/icons/lang/united-kingdom_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 3,
-					"name": "FR",
-					"img": "require('@/assets/icons/lang/france_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 4,
-					"name": "GR",
-					"img": "require('@/assets/icons/lang/germany_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 5,
-					"name": "IT",
-					"img": "require('@/assets/icons/lang/italy_1.png')",
-					"unavailable": false
-				}
-			],
-			"langListReserve": [
-				{
-					"id": 6,
-					"name": "SP",
-					"img": "require('@/assets/icons/lang/spain_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 7,
-					"name": "CH",
-					"img": "require('@/assets/icons/lang/china_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 8,
-					"name": "JP",
-					"img": "require('@/assets/icons/lang/japan_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 9,
-					"name": "UA",
-					"img": "require('@/assets/icons/lang/ukraine_1.png')",
-					"unavailable": true
-				},
-				{
-					"id": 10,
-					"name": "CZ",
-					"img": "require('@/assets/icons/lang/czech-republic_1.png')",
-					"unavailable": false
-				},
-				{
-					"id": 11,
-					"name": "TR",
-					"img": "require('@/assets/icons/lang/turkey_1.png')",
-					"unavailable": false
-				}
-			]
-			 
-			 
+					"price": "549 руб",
+					"weight": "300 г",
+					"img": "",
+					"sliderImage": [
+					  {
+						 "id": 1,
+						 "name": "img1",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  },
+					  {
+						 "id": 2,
+						 "name": "img2",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
+					  },
+					  {
+						 "id": 3,
+						 "name": "img3",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
+					  },
+					  {
+						 "id": 4,
+						 "name": "img4",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
+					  },
+					  {
+						 "id": 5,
+						 "name": "img5",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/cold.jpg"
+					  }
+					]
+				 },
+				 {
+					"value": 2,
+					"label": {
+					  "ru": "Пицца Тайская"
+					},
+					"text": {
+					  "ru": "Салат, Ананасы, Куриное филе,нет 4ре сыра"
+					},
+					"price": "559 руб",
+					"weight": "330 г",
+					"img": "",
+					"sliderImage": [
+					  {
+						 "id": 1,
+						 "name": "img1",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  },
+					  {
+						 "id": 2,
+						 "name": "img2",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
+					  },
+					  {
+						 "id": 3,
+						 "name": "img3",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
+					  },
+					  {
+						 "id": 4,
+						 "name": "img4",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
+					  },
+					  {
+						 "id": 5,
+						 "name": "img5",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  }
+					]
+				 },
+				 {
+					"value": 3,
+					"label": {
+					  "ru": "Пицца Капричеза"
+					},
+					"text": {
+					  "ru": "Грибы и сыр"
+					},
+					"price": "559 руб",
+					"weight": "330 г",
+					"img": "",
+					"sliderImage": [
+					  {
+						 "id": 1,
+						 "name": "img1",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  },
+					  {
+						 "id": 2,
+						 "name": "img2",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-1.jpg"
+					  },
+					  {
+						 "id": 3,
+						 "name": "img3",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-2.jpg"
+					  },
+					  {
+						 "id": 4,
+						 "name": "img4",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-rup/hot.jpg"
+					  },
+					  {
+						 "id": 5,
+						 "name": "img5",
+						 "img": "http://evgeniywebdev.com/template_for_menu/img/foto-items/item-4.jpg"
+					  }
+					]
+				 }
+			  ]
+			}
+		 ]
+	  },
+	  {
+		 "value": 3,
+		 "label": {
+			"ru": "Русская кухня"
+		 },
+		 "text": {
+			"ru": "Богатый вкус все блюда вкус все блюда"
+		 },
+		 "rubrics": []
 	  }
+	],
+	"langList": [
+	  {
+		 "id": 1,
+		 "name": "ru",
+		 "value": "Russia",
+		 "img": "/icon-lang/russia_1.png",
+		 "unavailable": true
+	  }
+	],
+	"langListReserve": [
+		
+	  {
+		 "id": 2,
+		 "name": "en",
+		 "value": "English",
+		 "img": "/icon-lang/united-kingdom_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 3,
+		 "name": "fr",
+		 "value": "France",
+		 "img": "/icon-lang/france_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 4,
+		 "name": "gr",
+		 "value": "Germany",
+		 "img": "/icon-lang/germany_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 5,
+		 "name": "it",
+		 "value": "Italy",
+		 "img": "/icon-lang/italy_1.png",
+		 "unavailable": false
+	  },
+	  {
+		"id": 6,
+		"name": "sp",
+		"value": "Spain",
+		"img": "/icon-lang/spain_1.png",
+		"unavailable": false
+	 },
+	  {
+		 "id": 7,
+		 "name": "ch",
+		 "value": "China",
+		 "img": "/icon-lang/china_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 8,
+		 "name": "jp",
+		 "value": "Japan",
+		 "img": "/icon-lang/japan_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 9,
+		 "name": "ua",
+		 "value": "Ukraine",
+		 "img": "/icon-lang/ukraine_1.png",
+		 "unavailable": true
+	  },
+	  {
+		 "id": 10,
+		 "name": "cz",
+		 "value": "Czech republic",
+		 "img": "/icon-lang/czech-republic_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 11,
+		 "name": "tr",
+		 "value": "Turkey",
+		 "img": "/icon-lang/turkey_1.png",
+		 "unavailable": false
+	  }
+	],
+	"user":{
+		"id": 1,
+		"isfirsttimeUser": false,
+		"issecondContentUser": false
 	}
-	
  }
+ 

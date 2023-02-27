@@ -8,6 +8,7 @@
 		v-model:langList="langList"
 		:langListReserve="langListReserve"
 		:languageId="languageId"
+		:user="user"
 		@addLanguage="addLanguage"
 		@removeLanguage="removeLanguage"
 		@selectedLangChanged="handleSelectedLangChanged"
@@ -158,6 +159,7 @@ export default {
 	}),
 		...mapActions({
 			fetchUser: 'user/fetchUser',
+			fetchAbout: 'user/fetchAbout',
 			fetchCategories: 'user/fetchCategories',
 			fetchLangList: 'user/fetchLangList',
 			fetchLangListReserve: 'user/fetchLangListReserve',
@@ -223,14 +225,10 @@ export default {
 	},
 	createrubric(rubric, category_id){
 		console.log(rubric)
-		console.log(rubric.value)
-		let categoryFind = this.categories.find(p => p.value == category_id)
-		if(categoryFind.rubrics.find(p => p.value == rubric.value)) {
-			console.log('вносим изменения')
-		}else{
-			this.addRubric(rubric, category_id)
-		// this.categories.find(p => p.value == category_id).rubrics.push(rubric)
-	   }
+		console.log(category_id)
+	
+		this.addRubric({rubric, category_id})
+
 	},
 	createdish(dish,  formlabel_id, formlabel_rubric_id ){
 		let categoryFindForDish = this.categories.find(p => p.value == formlabel_id)
@@ -348,6 +346,7 @@ export default {
   computed: {
 	...mapState({
 		isUserLoading: state => state.user.isUserLoading,
+		user: state => state.user.user,
 		about: state => state.user.about,
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
@@ -377,8 +376,9 @@ export default {
   },
   mounted() {
 	console.log(this.visibleEditingLanguage)
-	this.fetchCategories()	
 	this.fetchUser()
+	this.fetchAbout()
+	this.fetchCategories()	
 	this.fetchLangList()
 	this.fetchLangListReserve()
 	// JSON db off =)

@@ -46,7 +46,7 @@ export default {
 	methods: {
 	
 	...mapActions({
-		fetchUser: 'user/fetchUser',
+		fetchAbout: 'user/fetchAbout',
 		testUser:'user/testUser'
 	}),
 },
@@ -63,7 +63,7 @@ computed: {
   },
   mounted() {
 		
-		this.fetchUser()
+		this.fetchAbout()
 	  }
 }
 </script>
