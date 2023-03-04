@@ -38,13 +38,19 @@ export default {
 	},
 	computed: {
 		counter() {
-			return `${this.modelValue.length}/${this.limit}`
+			if (this.modelValue == undefined) {
+				return `0/${this.limit}`
+			} else {
+				return `${this.modelValue.length}/${this.limit}`
+			
+			}
+			// return `${this.modelValue.length}/${this.limit}`
 		}
 	},
 
 	mounted(){
 		
-		console.log(this.modelValue)
+	
 	}
 }
 </script>

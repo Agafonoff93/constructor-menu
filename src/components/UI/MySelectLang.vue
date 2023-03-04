@@ -149,14 +149,11 @@ function showPopup() {
 	popupVisible.value = true;
 }
 function showPopupAdd() {
-	console.log(props.user)
+
 	let userFirst = props.user.isfirsttimeUser
 	if(userFirst == false){
-		console.log('первый клик')
 		popupVisibleAdd.value = true;
 		store.dispatch('user/editUser', true);
-	}else{
-		console.log('уже был клик')
 	}
 	
 }
@@ -170,25 +167,29 @@ function longtapRemoveLang(lang) {
   langName.value = lang
   popupVisible.value = true;
 
-//   console.log(langItem.value)
+
 }
 
 
 function addLangItem(lang) {
+	
+  store.dispatch('user/fetchAddLangItem', lang);
 
-  console.log(lang)
-  store.dispatch('user/addLangList', lang);
-  store.dispatch('user/addLangItem', lang);
-  store.dispatch('user/removeLangListReserve', lang);
-//   store.dispatch('user/removeLangList', lang);
+
+//   store.dispatch('user/addLangList', lang);
+//   store.dispatch('user/removeLangListReserve', lang);
+//   store.dispatch('user/addLangItem', lang);
+
 
 }
+
 function removeLangItem() {
+	store.dispatch('user/fetchRemoveLangItem', langName.value);
 
 
   selectedLang.value = props.langList[0]
-  store.dispatch('user/removeLangList',  langName.value);
-  store.dispatch('user/addLangListReserve',  langName.value);
+//   store.dispatch('user/removeLangList',  langName.value);
+//   store.dispatch('user/addLangListReserve',  langName.value);
   popupVisible.value = false;	
 }
 
@@ -238,6 +239,7 @@ function removeLangItem() {
 	box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
 	text-transform: uppercase;
+
 }
 
 .select-lang__options_add {
@@ -246,6 +248,7 @@ function removeLangItem() {
 
 .select-lang__option {
 	display: flex;
+	align-items: center;
 	padding: 3px 0 3px 0 ;
 	margin-bottom: 10px;
 	

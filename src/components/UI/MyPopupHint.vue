@@ -40,9 +40,7 @@ export default {
 
 	methods: {
 		
-		clickTest(){
-			console.log($emit('remove', category))
-		}
+		
 	}
 	
 }

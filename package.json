@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "render": "vue-cli-service build:prerender"
+    "json-server": "json-server --watch json/data.json --port 3000 --id value"
   },
   "dependencies": {
     "@headlessui/vue": "^1.7.4",
@@ -15,6 +15,7 @@
     "click-outside-vue3": "^4.0.1",
     "core-js": "^3.8.3",
     "json-server": "^0.17.1",
+    "lodash-id": "^0.14.1",
     "swiper": "^8.4.5",
     "v-click-outside": "^3.2.0",
     "vue": "^3.2.13",

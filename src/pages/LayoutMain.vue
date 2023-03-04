@@ -158,16 +158,20 @@ export default {
 
 	}),
 		...mapActions({
+			fetchAllData: 'user/fetchAllData',
 			fetchUser: 'user/fetchUser',
 			fetchAbout: 'user/fetchAbout',
+			editAbout: 'user/editAbout',
 			fetchCategories: 'user/fetchCategories',
-			fetchLangList: 'user/fetchLangList',
-			fetchLangListReserve: 'user/fetchLangListReserve',
-			testUser:'user/testUser',
 			addCategories: 'user/addCategories',
 			editCategories: 'user/editCategories',
-			removeCategory: 'user/removeCategory',
+			removeCategories: 'user/removeCategories',
 			addRubric: 'user/addRubric',
+			removeRubric: 'user/removeRubric',
+			addDish: 'user/addDish',
+			removeDish: 'user/removeDish',
+			fetchLangList: 'user/fetchLangList',
+			fetchLangListReserve: 'user/fetchLangListReserve',
 			changeTranslationLabel: 'meaning/changeTranslationLabel',
 			changeTranslationText: 'meaning/changeTranslationText',
 			toggleEditingLanguage: 'meaning/toggleEditingLanguage',
@@ -176,33 +180,31 @@ export default {
 
 
 	saveAbout(data) {
-    console.log('child component', data)
-	//  console.log(about.title)
+
      this.about = data
 	  this.visibleEditingAbout = false
 	  this.visibleMainPreview = true
-	  console.log('сохранить эбаут')
+	  this.editAbout(data)
   },
  
   hideAbout(){
-	console.log('отмена')
 	this.visibleEditingAbout = false
 	  this.visibleMainPreview = true
   },
   hideCategory(){
-	console.log('отмена')
+	
 	this.visibleEditingCategory = false
 	this.visibleMainPreview = true
   },
   hideRubric(){
 	this.categoryId = null
-	console.log('отмена')
+	
 	this.visibleEditingRubric = false
 	this.visibleMainPreview = true
   },
   hideDish(){
 	this.categoryId = null
-	console.log('отмена')
+	
 	this.visibleEditingDish = false
 	this.visibleMainPreview = true
   },
@@ -215,61 +217,34 @@ export default {
 
 	createcategory(category){
 		if(this.categories.find(p => p.value == category.value)){
-			this.editCategories(this.categories)
+			this.editCategories(category)
 		}else{
-         console.log('добавление категории')
+       
 			this.addCategories(category)
 			// this.categories.push(category);
 		}
 		// this.testUser()
 	},
 	createrubric(rubric, category_id){
-		console.log(rubric)
-		console.log(category_id)
-	
 		this.addRubric({rubric, category_id})
-
 	},
 	createdish(dish,  formlabel_id, formlabel_rubric_id ){
-		let categoryFindForDish = this.categories.find(p => p.value == formlabel_id)
-		let rubricFindForDish = categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id)
-		// console.log( categoryFindForDish)
-		// console.log( rubricFindForDish)
-		
-
-      if(rubricFindForDish.dishs.find(p => p.value == dish.value)){
-			console.log('вносим изменения')
-		
-			
-		}else{
-			if (Array.isArray(rubricFindForDish.dishs) != true){
-			rubricFindForDish.dishs = [] }
-			rubricFindForDish.dishs.push(dish) 
-			console.log('добавляем в массив')
-			}
-		
-		
-		// console.log(Array.isArray(rubricFindForDish.dishs))
+		this.addDish({dish, formlabel_id, formlabel_rubric_id})
 	},
 	removecategory(category){
-		console.log(category)
-		console.log('удаление категории')
-		// this.categories = this.categories.filter(p => p.value !== category.value)
-		this.removeCategory(category)
+
 		this.popupVisible = false;
+		this.removeCategories(category)
 	},
 	removemyrubric(rubric , category){
-		console.log('удаление рубрики')
-		let categoryFind = this.categories.find(p => p.value == category.value)
-		categoryFind.rubrics = categoryFind.rubrics.filter(p => p.value !== rubric.value)
+
 		this.popupVisible = false;
+		this.removeRubric({ rubric, category})
 	},
 	removemydish(dish, rubric, category){
-		console.log('удаление блюда')
-		let categoryFind = this.categories.find(p => p.value == category.value)
-		let rubricFind = categoryFind.rubrics.find(p => p.value == rubric.value)
-		rubricFind.dishs = rubricFind.dishs.filter(p => p.value !== dish.value)
+		
 		this.popupVisible = false;
+		this.removeDish({ dish, rubric, category })
 	},
 	removeabout(){
 		this.about.img = '';
@@ -279,10 +254,10 @@ export default {
 		this.visibleEditingAbout = true
 		this.visibleMainPreview = false
 	
-	  console.log('вызываем about')
+	
 	},
 	seeEditingCategory(category){
-	console.log('seeEditingCategory в app')
+	
 	this.categoriesObject = category
 	this.visibleEditingCategory = true
 	this.$refs.MainPreview.hideUiMain()
@@ -293,17 +268,14 @@ export default {
 		if(category != undefined){
 			this.categoryId = category.value
 		}
-	console.log('seeEditingRubric в app')
+
 	this.rubricsObject = rubric
 	this.visibleEditingRubric = true
 	this.$refs.MainPreview.hideUiMain()
 	this.visibleMainPreview = false
   },
 	seeEditingDish(dish, rubric, category){
-	console.log(dish)
-	console.log(rubric)
-	console.log(category)
-	console.log('seeEditingDish в app')
+
 
 	if(category != undefined){
 			this.categoryId = category.value
@@ -319,8 +291,7 @@ export default {
   },
   
   seeEditingLanguage(event){
-	console.log(event.label[this.locale])
-	console.log(event.text[this.locale])
+	
 	this.changeTranslationLabel(event.label)
 	this.changeTranslationText(event.text)
 	this.visibleEditingLanguage = true
@@ -331,12 +302,12 @@ export default {
 	},
   addLanguage(){
 	this.langList.push(lang);
-   console.log('app добавляем язык')
+
   },
   removeLanguage(){
 	// this.langList = this.langList.filter(p => p.id !== langList.id)
 	// this.langListReserve.push(lang);
-   console.log('app удаляем язык')
+ 
 	
   },
 
@@ -375,12 +346,12 @@ export default {
     });
   },
   mounted() {
-	console.log(this.visibleEditingLanguage)
-	this.fetchUser()
-	this.fetchAbout()
-	this.fetchCategories()	
-	this.fetchLangList()
-	this.fetchLangListReserve()
+	this.fetchAllData()
+	// this.fetchUser()
+	// this.fetchAbout()
+	// this.fetchCategories()	
+	// this.fetchLangList()
+	// this.fetchLangListReserve()
 	// JSON db off =)
   }
 }
@@ -450,6 +421,7 @@ input::-ms-clear {
 button {
   cursor: pointer;
   background-color: inherit;
+  color: inherit;
 }
 
 button::-moz-focus-inner,:focus-visible {
@@ -491,6 +463,9 @@ h6 {
 */
 body {
   color: #333333;
+  /* -webkit-text-fill-color: #333333;
+  -webkit-text-fill-color: rgb(51, 51, 51) */
+ 
 }
 body._lock {
   overflow: hidden;
@@ -530,6 +505,7 @@ body._lock {
   line-height: 20px;
   max-width: 150px;
   text-align:left;
+  color: inherit;
 }
 .version {
   /* text-align: right; */
@@ -778,6 +754,7 @@ body._lock {
 .select-lang__option {
 	display: flex;
    margin-bottom: 10px;
+	align-items: center;
 }
 
 .select-lang__option.active  span{

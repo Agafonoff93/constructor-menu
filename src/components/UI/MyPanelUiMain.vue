@@ -81,29 +81,29 @@ export default {
 	methods: {
 		openUiMain() {
 			this.$emit('openUiMain')		
-		console.log('отпарвить еммит')
+		
 		
 	},
 	cancelUi(){
 		this.$emit('getClose')
-		console.log('клик')
+		
 	},
 	hideUiMain(){
-		console.log('клик стоп')
+		
 		this.$emit('hideUiMain')	
 	},
 	seeEditingCategory() {
-		console.log('запуск категории')
+		
 		this.$emit('seeEditingCategory')
 		// this.$refs.MyInputImgDish.noShowPreviewImg();
 	},
 	seeEditingRubric() {
-		console.log('запуск рубрики')
+		
 		this.$emit('seeEditingRubric')
 		// this.$refs.MyInputImgDish.noShowPreviewImg();
 	},
 	seeEditingDish() {
-		console.log('запуск блюда')
+		
 		this.$emit('seeEditingDish')
 		// this.$refs.MyInputImgDish.noShowPreviewImg();
 	},

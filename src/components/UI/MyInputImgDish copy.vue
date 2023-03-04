@@ -85,7 +85,7 @@ export default {
       pickFile () {
         let input = this.$refs.fileInput
         let file = input.files
-		  console.log()
+		 
         if (file && file[0]) {
           let reader = new FileReader
           reader.onload = e => {
@@ -94,7 +94,7 @@ export default {
 			}
 			reader.readAsDataURL(file[0])
 			this.$emit('input', file[0])
-			console.log( this.previewImage)
+			
 			
 			
         }
@@ -120,11 +120,7 @@ export default {
 		showPopupImg() {
 		this.popupVisibleImg = true;
 	},
-	//  removeImg(){																																												
-	// 	 console.log('шоу попап работает')
-	// 	this.previewImage = null;
-	// 	this.popupVisibleImg = true;
-	//  }	
+	
 	},
 
 }

@@ -74,7 +74,7 @@ export default {
 	},
 	methods: {
 		closeUi(close){
-			console.log('закрываем')
+			
 			close()
 		}
 	

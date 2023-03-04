@@ -102,20 +102,7 @@
 								</div>
 							</template>
 						</draggable>
-						<!-- <TransitionGroup name="list-category"  >
-							<CategoryPreview  
-							v-for="category in categories" 
-							:key="category.value"  
-							:category="category"
-							@remove="$emit('remove', category)"
-							@removerubric="$emit('removerubric', $event, category)"
-							@removedish="(dish, rubric, category) => $emit('removemydish',dish, rubric, category)"
-							ref="CategoryPreview"
-							@seeEditingRubric="$emit('seeEditingRubric', $event, category)"
-							@seeMyEditingDish="(dish, rubric, category) => $emit('seeEditingDish',dish, rubric, category)"
-							@seeEditingCategory="$emit('seeEditingCategory', $event )"
-						/>
-						</TransitionGroup> -->
+					
 					
 					</div>
 					<div 
@@ -271,18 +258,15 @@ methods:{
 			changeTranslationLabel: 'meaning/changeTranslationLabel',
 			changeTranslationText: 'meaning/changeTranslationText',
 			toggleEditingLanguage:'meaning/toggleEditingLanguage',
+			assignTranslationItem:'meaning/assignTranslationItem',
 			fetchUser: 'user/fetchUser',
 			editUserSecondContent: 'user/editUserSecondContent',
 		}),
 	seeEditingLanguage(event) {
 		this.toggleEditingLanguage()
-		if(event){
-			event.label = event.title 
-		}
-		console.log(event.label[this.locale])
-		console.log(event.text[this.locale])
-		this.changeTranslationLabel(event.label)
+		this.changeTranslationLabel(event.title)
 		this.changeTranslationText(event.text)
+		this.assignTranslationItem(event)
 	},	
 
 	showPopup() {
@@ -321,7 +305,7 @@ methods:{
   },
   draggableUnTuchDish(){
 	this.draggableDish = false
-  },
+  },	
  
 },
 computed: {
@@ -334,13 +318,12 @@ computed: {
 		shouldShowPopup() {
       // логика, которая определяет, нужно ли показывать подсказку
       // в данном случае мы показываем подсказку, если количество категорий, рубрик или блюд больше 1
-		let test 
+		let test = false
+		if(this.user.issecondContentUser == false){
 		let categoriesItem = this.categories.length
 		let rubricsItem = this.categories[0].rubrics.length
 		let dishsItem = this.categories[0].rubrics[0].dishs.length
-		console.log(categoriesItem)
-		console.log(rubricsItem)
-		console.log(dishsItem)
+
 
 			if(categoriesItem  > 1 && this.user.issecondContentUser == false){
 				test = true
@@ -351,20 +334,16 @@ computed: {
 			}else{
 				test = false
 			}
-		
+		}
 			return test
 		}
 },
 watch: {
 	categories: {
       handler: function() {
-        this.popupHowDraggable = this.shouldShowPopup;
-		  console.log(this.popupHowDraggable)
-		  
+        this.popupHowDraggable = this.shouldShowPopup;		  
 		  if(this.popupHowDraggable){
 			this.editUserSecondContent(true)
-			console.log('ЩАА OFF DO NT')
-      
 		  }
       },
       deep: true
@@ -373,9 +352,7 @@ watch: {
 
  mounted() {
 	
-   //  console.log(this.about) // I'm text inside the component.
-	//  console.log('категории', category)
-	//  console.log('категории', this.category)
+
   }
 
 }
@@ -521,6 +498,11 @@ margin-left: 10px;
 color:#219653;
 }
 
+.main-preview-categories__title{
+	display: flex;
+justify-content: space-between;
+}
+
 .main-preview-categories__title._active{
 	color: #F78408;
 }
@@ -537,7 +519,12 @@ width: 11px;
 height: 7px;
 transition: all 0.3s ease 0s;
 transform: rotate(0deg);
+opacity: 0;
 }
+.main-preview-categories__title._arrow-visible::after {
+opacity: 1;
+}
+
 .main-preview-categories__title._toggle::after{
 	transform: rotate(180deg);
 }
@@ -584,6 +571,10 @@ width: 11px;
 height: 7px;
 transition: all 0.3s ease 0s;
 transform: rotate(0deg);
+opacity: 0;
+}
+.main-preview-rubrics__title._arrow-visible::after {
+opacity: 1;
 }
 .main-preview-rubrics__title._toggle::after{
 	transform: rotate(180deg);

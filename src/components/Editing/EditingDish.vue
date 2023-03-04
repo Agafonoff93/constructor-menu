@@ -79,7 +79,7 @@
 					>
 					Сохранить
 					</button-orange>
-					<div  class="ui__container _container ">	
+					<div  v-if="uiButtonHidden == false" class="ui__container _container ">	
 							<div class="ui__fixed-wrapper">
 							<button @click="hideDish" class="ui__button-cancel">
 											Отменить
@@ -143,7 +143,7 @@ export default {
 			error: null,
 			meaning: "руб",
 			categoryRubrics: null,
-
+			uiButtonHidden: false,
 		}
 	},
 
@@ -162,7 +162,7 @@ export default {
 						this.error = null
 					};
 					if(this.formlabel_rubric_id != null){
-						console.log('создаем блюдо')
+					
 						this.dish.value = Date.now();
 						this.$emit('createdish', this.dish, this.formlabel_id, this.formlabel_rubric_id)
 						this.dish = {
@@ -178,7 +178,7 @@ export default {
 							sliderImage:[]
 						};
 					}else{
-					console.log('рубрика отсутствует не судьба')
+					
 					this.error = 'Рубрика не указана'			
 				}						
 					this.formlabel_rubric_id = null
@@ -186,7 +186,7 @@ export default {
 					this.$refs.MyInputImgDish.noShowPreviewImg();
 					this.$emit('hideDish')
 				}else{
-					console.log('не судьба')
+				
 					this.error = 'Категория не указана'			
 				}		
 		},
@@ -195,7 +195,7 @@ export default {
 			},
 		removeImage(image){
 			this.dish.sliderImage.filter(p => p.id !== image.id)
-			console.log('удаляем')
+			
 		}	
 	
 	},
@@ -222,17 +222,15 @@ export default {
 			this.formlabel_rubric_id = this.rubricId
 		}
 		if(this.dishObject !=  undefined){
+			this.uiButtonHidden = true
 			this.dish = this.dishObject 
 			if(this.dish.sliderImage != ''){
-			console.log(this.dish.sliderImage)
-		
-			
 			this.$refs.MyInputImgDish.showDishImg(this.dish.sliderImage);
 		}
-		console.log(this.dish.sliderImage)
+		
 			this.formlabel_id = this.categoryId
 			this.formlabel_rubric_id = this.rubricId
-			// this.form.label_id = 
+			
 		}
 
   }

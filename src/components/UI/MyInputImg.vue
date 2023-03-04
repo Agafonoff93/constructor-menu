@@ -77,7 +77,7 @@ export default {
 			}
 			reader.readAsDataURL(file[0])
 			this.$emit('input', file[0])
-			console.log( this.previewImage)
+			
 			
 			
         }
@@ -88,7 +88,7 @@ export default {
 			input.value = ''
 		},
 		showAboutImg(){
-			console.log('хочу показать')
+		
 			this.previewImage = this.valueimage
 		},
 
@@ -100,11 +100,7 @@ export default {
 		showPopupImg() {
 		this.popupVisibleImg = true;
 	},
-	//  removeImg(){																																												
-	// 	 console.log('шоу попап работает')
-	// 	this.previewImage = null;
-	// 	this.popupVisibleImg = true;
-	//  }	
+
 	},
 
 }

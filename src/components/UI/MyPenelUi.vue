@@ -2,19 +2,19 @@
 import { ref } from 'vue'
 import type { OnClickOutsideHandler } from '@vueuse/core'
 import { onClickOutside } from '@vueuse/core'
-import { vOnClickOutside } from './directive'
+
 const modal = ref(false)
 const modalRef = ref(null)
 onClickOutside(
   modalRef,
   (event) => {
-    console.log(event)
+   
     modal.value = false
   },
 )
 const dropdown = ref(false)
 const dropdownHandler: OnClickOutsideHandler = (event) => {
-  console.log(event)
+ 
   dropdown.value = false
 }
 </script>

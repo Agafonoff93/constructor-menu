@@ -25,7 +25,7 @@
 										</svg>
 									</button>
 								</div>
-								<div class="main-preview-rubrics__title _title" :class="{_active: uiVisible, '_toggle': toggleShow && !draggableRubric }">{{ rubric.label[locale] }}</div>
+								<div class="main-preview-rubrics__title _title" :class="{ '_arrow-visible': rubric.dishs.length > 0 ,'_active': uiVisible, '_toggle': toggleShow && !draggableRubric }">{{ rubric.label[locale] }}</div>
 								<transition name="ui">
 									<div v-show="!draggableRubric && !draggableDish">
 										<div  class="main-preview-rubrics__text _text">{{ rubric.text[locale] }}</div>
@@ -38,14 +38,7 @@
 							<div class="_wrapper-body">
 							<transition name="show-block">
 								<div v-show="draggableDish || (toggleShow && !draggableRubric)">
-							<!-- <DishPreview 
-							v-for="dish in rubric.dishs"
-							:key="dish.value"
-							:dish="dish"
-							:draggableDish="draggableDish"
-							@removedish="$emit('removedish',  dish)"
-							@seeEditingDish="$emit('seeEditingDish', dish)"
-							/> -->
+						
 							<draggable
 						class="list-group"
 						:list="rubric.dishs"
@@ -77,6 +70,7 @@
 							v-model:showUi="uiVisible"
 							:rubric="rubric"
 							:category="category"
+							:locale="locale"
 							@removerubric="$emit('removerubric', rubric)"
 							@seeEditingDish="$emit('seeEditingDish')"
 							@seeEditingRubric="$emit('seeEditingRubric', rubric)"
@@ -126,11 +120,10 @@ export default {
 	methods: {
 		showUi(){
 			this.uiVisible = true
-			console.log('click show')
+			
 		},
 		getFocus(){
-			// console.log(this.rubric)
-			console.log('фокус рубрика')
+		
 			this.isFocus = true
 		},
 		toggleBlock(){

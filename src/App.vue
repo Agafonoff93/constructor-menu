@@ -383,6 +383,7 @@ body._lock {
 .select-lang__option {
 	display: flex;
    margin-bottom: 10px;
+	align-items: center;
 }
 
 .select-lang__option.active  span{

@@ -81,7 +81,7 @@ export default {
 			}
 			reader.readAsDataURL(file[0])
 			this.$emit('input', file[0])
-			console.log( this.previewImage)
+			
 			
 			
         }
@@ -99,19 +99,14 @@ export default {
 			this.$emit('deleteImage')
 		},
 		showRubricImg(image){
-			console.log('хочу показать')
-			console.log(image)
+			
 			this.previewImage = image
 			
 		},
 		showPopupImg() {
 		this.popupVisibleImg = true;
 	},
-	//  removeImg(){																																												
-	// 	 console.log('шоу попап работает')
-	// 	this.previewImage = null;
-	// 	this.popupVisibleImg = true;
-	//  }	
+	
 	},
 	
 

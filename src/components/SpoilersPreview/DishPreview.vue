@@ -61,6 +61,7 @@
 							:dish="dish"
 							:rubric="rubric"
 							:category="category"
+							:locale="locale"
 							@removedish="$emit('removedish', dish)"
 							@seeEditingDish="$emit('seeEditingDish', dish)"
 							/>
@@ -106,10 +107,10 @@ export default {
 	methods: {
 		showUi(){
 			this.uiVisible = true
-			console.log('click show')
+			
 		},
 		getFocus(){
-			// console.log(this.rubric)
+		
 			this.isFocus = true
 		},
 		toggleBlock(){

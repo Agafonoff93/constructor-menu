@@ -12,7 +12,7 @@ const app = createApp(App).use(router)
 
 components.forEach(component => {
 	app.component(component.name, component)
-	// console.log(components)
+	
 });
 
 // directives.forEach(directive => {

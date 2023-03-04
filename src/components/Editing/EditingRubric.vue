@@ -51,7 +51,7 @@
 					>
 					Сохранить
 					</button-orange>
-					<div  class="ui__container _container ">	
+					<div  v-if="uiButtonHidden == false" class="ui__container _container ">	
 							<div class="ui__fixed-wrapper">
 							<button @click="hideRubric" class="ui__button-cancel">
 											Отменить
@@ -104,8 +104,8 @@ export default {
 				label_id: null,
 				role_ids:[]
 			},
-			error: null
-
+			error: null,
+			uiButtonHidden: false
 		}
 	},
 
@@ -122,7 +122,7 @@ export default {
 				if(this.error != null){
 					this.error = null
 				}
-				// console.log('создаем рубрику')
+			
 				if(this.rubric.value == null){
 					this.rubric.value = Date.now();
 				}
@@ -143,7 +143,7 @@ export default {
 			
 				
 			}else{
-				// console.log('не судьба')
+			
 				this.error = 'Категория не указана'			
 			}		
 	},
@@ -161,22 +161,16 @@ export default {
 			this.form.label_id = this.categoryId 
 		}
 		if(this.rubricsObject !=  undefined){
+			this.uiButtonHidden = true
 			this.rubric = this.rubricsObject 
 			if(this.rubric.img != ''){
-			console.log(this.rubric.img)
-			
 			this.$refs.MyInputImgRubric.showRubricImg(this.rubric.img);
 		}
 			this.form.label_id = this.categoryId 
-			// this.form.label_id = 
+		
 		}
 	
-   //  console.log(this.about) // I'm text inside the component.
-	//  console.log('категории', category)
-	
-	 console.log(this.rubricsObject)
-	 console.log(this.rubric)
-	 console.log(this.categoryId )
+
   }
 
 	

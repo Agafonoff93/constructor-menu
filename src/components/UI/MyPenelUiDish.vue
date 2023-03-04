@@ -26,7 +26,7 @@
 								</svg>
 								<span>Редактировать блюдо</span> 
 							</button>
-							<button @click="seeEditingLanguage(dish)" class="buttons-panel__сorrect buttons-panel__сorrect_tr">
+							<button v-if="locale != 'ru'" @click="seeEditingLanguage(dish, category)" class="buttons-panel__сorrect buttons-panel__сorrect_tr">
 								[Tr]
 							</button>
 							<button @click="showPopup"  class="buttons-panel__delete">
@@ -101,6 +101,10 @@ export default {
 		type:Boolean,
 		default:false
 	},
+	locale: {
+		type: [String, Number],
+		required: true
+	},
   },
 	
 	data() {
@@ -118,13 +122,13 @@ export default {
 		changeTranslationLabel: 'meaning/changeTranslationLabel',
 		changeTranslationText: 'meaning/changeTranslationText',
 		toggleEditingLanguage:'meaning/toggleEditingLanguage',
+		assignTranslationItem:'meaning/assignTranslationItem',
 	}),
-	seeEditingLanguage(event) {
+	seeEditingLanguage(event, category) {
 		this.toggleEditingLanguage()
-		console.log(event.label[this.locale])
-		console.log(event.text[this.locale])
 		this.changeTranslationLabel(event.label)
 		this.changeTranslationText(event.text)
+		this.assignTranslationItem(category)
 	},		
 
 	showPopup() {
@@ -132,13 +136,13 @@ export default {
 	},
 	cancelUi(){
 		this.$emit('getClose')
-		console.log('клик')
+		
 	},
 	hideUi(){
 		this.$emit('update:showUi', false)	
 	},
 	seeEditingDish() {
-		console.log('редактирование блюда')
+		
 		this.$emit('seeEditingDish')
 		this.$emit('update:showUi', false)	
 	},
@@ -280,8 +284,8 @@ color: #EB5757;
 	z-index: 15;
 }
 .ui__container {
-  min-height: 50px;
-  padding-bottom: 55px;
+  min-height: 0px;
+  padding-bottom: 0px;
 }
 .ui__button-orange {
   background: #F78408;

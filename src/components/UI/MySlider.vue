@@ -48,11 +48,11 @@
 		},
 	  setup() {
 		 const onSwiper = (swiper) => {
-			// console.log(swiper);
+		
 			
 		 };
 		 const onSlideChange = () => {
-			// console.log('slide change');
+			
 		 };
 
 		 return {

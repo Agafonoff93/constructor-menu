@@ -25,7 +25,7 @@
 							<span>Добавить блюдо</span>
 						</button>
 						<div class="buttons-panel__editing">
-							<button @click="seeEditingLanguage(rubric)" class="buttons-panel__сorrect buttons-panel__сorrect_tr">
+							<button v-if="locale != 'ru'" @click="seeEditingLanguage(rubric, category)" class="buttons-panel__сorrect buttons-panel__сorrect_tr">
 								[Tr]
 							</button>
 							<button 
@@ -105,6 +105,10 @@ export default {
 		type:Boolean,
 		default:false
 	},
+	locale: {
+		type: [String, Number],
+		required: true
+	},
 },
 	
 	data() {
@@ -122,32 +126,33 @@ export default {
 			changeTranslationLabel: 'meaning/changeTranslationLabel',
 			changeTranslationText: 'meaning/changeTranslationText',
 			toggleEditingLanguage:'meaning/toggleEditingLanguage',
+			assignTranslationItem:'meaning/assignTranslationItem',
 		}),
-	seeEditingLanguage(event) {
+	seeEditingLanguage(event, category) {
 		this.toggleEditingLanguage()
-		console.log(event.label[this.locale])
-		console.log(event.text[this.locale])
+		
 		this.changeTranslationLabel(event.label)
 		this.changeTranslationText(event.text)
+		this.assignTranslationItem(category)
 	},	
 	showPopup() {
 		this.popupVisible = true;
 	},
 	cancelUi(){
 		this.$emit('getClose')
-		console.log('клик')
+		
 	},
 	hideUi(){
 		this.$emit('update:showUi', false)	
 	},
 	seeEditingRubric() {
-		console.log('редактирование рубрики')
+		
 		this.$emit('seeEditingRubric')
 		this.$emit('update:showUi', false)	
 		// this.$refs.MyInputImgDish.noShowPreviewImg();
 	},
 	seeEditingDish() {
-		console.log('запуск блюда')
+		
 		this.$emit('seeEditingDish')
 		this.$emit('update:showUi', false)	
 	},
@@ -155,14 +160,7 @@ export default {
 		this.popupVisible = false;	
 		},
   },
-  computed:{
-	...mapState({
-			
-			translationLabel: state => state.meaning.translationLabel,
-			translationText: state => state.meaning.translationText,
-			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
-		}),
-  }
+
 }
 </script>
 
@@ -178,8 +176,8 @@ export default {
 	z-index: 15;
 }
 .ui__container {
-  min-height: 50px;
-  padding-bottom: 55px;
+  min-height: 0px;
+  padding-bottom: 0px;
 }
 .ui__button-orange {
   background: #F78408;

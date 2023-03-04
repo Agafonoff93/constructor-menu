@@ -87,7 +87,7 @@ export default {
 		
 		onFileChange(e) {	
 			let vm = this;
-			console.log(e.target.files)
+			
 			
 			var selectedFiles = e.target.files;
 			
@@ -102,28 +102,28 @@ export default {
 				reader.onload = (e) => {
 					this.images[i].src = reader.result;
 					let number = this.valueimage.length
-					console.log(number);
+				
 					
 						let imageItem = {id: Date.now() , img: this.images[i].src, name:  this.images[i].name} 
 						if(this.imageArray.length <= 9 ){
 					 this.imageArray.push(imageItem)
 					}
-					 console.log(this.testArray)
+				
 					};
 					
 					// this.imageArray = this.imageArray.splice(0, 10)
-					console.log(this.testArray)
+				
 				reader.readAsDataURL(this.images[i]);
 				
 				}
 				
 				
-				console.log(this.imageArray)
+				
 			
 		
 			this.$emit('update:valueimage', this.imageArray) 
 			
-			console.log(this.imageArray)
+			
 			
 		},
 		
@@ -131,42 +131,35 @@ export default {
           this.$refs.fileInput.click()
       },
       showDishImg(sliderImage) {
-			console.log('можем тут что нибуть сделать')
+		
 		
 			this.imageArray = sliderImage
 		
       },
 		removeImage(image){
-			console.log('хотим удалить картинку')
-			console.log(this.imageArray)
-			console.log(image)
-			// this.$emit('removeImage',image)
-			// this.imageArray.filter(p => p.id !== image.id)
+			
 			this.imageArray = this.imageArray.filter(p => p.id !== image.id)
-			console.log(this.imageArray)
+		
 			this.$emit('update:valueimage', this.imageArray) 
 		},
 		showPreviewImg(){
 			let input = this.$refs.fileInput
 			this.previewImage = null;
-			console.log('metod showPrevImg')
+			
 			this.images = []
 		},
 		noShowPreviewImg(){
 			let input = this.$refs.fileInput
 			this.previewImage = null;
-			console.log('metod noShowPrevImg')
+		
 		   this.images = []
 		},
 		focusButton(image, key){
-			console.log( this.focusEl)
-			console.log( image)
+	
 
 			if(this.focusEl == key){
 				this.popupVisibleImg = true;
 				this.previewImage = image
-				// this.$ref.MyPopupImg.imageItem(image)
-				console.log('запускаем попап')
 			}else{
 				this.focusEl = key
 			}
@@ -176,17 +169,10 @@ export default {
 		showPopupImg() {
 		this.popupVisibleImg = true;
 	},
-	//  removeImg(){																																												
-	// 	 console.log('шоу попап работает')
-	// 	this.previewImage = null;
-	// 	this.popupVisibleImg = true;
-	//  }	
+
 	},
 	computed:{
-	// focusEl(){
-	// 	this.focusEl 
-	// 	// немомню ,зачем?
-	// }
+
 	}
 
 }

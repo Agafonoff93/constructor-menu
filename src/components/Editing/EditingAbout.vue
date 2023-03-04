@@ -43,7 +43,7 @@
 					>
 					Сохранить
 					</button-orange>
-					<div  class="ui__container _container ">	
+					<div v-if="uiButtonHidden == false" class="ui__container _container ">	
 							<div class="ui__fixed-wrapper">
 							<button @click="hideAbout" class="ui__button-cancel">
 											Отменить
@@ -74,7 +74,7 @@ export default {
 			// },
 			title: '',
 			text:'',
-
+			uiButtonHidden: false
 		}
 	},
 	expose: ['seeAboutImage'],
@@ -87,7 +87,7 @@ export default {
 			
 		},
 		seeAboutImage(){
-			console.log('постораюсь показать')
+		
 			this.$refs.MyInputImg.showAboutImg();
 		}
 	},
@@ -100,10 +100,10 @@ export default {
 		if(this.about.img != ''){
 			this.$refs.MyInputImg.showAboutImg();
 		}
-		
-   //  console.log(this.about) // I'm text inside the component.
-	//  console.log('категории', category)
-	//  console.log('категории', this.category)
+	   if(this.about.img || this.about.title || this.about.text != ''){
+			this.uiButtonHidden = true
+		}
+   
   }
 	
 }

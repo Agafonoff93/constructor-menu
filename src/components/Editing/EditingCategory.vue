@@ -35,7 +35,7 @@
 					>
 					Сохранить
 					</button-orange>
-					<div  class="ui__container _container ">	
+					<div v-if="uiButtonHidden == false" class="ui__container _container ">	
 							<div class="ui__fixed-wrapper">
 							<button @click="hideCategory" class="ui__button-cancel">
 											Отменить
@@ -68,9 +68,9 @@ export default {
 					ru: '',
 					},
 				value: null,
-				rubrics:[],
+				rubrics:[],	
 			},
-			
+			uiButtonHidden: false
 
 		}
 	},
@@ -104,10 +104,9 @@ export default {
 	mounted() {
 		if(this.categoriesObject !=  undefined){
 			this.category = this.categoriesObject 
+			this.uiButtonHidden = true
 		}
-   //  console.log(this.about) // I'm text inside the component.
-	//  console.log('категории', category)
-	//  console.log('категории', this.category)
+
   }
 	
 	

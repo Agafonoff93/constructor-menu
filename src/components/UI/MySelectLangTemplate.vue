@@ -93,13 +93,12 @@ function longtapRemoveLang(lang) {
   langName.value = lang
   popupVisible.value = true;
 
-//   console.log(langItem.value)
+
 }
 
 
 function addLangItem(lang) {
 
-  console.log(lang)
   store.dispatch('user/addLangList', lang);
   store.dispatch('user/addLangItem', lang);
   store.dispatch('user/removeLangListReserve', lang);

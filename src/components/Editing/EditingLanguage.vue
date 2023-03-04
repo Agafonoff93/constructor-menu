@@ -40,17 +40,11 @@
 					
 
 					<button-orange 
-					@click="toggleEditingLanguage"
+					@click="hideEditingLanguage"
 					>
 					Сохранить
 					</button-orange>
-					<div  class="ui__container _container ">	
-							<div class="ui__fixed-wrapper">
-							<button 	@click="toggleEditingLanguage" class="ui__button-cancel">
-											Отменить
-							</button>
-							</div>
-					</div>
+					
 				
 		</div>
 </template>
@@ -73,16 +67,7 @@ export default {
  
 	data() {
 		return {
-			category: {
-				label: {
-					ru: '',
-					},
-					text: {
-					ru: '',
-					},
-				value: null,
-				rubrics:[],
-			},
+		
 			
 
 		}
@@ -95,10 +80,23 @@ export default {
 		...mapActions({
 			changeTranslationLabel: 'meaning/changeTranslationLabel',
 			changeTranslationText: 'meaning/changeTranslationText',
+			assignTranslationItem: 'meaning/assignTranslationItem',
 			toggleEditingLanguage: 'meaning/toggleEditingLanguage',
+			addLangItem: '/user/addLangItem',
+			editTranslationItem: 'meaning/editTranslationItem',
+			editTranslationItemAbout: 'meaning/editTranslationItemAbout',
 		}),
 			hideEditingLanguage(){
-					this.$emit('hideEditingLanguage')
+				
+				if (this.itemGroupTranslation.hasOwnProperty('title')) {
+			
+				this.editTranslationItemAbout(this.itemGroupTranslation)
+				} else {
+				
+				this.editTranslationItem(this.itemGroupTranslation)
+				}
+				this.toggleEditingLanguage()
+					
 			},
 	    
 		},
@@ -108,6 +106,7 @@ export default {
 			
 			translationLabel: state => state.meaning.translationLabel,
 			translationText: state => state.meaning.translationText,
+			itemGroupTranslation: state => state.meaning.itemGroupTranslation,
 			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
 		}),
 		...mapGetters({
@@ -115,15 +114,8 @@ export default {
 	})
   },
 	mounted() {
-		console.log(this.locale)
-		console.log(this.translationLabel)
-		console.log(this.translationText)
-		// if(this.categoriesObject !=  undefined){
-		// 	this.category = this.categoriesObject 
-		// }
-   //  console.log(this.about) // I'm text inside the component.
-	//  console.log('категории', category)
-	//  console.log('категории', this.category)
+		
+	
   }
 	
 	

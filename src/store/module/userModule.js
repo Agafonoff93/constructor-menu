@@ -15,98 +15,96 @@ export const userModule = {
 		categories: [],
 
 
-		langList: [],
+		langList: [	{
+			id: 1,
+			name: "ru",
+			value: "Russia",
+			img: "/icon-lang/russia_1.png",
+			unavailable: true,
+		 },
+		],
 
-		langListReserve: [],
+		langListReserve: [
+		
+		 {
+			id: 2,
+			name: "en",
+			value: "English",
+			img: "/icon-lang/united-kingdom_1.png",
+			unavailable: false,
+		 },
+		 {
+			id: 3,
+			name: "fr",
+			value: "France",
+			img: "/icon-lang/france_1.png",
+			unavailable: false,
+		 },
+		 {
+			id: 4,
+			name: "gr",
+			value: "Germany",
+			img: "/icon-lang/germany_1.png",
+			unavailable: false,
+		 },
+		 {
+			id: 5,
+			name: "it",
+			value: "Italy",
+			img: "/icon-lang/italy_1.png",
+			unavailable: false,
+		 },
+		 {
+			id: 6,
+			name: "sp",
+			value: "Spain",
+			img: "/icon-lang/spain_1.png",
+			unavailable: false,
+		 },
+		 {
+			id: 7,
+			name: "ch",
+			value: "China",
+			img: "/icon-lang/china_1.png",
+			unavailable: false,
+			 },
+			 { 
+			id: 8,
+			name: "jp",
+			value: "Japan",
+			img: "/icon-lang/japan_1.png",
+			unavailable: false,
+			 },
+			 { 
+			id: 9,
+			name: "ua",
+			value: "Ukraine",
+			img: "/icon-lang/ukraine_1.png",
+			unavailable: false,
+			 },
+			 { 
+			id: 10,
+			name: "cz",
+			value: "CzechRepublic",
+			img: "/icon-lang/czech-republic_1.png",
+			unavailable: false,
+			 },
+		],
 	}),
 	getters: {
 
 	},
 	mutations: {
 
-		// createcategory(category){
-		// 	if(this.categories.find(p => p.value == category.value)){
-		// 		console.log('вносим изменения')
-		// 	}else{
-		// 		console.log('добавление категории')
-		// 		this.addCategories(category)
-		// 		// this.categories.push(category);
-		// 	}
-		// 	// this.testUser()
-		// },
-		// createrubric(rubric, category_id){
-		// 	console.log(rubric)
-		// 	console.log(rubric.value)
-		// 	let categoryFind = this.categories.find(p => p.value == category_id)
-		// 	if(categoryFind.rubrics.find(p => p.value == rubric.value)) {
-		// 		console.log('вносим изменения')
-		// 	}else{
-		// 	this.categories.find(p => p.value == category_id).rubrics.push(rubric)
-		// 	}
-		// },
-		// createdish(dish,  formlabel_id, formlabel_rubric_id ){
-		// 	let categoryFindForDish = this.categories.find(p => p.value == formlabel_id)
-		// 	let rubricFindForDish = categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id)
-		// 	// console.log( categoryFindForDish)
-		// 	// console.log( rubricFindForDish)
-
-
-		// 	if(rubricFindForDish.dishs.find(p => p.value == dish.value)){
-		// 		console.log('вносим изменения')
-
-
-		// 	}else{
-		// 		if (Array.isArray(rubricFindForDish.dishs) != true){
-		// 		rubricFindForDish.dishs = [] }
-		// 		rubricFindForDish.dishs.push(dish) 
-		// 		console.log('добавляем в массив')
-		// 		}
-
-
-		// 	// console.log(Array.isArray(rubricFindForDish.dishs))
-		// },
-		// removecategory(category){
-		// 	console.log(category)
-		// 	console.log('удаление категории')
-		// 	// this.categories = this.categories.filter(p => p.value !== category.value)
-		// 	this.removeCategory(category)
-		// 	this.popupVisible = false;
-		// },
-		// removemyrubric(rubric , category){
-		// 	console.log('удаление рубрики')
-		// 	let categoryFind = this.categories.find(p => p.value == category.value)
-		// 	categoryFind.rubrics = categoryFind.rubrics.filter(p => p.value !== rubric.value)
-		// 	this.popupVisible = false;
-		// },
-		// removemydish(dish, rubric, category){
-		// 	console.log('удаление блюда')
-		// 	let categoryFind = this.categories.find(p => p.value == category.value)
-		// 	let rubricFind = categoryFind.rubrics.find(p => p.value == rubric.value)
-		// 	rubricFind.dishs = rubricFind.dishs.filter(p => p.value !== dish.value)
-		// 	this.popupVisible = false;
-		// },
-		// removeabout(){
-		// 	this.about.img = '';
-		// 	this.popupVisibleImg = false;
-		// },
 		SET_USER(state, user) {
 			state.user = user;
 		},
 		EDIT_USER(state, isfirsttimeUser) {
-			// state.user = { ...state.user, isfirsttimeUser }
-			
-
-			console.log(state.user.isfirsttimeUser)
-			console.log(state.user.issecondContentUser)
 
 			state.user.isfirsttimeUser = isfirsttimeUser
 		},
 		EDIT_USER_HINT(state, issecondContentUser) {
-			// state.user = { ...state.user, isfirsttimeUser }
-		
-			console.log(state.user.isfirsttimeUser)
-			console.log(state.user.issecondContentUser)
-
+	
 			state.user.issecondContentUser = issecondContentUser
 		},
 		SET_ABOUT(state, about) {
@@ -119,123 +117,116 @@ export const userModule = {
 
 		SET_CATEGORIES(state, categories) {
 			state.categories = categories
-			// console.log(state.categories)
+
 		},
 		UPDATE_CATEGORIES(state, categories) {
 			state.categories = categories
-			// console.log(state.categories)
+
 		},
 		ADD_CATEGORIES(state, category) {
-			console.log('add category')
+
 			state.categories.push(category);
-			console.log(state.categories)
+
 		},
-		EDIT_CATEGORIES(state, categories) {
-			state.categories = categories
-			console.log(state.categories)
+		EDIT_CATEGORIES(state, category) {
+
+			let categoryFind = state.categories.find(p => p.value == category.value);
+			categoryFind = category
+			
+			
 		},
 		DELETE_CATEGORIES(state, category) {
 			// this.categories = this.categories.filter(p => p.value !== category.value)
-			console.log('del category')
+	
 			state.categories = state.categories.filter(p => p.value !== category.value)
 		},
 
 
 		ADD_RUBRIC(state, { rubric, category_id }) {
-			console.log(state.categories)
-			console.log('айди  '+ category_id)
-			console.log(rubric)
+		
 			let categoryFind = state.categories.find(p => p.value == category_id);
 			if (categoryFind && categoryFind.rubrics.find(p => p.value == rubric.value)) {
-			  console.log('вносим изменения');
+		
 			} else if (categoryFind) {
 			  categoryFind.rubrics.push(rubric);
 			} else {
 			  console.log('категория не найдена');
 			}
 		 },
-		EDIT_RUBRIC(state, rubric, category_id) {
-			console.log(rubric)
-			console.log(rubric.value)
+		EDIT_RUBRIC(state, { rubric, category_id }) {
+	
 			let categoryFind = state.categories.find(p => p.value == category_id)
 			if (categoryFind.rubrics.find(p => p.value == rubric.value)) {
-				console.log('вносим изменения')
+			
 			} else {
+		
 				state.categories.find(p => p.value == category_id).rubrics.push(rubric)
 			}
 		},
-		DELETE_RUBRIC(state, category, rubric) {
-			console.log('удаление рубрики')
+		DELETE_RUBRIC(state, { category, rubric }) {
+		
 			let categoryFind = state.categories.find(p => p.value == category.value)
 			categoryFind.rubrics = categoryFind.rubrics.filter(p => p.value !== rubric.value)
 		},
 
-		ADD_DISH(state, dish, formlabel_id, formlabel_rubric_id) {
+		ADD_DISH(state, {dish, formlabel_id, formlabel_rubric_id}) {
 			let categoryFindForDish = state.categories.find(p => p.value == formlabel_id)
 			let rubricFindForDish = categoryFindForDish.rubrics.find(p => p.value == formlabel_rubric_id)
-			// console.log( categoryFindForDish)
-			// console.log( rubricFindForDish)
-
-
+		
 			if (rubricFindForDish.dishs.find(p => p.value == dish.value)) {
-				console.log('вносим изменения')
-
-
+				
 			} else {
 				if (Array.isArray(rubricFindForDish.dishs) != true) {
 					rubricFindForDish.dishs = []
 				}
 				rubricFindForDish.dishs.push(dish)
-				console.log('добавляем в массив')
+		
 			}
 
 
 			// console.log(Array.isArray(rubricFindForDish.dishs))
 		},
 		EDIT_DISH(state, rubric, category_id) {
-			console.log(rubric)
-			console.log(rubric.value)
+			
 			let categoryFind = state.categories.find(p => p.value == category_id)
 			if (categoryFind.rubrics.find(p => p.value == rubric.value)) {
-				console.log('вносим изменения')
+				
 			} else {
 				this.categories.find(p => p.value == category_id).rubrics.push(rubric)
 			}
 		},
-		DELETE_DISH(state, category, rubric) {
-			console.log('удаление блюда')
-			let categoryFind = this.categories.find(p => p.value == category.value)
+		DELETE_DISH(state,{ dish, rubric, category }) {
+			
+			let categoryFind = state.categories.find(p => p.value == category.value)
 			let rubricFind = categoryFind.rubrics.find(p => p.value == rubric.value)
 			rubricFind.dishs = rubricFind.dishs.filter(p => p.value !== dish.value)
-			this.popupVisible = false;
 		},
 
 		SET_LANGLIST(state, langList) {
 			state.langList = langList
-			// console.log(langList)
+		
 		},
 		SET_LANGLIST_RESERVE(state, langListReserve) {
 			state.langListReserve = langListReserve
-			// console.log(langListReserve)
+			
 		},
 		ADD_LANGLIST(state, lang) {
-			console.log(lang)
+			
 			state.langList.push(lang);
 
 		},
 		ADD_LANGLIST_RESERVE(state, lang) {
-
-			state.langListReserve.push(lang);
-			console.log(state.langListReserve)
+			console.log(lang)
+			state.langListReserve.push(lang);		
 		},
 		DELETE_LANGLIST(state, lang) {
 
-			state.langList = state.langList.filter(p => p.id !== lang.id)
-			console.log(state.langList)
+			state.langList = state.langList.filter(p => p.value !== lang.value)
+			
 		},
 		DELETE_LANGLIST_RESERVE(state, lang) {
-			state.langListReserve = state.langListReserve.filter(p => p.id !== lang.id)
-			console.log(state.langList)
+			state.langListReserve = state.langListReserve.filter(p => p.value !== lang.value)
+			
 		},
 		SET_LOADING(state, bool) {
 			state.isUserLoading = bool
@@ -244,8 +235,7 @@ export const userModule = {
 			state.templateUrl = urlTheme
 		},
 		ADD_LANG_ITEM(state, lang) {
-			console.log('добавляем язык')
-			console.log(state.categories)
+		
 			state.about.title[lang.name] = state.about.title.ru
 			state.about.text[lang.name] = state.about.text.ru
 			for (let i = 0; i < state.categories.length; i++) {
@@ -265,89 +255,17 @@ export const userModule = {
 					}
 				}
 
-				// category.text.ru
-				// или
-				// category["eu"] = category["ru"];
-				// если ключи могут содержать специальные символы
-				// или пробелы
-
 			}
-			console.log(state.categories)
+			
 		}
 	},
 	actions: {
-		
-
-		async addCategories({ commit, state }, category) {
-
-			
-				try {
-				commit('ADD_CATEGORIES', category )
-			  
-			  const response = await axios.post('http://localhost:3000/categories', 
-			  category )
-			  console.log(response)
-			
-			} catch (e) {
-			  console.log(e)
-			  // alert('Ошибка')
-			}
-			
-
-		},
-		async editCategories({ commit, state }, categories) {
-
-			// categories =  JSON.stringify(state.categories)
-
-			try {
-				// const response = await axios.post('http://localhost:3000/user/project/categories', category)
-				// commit('SET_CATEGORIES', response.data)
-				commit('EDIT_CATEGORIES', categories)
-				// const response = await axios({
-				// 	method: "post",
-				// 	url: "http://localhost:3000/user",
-				// 	data:{
-				// 		categories
-				// 	}
-
-				// });
-				console.log(state.categories)
-				// return response.data
-				//  commit("ADD_CATEGORIES", category);
-				//  commit('SET_CATEGORIES', response.data.project.categories)
-			} catch (e) {
-				console.log('ERROR => ', 'Unable to create category!', e);
-			}
-
-		},
-		// async fetchAbout({state, commit}) {
-		// 	try {
-		// 		commit('SET_LOADING', true)
-		// 		const response = await axios.get('http://localhost:3000/user')
-		// 		commit('SET_ABOUT', response.data.about)		
-		// 		commit('SET_CATEGORIES', response.data.categories)	
-		// 		commit('SET_LANGLIST', response.data.langList) 	
-		// 		commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
-		// 	} catch (e) {
-		// 		console.log(e)
-		// 		// alert('Ошибка')
-		// 	} finally {
-		// 		commit('SET_LOADING', false)
-		// 	}
-		// },
 		async fetchUser({ state, commit }) {
-			try {
-				
+			try {	
 				const response = await axios.get('http://localhost:3000/user')
-				// console.log(response)
 				commit('SET_USER', response.data)
-				// commit('SET_CATEGORIES', response.data.categories)	
-				// commit('SET_LANGLIST', response.data.langList) 	
-				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
-				// console.log(response)
 			} catch (e) {
 				console.log(e)
-				// alert('Ошибка')
 			} finally {
 				
 			}
@@ -358,7 +276,7 @@ export const userModule = {
 			
 			  const response = await axios.post('http://localhost:3000/user', 
 				state.user )
-			  console.log(response)
+			
 			
 			} catch (e) {
 			  console.log(e)
@@ -371,180 +289,228 @@ export const userModule = {
 			
 			  const response = await axios.post('http://localhost:3000/user', 
 				state.user )
-			  console.log(response)
+			
 			
 			} catch (e) {
 			  console.log(e)
 			  // alert('Ошибка')
 			}
 		 },
-		async fetchAbout({ state, commit }) {
+
+		 async fetchAbout({ state, commit }) {
 			try {
 				commit('SET_LOADING', true)
 				const response = await axios.get('http://localhost:3000/about')
-				// console.log(response)
 				commit('SET_ABOUT', response.data)
-				// commit('SET_CATEGORIES', response.data.categories)	
-				// commit('SET_LANGLIST', response.data.langList) 	
-				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
-				// console.log(response)
 			} catch (e) {
 				console.log(e)
-				// alert('Ошибка')
 			} finally {
 				commit('SET_LOADING', false)
 			}
 		},
-		async fetchCategories({ state, commit }) {
-			try {
 
+		 async editAbout({ state, commit }, data) {
+			try {
+				commit('SET_LOADING', true)
+				const response = await axios.post('http://localhost:3000/about', state.about)
+				commit('SET_ABOUT', response.data)
+			} catch (e) {
+				console.log(e)
+			} finally {
+				commit('SET_LOADING', false)
+			}
+		},
+
+		 async fetchCategories({ state, commit }) {
+			try {
 				const response = await axios.get('http://localhost:3000/categories')
-				// console.log(response)
-				commit('SET_CATEGORIES', response.data)
-				// commit('SET_CATEGORIES', response.data.categories)	
-				// commit('SET_LANGLIST', response.data.langList) 	
-				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
-				// console.log(response)
+				commit('SET_CATEGORIES', response.data)			
 			} catch (e) {
 				console.log(e)
-				// alert('Ошибка')
 			} finally {
 
 			}
 		},
-		async fetchLangList({ state, commit }) {
-			try {
-
-				const response = await axios.get('http://localhost:3000/langList')
-				// commit('SET_ABOUT', response.data.about)		
-				// commit('SET_CATEGORIES', response.data.categories)	
-				commit('SET_LANGLIST', response.data)
-				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
+		async addCategories({ commit, state }, category) {
+				try {		  
+			  const response = await axios.post('http://localhost:3000/categories', 
+			  category )
+			 
+			  commit('ADD_CATEGORIES', response.data )
 			} catch (e) {
-				console.log(e)
-				// alert('Ошибка')
-			} finally {
-
+			  console.log(e)
 			}
 		},
-		async fetchLangListReserve({ state, commit }) {
-			try {
 
-				const response = await axios.get('http://localhost:3000/langListReserve')
-				// commit('SET_ABOUT', response.data.about)		
-				// commit('SET_CATEGORIES', response.data.categories)	
-				commit('SET_LANGLIST_RESERVE', response.data)
-				// commit('SET_LANGLIST_RESERVE',  response.data.langListReserve) 	
+		async editCategories({ commit, state }, category) {
+			try {
+				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`, 
+				category )
+				commit('EDIT_CATEGORIES', response.data)		
 			} catch (e) {
-				console.log(e)
-				// alert('Ошибка')
-			} finally {
-
+				console.log(e);
 			}
-		},
-		async addLangList({ state, commit, }, lang) {
-			try {
 
-				console.log(lang)
-				const response = await axios({
+		},
+		async removeCategories({ commit, state }, category) {
+			try {
+				const response = await axios.delete(`http://localhost:3000/categories/${category.value}` )
+				commit('DELETE_CATEGORIES', category)		
+			} catch (e) {
+				console.log(e);
+			}
+
+		},
+
+		async addRubric({ commit, state },{ rubric, category_id}) {
+			try {	
+				commit('ADD_RUBRIC', { rubric, category_id })  
+				const category = state.categories.find(p => p.value == category_id)
+				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`,
+				category)
+			
+		} catch (e) {
+		  console.log(e)
+		}
+		},
+		async editRubric({ commit, state },{ rubric, category_id}) {
+			try {	
+				commit('EDIT_RUBRIC', { rubric, category_id })  
+				const category = state.categories.find(p => p.value == category_id)
+				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`,
+				category)
+			
+		} catch (e) {
+		  console.log(e)
+		}
+		},
+		async removeRubric({ commit, state }, { category, rubric }) {
+			try {	
+				commit('DELETE_RUBRIC',  { category, rubric })  
+				
+				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`,
+				category)
+			
+		} catch (e) {
+		  console.log(e)
+		}
+		},
+
+		async addDish({ commit, state },{ dish, formlabel_id, formlabel_rubric_id}) {
+			try {	
+				commit('ADD_DISH', { dish, formlabel_id, formlabel_rubric_id })  
+				const category = state.categories.find(p => p.value == formlabel_id)
+				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`,
+				category)
+			
+		} catch (e) {
+		  console.log(e)
+		}
+		},
+		async removeDish({ commit, state }, { dish, rubric, category }) {
+			try {	
+				commit('DELETE_DISH', { dish, rubric, category })  
+				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`,
+				category)
+			
+		} catch (e) {
+		  console.log(e)
+		}
+		},
+
+		
+		 async fetchAllData({ state, commit }) {
+			try {
+			  commit('SET_LOADING', true)
+			  const [userData, aboutData, categoriesData, langListData, LangListReserveData] = await Promise.all([
+				 axios.get('http://localhost:3000/user'),
+				 axios.get('http://localhost:3000/about'),
+				 axios.get('http://localhost:3000/categories'),
+				 axios.get('http://localhost:3000/langList'),
+				 axios.get('http://localhost:3000/LangListReserve'),
+			  ])
+			  commit('SET_USER', userData.data)
+			  commit('SET_ABOUT', aboutData.data)
+			  commit('SET_CATEGORIES', categoriesData.data)
+			  commit('SET_LANGLIST', langListData.data)
+			  commit('SET_LANGLIST_RESERVE', LangListReserveData.data)
+			} catch (e) {
+			  console.log(e)
+			} finally {
+			  commit('SET_LOADING', false)
+			}
+		 },
+		 async fetchAddLangItem({ state, commit }, lang) {
+			commit('ADD_LANG_ITEM', lang); 
+			try {
+			  const aboutData = await axios.post('http://localhost:3000/about', state.about);
+			  console.log(aboutData.data)
+			  commit('SET_ABOUT', aboutData.data);
+			} catch (e) {
+			  console.log(e);
+			}
+		 
+			try {
+			  const categoriesData = await Promise.all(state.categories.map(category => axios.put(`http://localhost:3000/categories/${category.value}`, category)));
+			  console.log( categoriesData.data)
+			  commit('SET_CATEGORIES', categoriesData.map(data => data.data));
+			} catch (e) {
+			  console.log(e);
+			}
+		 
+		
+			try {
+				
+				const langListData = await axios({
 					method: "post",
 					url: "http://localhost:3000/langList",
 					data: lang
-
 				});
-				commit('ADD_LANGLIST', response.data)
-				// commit('ADD_LANGLIST', lang) 	
-
-
-
+				commit('ADD_LANGLIST',langListData.data)
+			} catch (e) {
+				console.log(e)
+				// alert('Ошибка')
+			}
+		 
+			try {
+				const LangListReserveData = await axios.delete(`http://localhost:3000/langListReserve/${lang.value}`)
+				commit('DELETE_LANGLIST_RESERVE', lang)
 
 			} catch (e) {
 				console.log(e)
 				// alert('Ошибка')
-			} finally {
-
 			}
-		},
-		async removeLangList({ state, commit }, lang) {
+			
+		 },
+		 async fetchRemoveLangItem({ state, commit }, lang) {
+			
 			try {
-				// const response = await axios.delete('http://localhost:3000/langList/${lang.id}')			
+
+				const LangListReserveData = await axios.post('http://localhost:3000/langListReserve', lang)
+
+				commit('ADD_LANGLIST_RESERVE', LangListReserveData.data)
+
+			} catch (e) {
+				console.log(e)
+			} 
+		 
+			try {
+				console.log(lang)
+				const langListData = await axios.delete(`http://localhost:3000/langList/${lang.value}`)			
 				commit('DELETE_LANGLIST', lang)
 
 			} catch (e) {
 				console.log(e)
 				// alert('Ошибка')
-			} finally {
+			} 
 
-			}
-		},
-		async addLangListReserve({ state, commit }, lang) {
-			try {
-
-				const response = await axios.get('http://localhost:3000/langListReserve')
-
-				commit('ADD_LANGLIST_RESERVE', lang)
-
-			} catch (e) {
-				console.log(e)
-				// alert('Ошибка')
-			} finally {
-
-			}
-		},
-		async removeLangListReserve({ state, commit }, lang) {
-			try {
-				const response = await axios.delete(`http://localhost:3000/langListReserve/${lang.id}`)
-				commit('DELETE_LANGLIST_RESERVE', response.data)
-
-			} catch (e) {
-				console.log(e)
-				// alert('Ошибка')
-			} finally {
-				// ...
-			}
-		},
-
-		async addLangItem({ state, commit }, lang) {
-			const data = state.categories
-			try {
-				// const response = await axios.delete(`http://localhost:3000/categories`)
-				commit('ADD_LANG_ITEM', lang);
-				//   console.log(response.data);
-				//   commit('UPDATE_CATEGORIES', response.data); // обновление state.categories с помощью данных из ответа
-			} catch (error) {
-				console.log(error);
-				// обработка ошибки
-			}
-		},
-
-
-		async removeCategory({ commit }, category) {
-			// const url = 'http://localhost:3000/user';
-			// const requestOptions = {
-			//   method: 'POST',
-			//   headers: authHeader(),
-			//   body: JSON.stringify({id: category.id})
-			// };
-			// requestOptions.headers['Content-Type'] = 'application/json';
-
-			// try {
-			//   const response = await fetch(url, requestOptions);
-
-			commit("DELETE_CATEGORIES", category);
-
-			// } catch (e) {
-			//   console.log('ERROR => ', 'Unable to delete work!', e);
-			// }
-		},
+			
+		 },
+		
 		addUrl({ commit }, urlTheme) {
 			commit("ADD_URL", urlTheme);
 		},
-			addRubric({ commit },{ rubric, category_id}) {
-			console.log(rubric)
-			console.log(category_id)
-				commit("ADD_RUBRIC", { rubric, category_id });
-				
-			}
+		
 
 	},
 	namespaced: true

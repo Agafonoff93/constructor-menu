@@ -85,7 +85,7 @@ export default {
 	}),
 	changeUrl() {
 		this.currentUrl
-		console.log(this.currentUrl)
+	
 		this.comingUrl = this.currentUrl.replace('choose/Theme','')
 		console.log(this.comingUrl)
 		this.addUrl(this.comingUrl)

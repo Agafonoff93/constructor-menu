@@ -227,19 +227,7 @@ export default {
 	}
   },
   setup() {
-		//  const onSwiper = (swiper) => {
-		// 	// console.log(swiper);
-			
-		//  };
-		//  const onSlideChange = () => {
-		// 	// console.log('slide change');
-		//  };
-
-		//  return {
-		// 	onSwiper,
-		// 	onSlideChange,
-		// 	modules: [Pagination],
-		//  };
+		
 	  },
   methods: {
 	...mapActions({
@@ -266,9 +254,9 @@ export default {
   watch: {
 	selectedLang(newValue, oldValue) {
 		// передаем значение в родительский компонент
-		console.log(newValue)
+		
 		this.locale = newValue.name
-		console.log(this.locale)
+		
 	},
 		// watcher для langList
 		langList: function () {
@@ -283,7 +271,7 @@ export default {
 	this.fetchAbout()
 	this.fetchLangList()
 	this.selectedLang = this.updatedSelectedLang
-	  console.log(this.about.img.length)
+	
 	  document.body.classList.add('bg-light')
 
 	  const targetNode = this.$refs.menuWatch.$el;
@@ -295,11 +283,11 @@ const config = { attributes: true };
 const callback = (mutationList, observer) => {
 for (const mutation of mutationList) {
 	if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'true') {
-		// console.log('Выключить скррол');
+		
 		document.body.classList.add('_lock')
 	} else if (mutation.attributeName == 'aria-expanded' && mutation.target.ariaExpanded === 'false') {
 		document.body.classList.remove('_lock')
-		// console.log('включаем скролл');
+		
 	}
 }
 };
