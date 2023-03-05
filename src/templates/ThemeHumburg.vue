@@ -257,9 +257,9 @@ export default {
   watch: {
 	selectedLang(newValue, oldValue) {
 		// передаем значение в родительский компонент
-		console.log(newValue)
+		
 		this.locale = newValue.name
-		console.log(this.locale)
+		
 	},
 		// watcher для langList
 		langList: function () {
@@ -274,7 +274,7 @@ export default {
 	this.fetchAbout()
 	this.fetchLangList()
 	this.selectedLang = this.updatedSelectedLang
-	  console.log(this.about.img.length)
+	  
 	  document.body.classList.add('bg-light')
 
 	  const targetNode = this.$refs.menuWatch.$el;

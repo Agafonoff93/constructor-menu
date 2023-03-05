@@ -11,13 +11,13 @@
 							
 							<div>
 								<span class="label-block__label-item">Категория</span>
-								<div  v-if="locale != 'ru'" class="label-block__label-wrapper">
+								<div v-if="locale != 'ru'" class="label-block__label-wrapper">
 									<span 
-									v-if="category.label[locale] == category.label.ru && category.text[locale] == category.text.ru"
-									class="label-block__label-status">Необходимо перевести</span>
+									v-if="translated"						
+									class="label-block__label-status label-block__label-status_green">Переведено</span>
 									<span 
 									v-else
-									class="label-block__label-status label-block__label-status_green">Переведено</span>
+									class="label-block__label-status">Необходимо перевести</span>
 							  </div>
 							</div> 
 							<button @click="showUi" class="buttons-panel__сorrect" ><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -181,7 +181,25 @@ export default {
 		RubricPreview,
 		draggable,
 	},
-
+	computed: {
+		
+	  translated(){
+		let answer = false
+		let basicLabel = this.category.label.ru
+		let basicText = this.category.text.ru
+		let answerLabel = this.category.label[this.locale] != basicLabel
+		let answerText = this.category.text[this.locale] != basicText
+		if(answerLabel && answerText == true){
+		 answer = true
+		}else{
+			answer = false
+		}
+		console.log(answerLabel)
+		console.log(answerText)
+		console.log(answer)
+		return answer
+	  }
+	}
   
 }
 

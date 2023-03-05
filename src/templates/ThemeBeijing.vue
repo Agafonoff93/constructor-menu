@@ -250,9 +250,9 @@ export default {
   watch: {
 	selectedLang(newValue, oldValue) {
 		// передаем значение в родительский компонент
-		console.log(newValue)
+		
 		this.locale = newValue.name
-		console.log(this.locale)
+		
 	},
 		// watcher для langList
 		langList: function () {
@@ -267,7 +267,7 @@ export default {
 	this.fetchAbout()
 	this.fetchLangList()
 	this.selectedLang = this.updatedSelectedLang
-	  console.log(this.about.img.length)
+	  
 	  document.body.classList.add('bg-light')
 
 	  const targetNode = this.$refs.menuWatch.$el;
@@ -983,11 +983,17 @@ a.menu__sub-link {
 	font-weight: 400;
 	font-size: 14px;
 	cursor: pointer;
-	padding: 8px  0px 0px 0px;
 	margin: 0px 0px 0px 0px;
 	font-family: 'Adigiana';
 	color: #ffffff;
 	background: transparent;
+}
+
+.select__option-wrapper._hidden {
+	display: none;
+}
+.select__option-wrapper {
+	padding: 8px 0px 0px 0px;
 }
 .select__option img {
 	margin-right: 5px;

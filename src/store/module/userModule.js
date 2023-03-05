@@ -418,7 +418,17 @@ export const userModule = {
 		}
 		},
 
-		
+		async fetchLangList({ state, commit }) {
+			try {
+				const response = await axios.get('http://localhost:3000/langList')	
+				commit('SET_LANGLIST', response.data) 	
+			} catch (e) {
+				console.log(e)
+			} finally {
+
+			}
+		},
+
 		 async fetchAllData({ state, commit }) {
 			try {
 			  commit('SET_LOADING', true)
@@ -506,7 +516,10 @@ export const userModule = {
 
 			
 		 },
-		
+		//  store.dispatch('user/addLangList', lang);
+		//  store.dispatch('user/removeLangListReserve', lang);
+		//  store.dispatch('user/addLangItem', lang);
+
 		addUrl({ commit }, urlTheme) {
 			commit("ADD_URL", urlTheme);
 		},

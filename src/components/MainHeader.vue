@@ -48,7 +48,6 @@ export default {
 	},
 	user: {
 		type: Object,
-		required: true
 	},
 	// languageId: {
 	// 	type:  [Number, String],

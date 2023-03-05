@@ -272,9 +272,9 @@ export default {
   watch: {
 	selectedLang(newValue, oldValue) {
 		// передаем значение в родительский компонент
-		console.log(newValue)
+		
 		this.locale = newValue.name
-		console.log(this.locale)
+		
 	},
 		// watcher для langList
 		langList: function () {

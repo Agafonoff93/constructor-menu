@@ -88,31 +88,8 @@ function hidePopup() {
 	popupVisible.value = false;	
 }
 
-function longtapRemoveLang(lang) {
-  
-  langName.value = lang
-  popupVisible.value = true;
 
 
-}
-
-
-function addLangItem(lang) {
-
-  store.dispatch('user/addLangList', lang);
-  store.dispatch('user/addLangItem', lang);
-  store.dispatch('user/removeLangListReserve', lang);
-//   store.dispatch('user/removeLangList', lang);
-
-}
-function removeLangItem() {
-
-
-  selectedLang.value = props.langList[0]
-  store.dispatch('user/removeLangList',  langName.value);
-  store.dispatch('user/addLangListReserve',  langName.value);
-  popupVisible.value = false;	
-}
 
 
 

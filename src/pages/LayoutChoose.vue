@@ -47,7 +47,7 @@ export default {
 	
 	...mapActions({
 		fetchAbout: 'user/fetchAbout',
-		testUser:'user/testUser'
+		
 	}),
 },
 computed: {
