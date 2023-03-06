@@ -3,7 +3,8 @@ import axios from 'axios'
 export const userModule = {
 	state: () => ({
 		isUserLoading: false,
-		templateUrl: '',
+		
+		linkPlug: '/image/example-qr-code.svg' ,
 		user: {},
 		about:
 		{
@@ -257,6 +258,17 @@ export const userModule = {
 
 			}
 			
+		},
+		SET_QRCODE(state, link) {
+		},
+		GET_QRCODE(state, link) {
+		
+			state.user.linkQrCode = link
+		
+		},
+		SET_LINK(state, link){
+		
+			state.user.templateUrl = link
 		}
 	},
 	actions: {
@@ -505,7 +517,7 @@ export const userModule = {
 			} 
 		 
 			try {
-				console.log(lang)
+				
 				const langListData = await axios.delete(`http://localhost:3000/langList/${lang.value}`)			
 				commit('DELETE_LANGLIST', lang)
 
@@ -516,14 +528,57 @@ export const userModule = {
 
 			
 		 },
-		//  store.dispatch('user/addLangList', lang);
-		//  store.dispatch('user/removeLangListReserve', lang);
-		//  store.dispatch('user/addLangItem', lang);
+		 async getQrCode({ state, commit }, link) {
+			
+			try {
+
+				const response = await axios.get(`https://api.qrserver.com/v1/create-qr-code/?data=${link}&size=250x250`)
+				commit('GET_QRCODE', response.data)
+				
+			} catch (e) {
+				console.log(e)
+			} 
+			try {
+			
+			   await axios.post('http://localhost:3000/user', 
+				state.user )
+			
+			
+			} catch (e) {
+			  console.log(e)
+			}
+			
+		 },
+		 async setLinkTemplate({commit, state}, link){
+			
+		
+			try {
+				commit("SET_LINK",link);
+			
+			  const response = await axios.post('http://localhost:3000/user', 
+				state.user )
+			
+			
+			} catch (e) {
+			  console.log(e)
+			  // alert('Ошибка')
+			}
+		 },
 
 		addUrl({ commit }, urlTheme) {
 			commit("ADD_URL", urlTheme);
 		},
-		
+		async checkWebsite(url) {
+			fetch(url, {mode: 'no-cors'})
+			  .then(response => {
+				 if (response.status === 200) {
+					console.log('Website is available');
+				 } else {
+					console.log('Website is not available');
+				 }
+			  })
+			  .catch(() => console.log('Website is not available'));
+		 }
 
 	},
 	namespaced: true

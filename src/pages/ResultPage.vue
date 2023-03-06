@@ -63,7 +63,8 @@ export default {
 },
 computed: {
 	...mapState({
-	
+		
+		user: state => state.user.user,
 		langList: state => state.user.langList,
       langListReserve: state => state.user.langListReserve, 
 		themes: state => state.templates.themes

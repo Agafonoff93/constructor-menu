@@ -81,6 +81,7 @@ export default {
   methods: {
 	...mapActions({
 		fetchAbout: 'user/fetchAbout',
+		setLinkTemplate:'user/setLinkTemplate',
 		addUrl:'user/addUrl'
 	}),
 	changeUrl() {
@@ -95,6 +96,7 @@ export default {
 	 ...mapState({
 		isUserLoading: state => state.user.isUserLoading,
 		about: state => state.user.about,
+		user: state=> state.user.user,
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
       langListReserve: state => state.user.langListReserve, 
@@ -109,6 +111,7 @@ export default {
 	this.currentUrl = window.location.href;
    console.log(this.currentUrl); 
 	console.log(this.$route.fullPath)
+	this.setLinkTemplate(this.currentUrl)
 }
 
 }
