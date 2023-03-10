@@ -319,12 +319,18 @@ computed: {
       // логика, которая определяет, нужно ли показывать подсказку
       // в данном случае мы показываем подсказку, если количество категорий, рубрик или блюд больше 1
 		let test = false
+		let rubricsItem = null
+		let dishsItem = null
+
 		if(this.user.issecondContentUser == false){
-		let categoriesItem = this.categories.length
-		let rubricsItem = this.categories[0].rubrics.length
-		let dishsItem = this.categories[0].rubrics[0].dishs.length
-
-
+		let categoriesItem = this.categories.length	
+		if(categoriesItem > 0){
+			rubricsItem = this.categories[0].rubrics.length
+		}	
+		if(rubricsItem > 0){
+			dishsItem = this.categories[0].rubrics[0].dishs.length
+		}
+		 
 			if(categoriesItem  > 1 && this.user.issecondContentUser == false){
 				test = true
 			}else if( rubricsItem  > 1 && this.user.issecondContentUser == false){

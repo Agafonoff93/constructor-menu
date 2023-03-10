@@ -11,7 +11,7 @@ npm run serve
 ```
 ### Launch json server
 ```
-json-server --watch json/data.json
+json-server --watch json/data.json --id value
 ```
 
 ### Compiles and minifies for production

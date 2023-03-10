@@ -194,9 +194,7 @@ export default {
 		}else{
 			answer = false
 		}
-		console.log(answerLabel)
-		console.log(answerText)
-		console.log(answer)
+	
 		return answer
 	  }
 	}

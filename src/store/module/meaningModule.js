@@ -38,6 +38,8 @@ export const meaningModule = {
 			
 			commit('SET_TRANSLATION_ITEM', itemGroupTranslation)
 		},
+
+		// Данный запрос на сервер для изменения информации о переводе "about". В запросе передается объект "about", содержащий новые значения для заголовка и текста перевода.
 		async editTranslationItemAbout({ commit, state }, about) {
 			try {
 				
@@ -50,6 +52,8 @@ export const meaningModule = {
 			}
 
 		},
+
+		// Данный запрос на сервер для изменения информации о переводе "category". В запросе передается объект "category", содержащий новые значения для заголовка и текста перевода.
 		async editTranslationItem({ commit, state }, category) {
 			try {
 				

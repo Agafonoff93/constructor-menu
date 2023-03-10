@@ -318,20 +318,20 @@ export const templatesModule = {
 		}
 	},
 	actions: {
-	
-		// async fetchTemplates({state, commit}) {
-		// 	try {
-		// 		commit('SET_LOADING', true)
-		// 		const response = await axios.get('http://localhost:3000/templates')
-		// 		commit('SET_TEMPLATES', response.data.templates)		
+	// получает список тем с сервера и фиксирует его в состоянии
+		async fetchTemplates({state, commit}) {
+			try {
+				commit('SET_LOADING', true)
+				const response = await axios.get('http://localhost:3000/templates')
+				commit('SET_TEMPLATES', response.data.templates)		
 				
-		// 	} catch (e) {
-		// 		console.log(e)
-		// 		alert('Ошибка')
-		// 	} finally {
-		// 		commit('SET_LOADING', false)
-		// 	}
-		//   },
+			} catch (e) {
+				console.log(e)
+				alert('Ошибка')
+			} finally {
+				commit('SET_LOADING', false)
+			}
+		  },
 	  
 	},
 	namespaced:true 

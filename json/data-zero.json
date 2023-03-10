@@ -1,0 +1,100 @@
+{
+	"about": {
+	  "title": {
+		 "ru": ""
+	  },
+	  "text": {
+		 "ru": ""
+	  },
+	  "img": ""
+	},
+	"categories": [],
+	"langList": [
+	  {
+		 "id": 1,
+		 "name": "ru",
+		 "value": "Russia",
+		 "img": "/icon-lang/russia_1.png",
+		 "unavailable": true
+	  }
+	],
+	"langListReserve": [
+	  {
+		 "id": 2,
+		 "name": "en",
+		 "value": "English",
+		 "img": "/icon-lang/united-kingdom_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 3,
+		 "name": "fr",
+		 "value": "France",
+		 "img": "/icon-lang/france_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 4,
+		 "name": "gr",
+		 "value": "Germany",
+		 "img": "/icon-lang/germany_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 5,
+		 "name": "it",
+		 "value": "Italy",
+		 "img": "/icon-lang/italy_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 6,
+		 "name": "sp",
+		 "value": "Spain",
+		 "img": "/icon-lang/spain_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 7,
+		 "name": "ch",
+		 "value": "China",
+		 "img": "/icon-lang/china_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 8,
+		 "name": "jp",
+		 "value": "Japan",
+		 "img": "/icon-lang/japan_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 9,
+		 "name": "ua",
+		 "value": "Ukraine",
+		 "img": "/icon-lang/ukraine_1.png",
+		 "unavailable": true
+	  },
+	  {
+		 "id": 10,
+		 "name": "cz",
+		 "value": "Czech republic",
+		 "img": "/icon-lang/czech-republic_1.png",
+		 "unavailable": false
+	  },
+	  {
+		 "id": 11,
+		 "name": "tr",
+		 "value": "Turkey",
+		 "img": "/icon-lang/turkey_1.png",
+		 "unavailable": false
+	  }
+	],
+	"user": {
+	  "id": 1,
+	  "isfirsttimeUser": true,
+	  "issecondContentUser": true,
+	  "templateUrl": "",
+	  "linkQrCode": ""
+	}
+ }

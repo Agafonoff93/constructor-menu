@@ -272,6 +272,7 @@ export const userModule = {
 		}
 	},
 	actions: {
+		// Действие fetchUser извлекает пользовательские данные с сервера и фиксирует их в состояние, используя мутацию SET_USER.
 		async fetchUser({ state, commit }) {
 			try {	
 				const response = await axios.get('http://localhost:3000/user')
@@ -282,6 +283,8 @@ export const userModule = {
 				
 			}
 		},
+
+		// Действия editUser  изменяют пользовательские данные в состоянии и отправляют обновленные данные на сервер.
 		async editUser({ state, commit }, isfirsttimeUser) {
 			try {
 				commit('EDIT_USER', isfirsttimeUser )
@@ -295,6 +298,8 @@ export const userModule = {
 			  // alert('Ошибка')
 			}
 		 },
+
+		//  Действия editUserSecondContent изменяют пользовательские данные в состоянии и отправляют обновленные данные на сервер.
 		async editUserSecondContent({ state, commit }, usersecondContent) {
 			try {
 				commit('EDIT_USER_HINT', usersecondContent )
@@ -309,6 +314,7 @@ export const userModule = {
 			}
 		 },
 
+		//  Действие fetchAbout извлекает раздел веб-сайта «о нас» с сервера и переводит его в состояние с помощью мутации SET_ABOUT.
 		 async fetchAbout({ state, commit }) {
 			try {
 				commit('SET_LOADING', true)
@@ -321,6 +327,7 @@ export const userModule = {
 			}
 		},
 
+		// Действие editAbout изменяет данные «о нас» в состоянии и отправляет обновленные данные на сервер.
 		 async editAbout({ state, commit }, data) {
 			try {
 				commit('SET_LOADING', true)
@@ -333,6 +340,7 @@ export const userModule = {
 			}
 		},
 
+		// Действие fetchCategories получает список категорий с сервера и фиксирует его в состояние с помощью мутации SET_CATEGORIES.
 		 async fetchCategories({ state, commit }) {
 			try {
 				const response = await axios.get('http://localhost:3000/categories')
@@ -343,6 +351,8 @@ export const userModule = {
 
 			}
 		},
+
+		// Действия addCategories, editCategories и removeCategories изменяют список категорий в состоянии и отправляют обновленные данные на сервер.
 		async addCategories({ commit, state }, category) {
 				try {		  
 			  const response = await axios.post('http://localhost:3000/categories', 
@@ -353,7 +363,6 @@ export const userModule = {
 			  console.log(e)
 			}
 		},
-
 		async editCategories({ commit, state }, category) {
 			try {
 				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`, 
@@ -374,6 +383,7 @@ export const userModule = {
 
 		},
 
+		// Действия addRubric, editRubric и removeRubric изменяют рубрики для категории в состоянии и отправляют обновленные данные на сервер.
 		async addRubric({ commit, state },{ rubric, category_id}) {
 			try {	
 				commit('ADD_RUBRIC', { rubric, category_id })  
@@ -408,6 +418,7 @@ export const userModule = {
 		}
 		},
 
+		// Действия addDish и removeDish изменяют список блюд для рубрики в состоянии и отправляют обновленные данные на сервер.
 		async addDish({ commit, state },{ dish, formlabel_id, formlabel_rubric_id}) {
 			try {	
 				commit('ADD_DISH', { dish, formlabel_id, formlabel_rubric_id })  
@@ -430,6 +441,7 @@ export const userModule = {
 		}
 		},
 
+		// Действие fetchLangList извлекает список доступных языков с сервера и фиксирует его в состоянии с помощью мутации SET_LANGLIST.
 		async fetchLangList({ state, commit }) {
 			try {
 				const response = await axios.get('http://localhost:3000/langList')	
@@ -441,6 +453,7 @@ export const userModule = {
 			}
 		},
 
+		//  Получаем все данные из базы данных, включая информацию о пользователе, информацию о нас, категории, список языков и резервный список языков.
 		 async fetchAllData({ state, commit }) {
 			try {
 			  commit('SET_LOADING', true)
@@ -462,6 +475,8 @@ export const userModule = {
 			  commit('SET_LOADING', false)
 			}
 		 },
+
+		//  Добавляет языковую версию в состояние Vuex хранилища через мутацию ADD_LANG_ITEM.
 		 async fetchAddLangItem({ state, commit }, lang) {
 			commit('ADD_LANG_ITEM', lang); 
 			try {
@@ -482,7 +497,7 @@ export const userModule = {
 		 
 		
 			try {
-				
+					//  Добавляет выбранный язык на языковую панель
 				const langListData = await axios({
 					method: "post",
 					url: "http://localhost:3000/langList",
@@ -495,6 +510,7 @@ export const userModule = {
 			}
 		 
 			try {
+				//  Удаляет выбранный язык с резевного списка 
 				const LangListReserveData = await axios.delete(`http://localhost:3000/langListReserve/${lang.value}`)
 				commit('DELETE_LANGLIST_RESERVE', lang)
 
@@ -504,6 +520,8 @@ export const userModule = {
 			}
 			
 		 },
+
+		 //  Удаляет языковую версию из основной языковой панели и добавляет в резервную.
 		 async fetchRemoveLangItem({ state, commit }, lang) {
 			
 			try {
@@ -528,6 +546,8 @@ export const userModule = {
 
 			
 		 },
+
+		//  Получаем сгенерированный qr code
 		 async getQrCode({ state, commit }, link) {
 			
 			try {
@@ -549,6 +569,8 @@ export const userModule = {
 			}
 			
 		 },
+
+		//  Добавляем ссылку на меню в данные пользователя
 		 async setLinkTemplate({commit, state}, link){
 			
 		
@@ -565,20 +587,11 @@ export const userModule = {
 			}
 		 },
 
+		//  Передаем сслыку из выбранного меню в остояние Vuex хранилища
 		addUrl({ commit }, urlTheme) {
 			commit("ADD_URL", urlTheme);
 		},
-		async checkWebsite(url) {
-			fetch(url, {mode: 'no-cors'})
-			  .then(response => {
-				 if (response.status === 200) {
-					console.log('Website is available');
-				 } else {
-					console.log('Website is not available');
-				 }
-			  })
-			  .catch(() => console.log('Website is not available'));
-		 }
+		
 
 	},
 	namespaced: true
