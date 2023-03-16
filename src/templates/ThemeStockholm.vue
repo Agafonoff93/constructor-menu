@@ -1,4 +1,5 @@
 <template>
+	
 	<div  class="wrapper">
 		<header class="header"> 
 			<div class="header__container _container">
@@ -234,7 +235,9 @@ export default {
   },
  
   methods: {
+	
 	...mapActions({
+		sendHtml: 'user/sendHtml',
 		fetchLangList: 'user/fetchLangList',
 		fetchAbout: 'user/fetchAbout',
 		fetchCategories: 'user/fetchCategories',

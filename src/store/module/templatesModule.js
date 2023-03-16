@@ -321,7 +321,7 @@ export const templatesModule = {
 	// получает список тем с сервера и фиксирует его в состоянии
 		async fetchTemplates({state, commit}) {
 			try {
-				commit('SET_LOADING', true)
+				
 				const response = await axios.get('http://localhost:3000/templates')
 				commit('SET_TEMPLATES', response.data.templates)		
 				
@@ -329,7 +329,7 @@ export const templatesModule = {
 				console.log(e)
 				alert('Ошибка')
 			} finally {
-				commit('SET_LOADING', false)
+				
 			}
 		  },
 	  

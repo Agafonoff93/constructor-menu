@@ -356,11 +356,12 @@
 		 "unavailable": false
 	  }
 	],
-	"user": {
-	  "id": 1,
-	  "isfirsttimeUser": true,
-	  "issecondContentUser": true,
-	  "templateUrl": "http://localhost:8080/choose/ThemeStockholm",
-	  "linkQrCode": "�PNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000�\u0000\u0000\u0000�\u0001\u0003\u0000\u0000\u0000�\"�~\u0000\u0000\u0000\u0006PLTE���\u0000\u0000\u0000U��~\u0000\u0000\u0000\tpHYs\u0000\u0000\u000e�\u0000\u0000\u000e�\u0001�+\u000e\u001b\u0000\u0000\u0001�IDATh�홽\r�@\f��(�d\u0004Fa4\u0018�Q\u0018��\u0002���O�$���v\u0011r裱���!�\u00153K�T�z��uڈ���%\f� \u001b�^�옉�xH�\u0012h��y\u001bv��T�\n�8�\u0003��K\ni���\t|\u0001����r[c\u0002^J=\u0004�DM0��ҋ\u000e�W\u0003�`As�j\b����\u001chC\u0014U\u0015�ї�\fH&�\u0001���zw8�)�\r\u0003��ƍ*�C�4-��\u00034�\r\f9�Y$��O�T\u0002Nl㮚#ֳH\u000e�\u0018\b����\u0001C�z�<�c:L�\u0006V�\u0014���.��\u0010�,=�\u0004%C\u000e�g\u0015�)9\u0001\u0003����4w<��px>K/\u0004P-\u0007�{P�4w\tKT\u0002��\nT\u0007�\u001a��rˤy�\u0012\u0007��c\u001b\tU\u0014��\u0006�K/\u0001\u0015\f�=\b\u0002�=�)�\u0004\u001cp��iP���8�4��\u0006<��\\KoD)��\u0012x\u0002�\\}����cߑ\u0012�\u0001$W�|\\�i�6�|5���sW,S�/Ձy)\u0006\u0003�ۂ\u0010���%�\t����]ӳB\u0000ZYUQ�W9�w�\t�;R�j��\t�MN�n桁_�\u0000\u0019#\u0011tu%�\u001b\u0000\u0000\u0000\u0000IEND�B`�"
-	}
+	"user":{
+		"id": 1,
+		"isfirsttimeUser": false,
+		"theme": "ThemeVenice",
+		"issecondContentUser": false,
+		"linkQrCode": "�PNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000�\u0000\u0000\u0000�\u0001\u0003\u0000\u0000\u0000�\"�~\u0000\u0000\u0000\u0006PLTE���\u0000\u0000\u0000U��~\u0000\u0000\u0000\tpHYs\u0000\u0000\u000e�\u0000\u0000\u000e�\u0001�+\u000e\u001b\u0000\u0000\u0001�IDATh�혽��0\f��!pH\t��Ҡ4J�\u0004�\r\u0018tғlX�n6_�\u0001��\u001f�Fz�!�tf�ى�3��Be#�v-V\u0014`Qo�{~\r�9f5\u0013F\u0007n@a��]��\u0004�m��π���i�Z$�:�\u001f@��\bҳN!\u0001�,>T�D��Q�R/:�Z�\u0012�\u0011��k�\u0000{���\u0003�dD�\\\u0015��\u0013\u001c�'�Q\u001eGB�ҚE�+\u001f�l\u0018\u0000\u0004<�M�H�\u0000�\u0001!�:@�¨'���0�GDE\u0007�M�8[���!�v\u0018���j�79�jp\u0003[*v�\u0000ɴ���Q��R/Y\u0017\u0014\u0005P\u0005���69M���\u001d��R�d��s�0\u001b?\u000f�E-\u0002��\u0016A�,�Z�u\u0000�,۴C�m�c��ך�!\u0000�7�6��v���\u000eX͂\u0006�&Gj�԰G�u�����\rzq�L�A}�\u0002�SW����꘹\u00037`�/�&�5��\"\n\u0003�W���\u000b�\u0000��ϚY\u001d���{��o�]�{6\u001c\u0000\t�ܽZ��\u0017�\u000e�\u0000��|����ӓ_\rXfUGQM��\u001b���#5��&\u0007\u0004�觘�\u0006>�\u001f�\u000f(c\u0017�\u000f�\u0000\u0000\u0000\u0000IEND�B`�",
+		"templateUrl": "http://localhost:8080/choose/ThemeVenice"
+	 }
  }

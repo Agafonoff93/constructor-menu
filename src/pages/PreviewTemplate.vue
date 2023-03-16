@@ -1,4 +1,5 @@
 <template>
+
 	<component
 	:about="about"
 	:categories="categories"
@@ -6,6 +7,7 @@
 	:themes="themes"
 	:is="$route.params.name"
 	></component>
+	
 <MyPanelUiAgree
 @changeUrl="changeUrl"
 />
@@ -75,20 +77,26 @@ export default {
 		unLock: false,
 		currentUrl:'',
 		commingUrl:'',
+		nameTheme:'',
 	}
   },
 
   methods: {
+
 	...mapActions({
+	
 		fetchAbout: 'user/fetchAbout',
 		setLinkTemplate:'user/setLinkTemplate',
+		setThemeName:'user/setThemeName',
 		addUrl:'user/addUrl'
 	}),
 	changeUrl() {
 		this.currentUrl
-	
 		this.comingUrl = this.currentUrl.replace('choose/Theme','')
-		console.log(this.comingUrl)
+		this.nameTheme = this.$route.fullPath.replace('/choose/','')
+		this.setThemeName(this.nameTheme)
+	   console.log('бубука')
+		console.log(this.nameTheme)
 		this.addUrl(this.comingUrl)
 	}
   },
@@ -101,7 +109,8 @@ export default {
 		langList: state => state.user.langList,
       langListReserve: state => state.user.langListReserve, 
 		themes: state => state.templates.themes,
-		templateUrl: state => state.user.templateUrl,
+		templateUrl: state => state.user.user.templateUrl,
+		themeName: state => state.user.user.themeName,
 	}),
 	...mapGetters({
 

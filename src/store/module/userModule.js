@@ -269,6 +269,10 @@ export const userModule = {
 		SET_LINK(state, link){
 		
 			state.user.templateUrl = link
+		},
+		SET_THEMENAME(state, theme){
+		
+			state.user.theme = theme
 		}
 	},
 	actions: {
@@ -586,12 +590,40 @@ export const userModule = {
 			  // alert('Ошибка')
 			}
 		 },
+		 async setThemeName({commit, state}, theme ){
+			
+		
+			try {
+				commit("SET_THEMENAME",theme);
+			
+			  const response = await axios.post('http://localhost:3000/user', 
+				state.user )
+			
+			
+			} catch (e) {
+			  console.log(e)
+			  // alert('Ошибка')
+			}
+		 },
 
 		//  Передаем сслыку из выбранного меню в остояние Vuex хранилища
 		addUrl({ commit }, urlTheme) {
 			commit("ADD_URL", urlTheme);
 		},
 		
+		async sendHtml({commit}, html) {
+		
+		  try {
+			
+		
+		  const response = await axios.post('http://localhost:3000/html', { html })
+		  console.log('Ответ сервера:', response);
+		
+		} catch (e) {
+		  console.log(e)
+		  // alert('Ошибка')
+		}
+		}
 
 	},
 	namespaced: true
