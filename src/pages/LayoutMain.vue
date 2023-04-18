@@ -158,7 +158,9 @@ export default {
 
 	}),
 		...mapActions({
+			setIdUser:'user/setIdUser',
 			fetchAllData: 'user/fetchAllData',
+			fetchUserData: 'user/fetchUserData',
 			fetchUser: 'user/fetchUser',
 			fetchAbout: 'user/fetchAbout',
 			editAbout: 'user/editAbout',
@@ -172,9 +174,9 @@ export default {
 			removeDish: 'user/removeDish',
 			fetchLangList: 'user/fetchLangList',
 			fetchLangListReserve: 'user/fetchLangListReserve',
-			changeTranslationLabel: 'meaning/changeTranslationLabel',
-			changeTranslationText: 'meaning/changeTranslationText',
-			toggleEditingLanguage: 'meaning/toggleEditingLanguage',
+			changeTranslationLabel: 'user/changeTranslationLabel',
+			changeTranslationText: 'user/changeTranslationText',
+			toggleEditingLanguage: 'user/toggleEditingLanguage',
 	}),
 
 
@@ -317,15 +319,16 @@ export default {
   computed: {
 	...mapState({
 		isUserLoading: state => state.user.isUserLoading,
+		userId: state => state.user.userId,
 		user: state => state.user.user,
 		about: state => state.user.about,
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
       langListReserve: state => state.user.langListReserve, 
 		themes: state => state.templates.themes,
-		translationLabel: state => state.meaning.translationLabel,
-		translationText: state => state.meaning.translationText,
-		visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
+		translationLabel: state => state.user.translationLabel,
+		translationText: state => state.user.translationText,
+		visibleEditingLanguage: state => state.user.visibleEditingLanguage
 	}),
 	...mapGetters({
 		
@@ -346,13 +349,18 @@ export default {
     });
   },
   mounted() {
-	this.fetchAllData()
+	if(this.$route.query.id != undefined){
+		this.setIdUser(this.$route.query.id)
+	}
+  this.fetchUserData(this.userId)
+	// this.fetchAllData()
 	// this.fetchUser()
 	// this.fetchAbout()
 	// this.fetchCategories()	
 	// this.fetchLangList()
 	// this.fetchLangListReserve()
 	// JSON db off =)
+	console.log(this.userId)
   }
 }
 

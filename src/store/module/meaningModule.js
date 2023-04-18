@@ -40,13 +40,14 @@ export const meaningModule = {
 		},
 
 		// Данный запрос на сервер для изменения информации о переводе "about". В запросе передается объект "about", содержащий новые значения для заголовка и текста перевода.
-		async editTranslationItemAbout({ commit, state }, about) {
+		async editTranslationItemAbout({  commit, state, getters, rootGetters }, about) {
 			try {
-				
-				const response = await axios.patch(`http://localhost:3000/about`, 
-				about )
-				commit('SET_TRANSLATION_LABEL', response.data)		
-				commit('SET_TRANSLATION_TEXT', response.data)		
+				const userId = rootGetters['userModule/getUserId']
+				const userSet = rootGetters['userModule/getUserSet']
+				commit('SET_TRANSLATION_LABEL', about)		
+				commit('SET_TRANSLATION_TEXT', about)		
+				const response = await axios.patch(`http://localhost:3000/users/${userId}`, userSet)
+					commit('SET_USER_DATA', response.data)
 			} catch (e) {
 				console.log(e);
 			}
@@ -54,13 +55,14 @@ export const meaningModule = {
 		},
 
 		// Данный запрос на сервер для изменения информации о переводе "category". В запросе передается объект "category", содержащий новые значения для заголовка и текста перевода.
-		async editTranslationItem({ commit, state }, category) {
+		async editTranslationItem({ commit, state, getters, rootGetters }, category) {
 			try {
-				
-				const response = await axios.patch(`http://localhost:3000/categories/${category.value}`, 
-				category )
-				commit('SET_TRANSLATION_LABEL', response.data)		
-				commit('SET_TRANSLATION_TEXT', response.data)		
+				const userId = rootGetters['userModule/getUserId']
+				const userSet = rootGetters['userModule/getUserSet']
+				commit('SET_TRANSLATION_LABEL',category)		
+				commit('SET_TRANSLATION_TEXT', category)		
+				const response = await axios.patch(`http://localhost:3000/users/${userId}`, userSet)
+					commit('SET_USER_DATA', response.data)
 			} catch (e) {
 				console.log(e);
 			}

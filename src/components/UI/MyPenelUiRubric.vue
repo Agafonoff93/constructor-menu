@@ -123,10 +123,10 @@ export default {
 	methods: {
 	
 		...mapActions({
-			changeTranslationLabel: 'meaning/changeTranslationLabel',
-			changeTranslationText: 'meaning/changeTranslationText',
-			toggleEditingLanguage:'meaning/toggleEditingLanguage',
-			assignTranslationItem:'meaning/assignTranslationItem',
+			changeTranslationLabel: 'user/changeTranslationLabel',
+			changeTranslationText: 'user/changeTranslationText',
+			toggleEditingLanguage:'user/toggleEditingLanguage',
+			assignTranslationItem:'user/assignTranslationItem',
 		}),
 	seeEditingLanguage(event, category) {
 		this.toggleEditingLanguage()

@@ -12,7 +12,7 @@
 							<p>Добавьте информацию о ресторане!</p>
 						</div>
 					</button>
-					<div v-else-if="about.title.ru || about.text.ru || about.img != '' " class="main-preview__header main-preview-header">
+					<div v-else-if="about.title.ru || about.text.ru || about.img != '' || !about.title.ru || !about.text.ru || !about.img " class="main-preview__header main-preview-header">
 						<div v-if="this.about.img.length != 0" class="main-preview-header__logo">
 							<img v-bind:src="(`${about.img}`)" alt="">
 						
@@ -255,10 +255,10 @@ expose: ['hideUiMain'],
 methods:{
 
 	...mapActions({
-			changeTranslationLabel: 'meaning/changeTranslationLabel',
-			changeTranslationText: 'meaning/changeTranslationText',
-			toggleEditingLanguage:'meaning/toggleEditingLanguage',
-			assignTranslationItem:'meaning/assignTranslationItem',
+			changeTranslationLabel: 'user/changeTranslationLabel',
+			changeTranslationText: 'user/changeTranslationText',
+			toggleEditingLanguage:'user/toggleEditingLanguage',
+			assignTranslationItem:'user/assignTranslationItem',
 			fetchUser: 'user/fetchUser',
 			editUserSecondContent: 'user/editUserSecondContent',
 		}),
@@ -311,9 +311,9 @@ methods:{
 computed: {
 	...mapState({
 	    	user: state => state.user.user,
-			translationLabel: state => state.meaning.translationLabel,
-			translationText: state => state.meaning.translationText,
-			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
+			translationLabel: state => state.user.translationLabel,
+			translationText: state => state.user.translationText,
+			visibleEditingLanguage: state => state.user.visibleEditingLanguage
 		}),
 		shouldShowPopup() {
       // логика, которая определяет, нужно ли показывать подсказку

@@ -78,13 +78,13 @@ export default {
 
 		}),
 		...mapActions({
-			changeTranslationLabel: 'meaning/changeTranslationLabel',
-			changeTranslationText: 'meaning/changeTranslationText',
-			assignTranslationItem: 'meaning/assignTranslationItem',
-			toggleEditingLanguage: 'meaning/toggleEditingLanguage',
+			changeTranslationLabel: 'user/changeTranslationLabel',
+			changeTranslationText: 'user/changeTranslationText',
+			assignTranslationItem: 'user/assignTranslationItem',
+			toggleEditingLanguage: 'user/toggleEditingLanguage',
 			addLangItem: '/user/addLangItem',
-			editTranslationItem: 'meaning/editTranslationItem',
-			editTranslationItemAbout: 'meaning/editTranslationItemAbout',
+			editTranslationItem: 'user/editTranslationItem',
+			editTranslationItemAbout: 'user/editTranslationItemAbout',
 		}),
 			hideEditingLanguage(){
 				
@@ -104,13 +104,13 @@ export default {
 		computed: {
 		...mapState({
 			
-			translationLabel: state => state.meaning.translationLabel,
-			translationText: state => state.meaning.translationText,
-			itemGroupTranslation: state => state.meaning.itemGroupTranslation,
-			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage
+			translationLabel: state => state.user.translationLabel,
+			translationText: state => state.user.translationText,
+			itemGroupTranslation: state => state.user.itemGroupTranslation,
+			visibleEditingLanguage: state => state.user.visibleEditingLanguage
 		}),
 		...mapGetters({
-			// toggleEditingLanguage: state => state.meaning.toggleEditingLanguage
+			// toggleEditingLanguage: state => state.user.toggleEditingLanguage
 	})
   },
 	mounted() {

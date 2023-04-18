@@ -8,6 +8,6 @@ export default createStore({
   modules: {
 	user: userModule,
 	templates: templatesModule,
-	meaning: meaningModule,
+	// meaning: meaningModule,
   }
 })

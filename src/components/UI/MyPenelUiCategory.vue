@@ -118,10 +118,10 @@ export default {
   emits: ['removecategory','getClose','seeEditingRubric','seeEditingCategory','seeEditingLanguage'],
 	methods: {
 		...mapActions({
-			changeTranslationLabel: 'meaning/changeTranslationLabel',
-			changeTranslationText: 'meaning/changeTranslationText',
-			toggleEditingLanguage:'meaning/toggleEditingLanguage',
-			assignTranslationItem:'meaning/assignTranslationItem',
+			changeTranslationLabel: 'user/changeTranslationLabel',
+			changeTranslationText: 'user/changeTranslationText',
+			toggleEditingLanguage:'user/toggleEditingLanguage',
+			assignTranslationItem:'user/assignTranslationItem',
 		}),
 	seeEditingLanguage(event) {
 		this.toggleEditingLanguage()
@@ -159,10 +159,10 @@ export default {
   computed: {
 	...mapState({
 			
-			translationLabel: state => state.meaning.translationLabel,
-			translationText: state => state.meaning.translationText,
-			visibleEditingLanguage: state => state.meaning.visibleEditingLanguage,
-			itemGroupTranslation: state => state.meaning.itemGroupTranslation
+			translationLabel: state => state.user.translationLabel,
+			translationText: state => state.user.translationText,
+			visibleEditingLanguage: state => state.user.visibleEditingLanguage,
+			itemGroupTranslation: state => state.user.itemGroupTranslation
 		}),
 
 	dishsLength(){
