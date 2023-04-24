@@ -12,7 +12,7 @@
 							<p>Добавьте информацию о ресторане!</p>
 						</div>
 					</button>
-					<div v-else-if="about.title.ru || about.text.ru || about.img != '' || !about.title.ru || !about.text.ru || !about.img " class="main-preview__header main-preview-header">
+					<div v-else-if="about.title.ru || about.text.ru || about.img != '' " class="main-preview__header main-preview-header">
 						<div v-if="this.about.img.length != 0" class="main-preview-header__logo">
 							<img v-bind:src="(`${about.img}`)" alt="">
 						
