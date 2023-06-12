@@ -38,6 +38,8 @@
 						v-model:valueimage="rubric.img"					
 						ref="MyInputImgRubric"
 						@deleteImage="deleteImage"
+						@removeabout="$emit('removeabout', $event)"	
+						@beforeImageChange="handleBeforeImageChange"	
 						/>
 
 					</div>
@@ -97,6 +99,7 @@ export default {
 					},
 				img:'',
 				dishs:[],
+				beforeImage: null,
 			},
 				
 		
@@ -126,7 +129,7 @@ export default {
 				if(this.rubric.value == null){
 					this.rubric.value = Date.now();
 				}
-				this.$emit('createrubric', this.rubric,  this.form.label_id)
+				this.$emit('createrubric', this.rubric,  this.form.label_id, this.beforeImage)
 				this.rubric = {
 					value: Date.now(),
 					label: {
@@ -152,8 +155,12 @@ export default {
 	},
 	deleteImage(){
 		this.rubric.img = ''
+		console.log('Удаление картинки рубриуи')
 	},
-	
+	handleBeforeImageChange(beforeImage) {
+		console.log(beforeImage)
+      this.beforeImage = beforeImage
+    },
 	},
 
 	mounted() {

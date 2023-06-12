@@ -44,12 +44,14 @@
 		@createrubric="createrubric"
 		:rubricsObject="rubricsObject"
 		:categoryId="categoryId"
+		@removeabout="removeOthersImage"
 		/>
 		</transition>
 		<transition name="dish">
 		<EditingDish
 		v-if="visibleEditingDish" 
 		@hideDish="hideDish"
+		@removeabout="removeOthersImage"
 		:categories="categories"
 		:dishObject="dishObject"
 		:categoryId="categoryId"
@@ -164,6 +166,7 @@ export default {
 			fetchUser: 'user/fetchUser',
 			fetchAbout: 'user/fetchAbout',
 			editAbout: 'user/editAbout',
+			deleteAboutImage:'user/deleteAboutImage',
 			fetchCategories: 'user/fetchCategories',
 			addCategories: 'user/addCategories',
 			editCategories: 'user/editCategories',
@@ -181,13 +184,13 @@ export default {
 
 
 
-	saveAbout(data) {
-
-     this.about = data
-	  this.visibleEditingAbout = false
-	  this.visibleMainPreview = true
-	  this.editAbout(data)
-  },
+  saveAbout(data, beforeImage) {
+	
+  this.about = data;
+  this.editAbout({data, beforeImage}); // Дождаться выполнения запроса на сервер?
+  this.visibleEditingAbout = false;
+  this.visibleMainPreview = true;
+},
  
   hideAbout(){
 	this.visibleEditingAbout = false
@@ -227,8 +230,11 @@ export default {
 		}
 		// this.testUser()
 	},
-	createrubric(rubric, category_id){
-		this.addRubric({rubric, category_id})
+	createrubric(rubric, category_id, beforeImage){
+		console.log(rubric)
+		console.log(category_id)
+		console.log(beforeImage)
+		this.addRubric({rubric, category_id, beforeImage})
 	},
 	createdish(dish,  formlabel_id, formlabel_rubric_id ){
 		this.addDish({dish, formlabel_id, formlabel_rubric_id})
@@ -248,8 +254,18 @@ export default {
 		this.popupVisible = false;
 		this.removeDish({ dish, rubric, category })
 	},
-	removeabout(){
+	removeabout(url){
+		console.log(url)
+		// удаляем фото about
+	
+		this.deleteAboutImage(url)
 		this.about.img = '';
+		this.popupVisibleImg = false;
+	},
+	removeOthersImage(url){
+		console.log(url)
+		// удаляем фото about
+		this.deleteAboutImage(url)
 		this.popupVisibleImg = false;
 	},
    seeAbout(){
@@ -318,9 +334,12 @@ export default {
   },
   computed: {
 	...mapState({
+		setJson: state => state.user.setJson,
+		saveJson: state => state.user.saveJson,
 		isUserLoading: state => state.user.isUserLoading,
 		userId: state => state.user.userId,
 		user: state => state.user.user,
+		userSet: state => state.user.userSet,
 		about: state => state.user.about,
 		categories: state => state.user.categories,	
 		langList: state => state.user.langList,
@@ -339,6 +358,10 @@ export default {
 
   },
   created: function() {
+	this.fetchUser(window.myAppSettings.dataurl)
+    console.log(window.myAppSettings.dataurl);
+    console.log(window.myAppSettings.saveurl);
+  
     this.$watch('visibleEditingLanguage', function(newVal, oldVal) {
       if(newVal == true){
 			this.visibleMainPreview = false
@@ -351,16 +374,16 @@ export default {
   mounted() {
 	if(this.$route.query.id != undefined){
 		this.setIdUser(this.$route.query.id)
-	}
-  this.fetchUserData(this.userId)
+	}  
+//   this.fetchUserData(this.userId) свой api откл 16.05.23 
+//   this.fetchUserData()
 	// this.fetchAllData()
 	// this.fetchUser()
-	// this.fetchAbout()
-	// this.fetchCategories()	
-	// this.fetchLangList()
-	// this.fetchLangListReserve()
-	// JSON db off =)
+
 	console.log(this.userId)
+
+
+
   }
 }
 

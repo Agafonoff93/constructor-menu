@@ -4,7 +4,7 @@
 		<div class="main-preview__container _container">
 			<div class="main-preview__body">
 				<div v-if="!isUserLoading" class="main-preview__about-wrapper">
-					<button @click="seeEditingAbout" v-if="categories.length > 0 && about.title.ru == '' &&  about.text.ru == '' &&  about.img  == ''"  class="main-preview__add-info ">
+					<button @click="seeEditingAbout" v-if="categories.length > 0 && !showAboutBlock"  class="main-preview__add-info ">
 						<div class="main-preview__icon _icon-css">
 							<span></span>
 						</div>
@@ -12,7 +12,7 @@
 							<p>Добавьте информацию о ресторане!</p>
 						</div>
 					</button>
-					<div v-else-if="about.title.ru || about.text.ru || about.img != '' " class="main-preview__header main-preview-header">
+					<div v-else-if="showAboutBlock" class="main-preview__header main-preview-header">
 						<div v-if="this.about.img.length != 0" class="main-preview-header__logo">
 							<img v-bind:src="(`${about.img}`)" alt="">
 						
@@ -315,6 +315,15 @@ computed: {
 			translationText: state => state.user.translationText,
 			visibleEditingLanguage: state => state.user.visibleEditingLanguage
 		}),
+		showAboutBlock(){
+		   console.log(this.categories.length)
+			if (this.about.title.ru || this.about.text.ru || this.about.img != '' ){
+				return true
+			}
+			if (!this.about.title.ru || !this.about.text.ru || !this.about.img ){
+				return false
+			}			
+		},
 		shouldShowPopup() {
       // логика, которая определяет, нужно ли показывать подсказку
       // в данном случае мы показываем подсказку, если количество категорий, рубрик или блюд больше 1

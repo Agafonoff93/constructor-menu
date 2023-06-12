@@ -1,8 +1,17 @@
 
-const { defineConfig } = require('@vue/cli-service')
-// module.exports = defineConfig({
-//   transpileDependencies: true
-// })
+// const { defineConfig } = require('@vue/cli-service')
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-	publicPath: '/constructor/'
- }
+//   chainWebpack: (config) => {
+//     config.plugin('html').tap((args) => {
+//       args[0].template = './public/index.html';
+//       args[0].filename = 'index.php';
+//       return args;
+//     });
+//   },
+  publicPath: '/constructor/',
+  filenameHashing: false
+};
+
+

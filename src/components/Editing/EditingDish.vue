@@ -31,8 +31,7 @@
 							type="text" 
 							placeholder="Название блюда"
 							v-model="dish.label.ru"
-							:limit="100"
-							
+							:limit="100"							
 							/>
 							<div class="box-input__wrapper">
 								<my-textarea 
@@ -67,6 +66,7 @@
 						ref="MyInputImgDish"
 						v-model:valueimage="dish.sliderImage"					
 						@removeImage="removeImage"
+						@removeabout="$emit('removeabout', $event)"	
 						/>
 
 					</div>

@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import store from './store'
 import components from '@/components/UI/';
-
 // import VMyclickoutside from '@/directives/VMyclickoutside';
 
 import Vue3TouchEvents from "vue3-touch-events";
@@ -18,11 +17,10 @@ components.forEach(component => {
 // directives.forEach(directive => {
 // 	app.directive(directive.name, directive)
 
-// });
+// }); 
 
 app.use(store)
 app.use(Vue3TouchEvents).mount('#app')
-
 
 
 

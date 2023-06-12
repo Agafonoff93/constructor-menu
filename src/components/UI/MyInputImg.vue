@@ -30,7 +30,7 @@
 								labelImage="Удаление логотипа"	
 						      :previewImage="previewImage"
 								v-model:show="popupVisibleImg"
-								@removeabout="$emit('removeabout', about)"
+								@removeabout="$emit('removeabout', $event)"
 								@showPreviewImg="showPreviewImg"
 								>								
 								<div class="popup__image _ibg" v-if=" this.previewImage !== null ">	
@@ -56,6 +56,7 @@ export default {
       return {
         previewImage: null,
 		  popupVisibleImg: false,
+		  beforeImage:null,
       };
     },
 	 expose: ['showAboutImg'],
@@ -63,8 +64,13 @@ export default {
 	methods: {
 		
 		selectImage () {
-          this.$refs.fileInput.click()
+			this.beforeImage = this.previewImage;
+  			this.emitBeforeImageChange();
+			this.$refs.fileInput.click()
       },
+		emitBeforeImageChange() {
+		this.$emit('beforeImageChange', this.beforeImage);
+		},
       pickFile () {
         let input = this.$refs.fileInput
         let file = input.files	
@@ -238,6 +244,7 @@ transform: rotate(-90deg);
   opacity: 0;
   font-size: 0;
   cursor: pointer;
+  pointer-events: none;
 }
 .file__button {
   width: 81px;

@@ -130,7 +130,7 @@ const routes = [
 		props: true,
 	},
 	{
-		path: '/15',
+		// path: '/15',
 		path: '/Boston',
 		name: 'PageMenuBostonTheme',
 		component: () => import( /* webpackChunkName: "PageMenuBostonTheme" */ '@/pages/templates/PageMenuBostonTheme.vue'),

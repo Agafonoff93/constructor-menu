@@ -1,4 +1,4 @@
-<template>
+							<template>
 		<div  class="main-preview-rubrics__block" >						
 							<div  
 							@click="toggleBlock"

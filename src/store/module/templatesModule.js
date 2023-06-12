@@ -322,7 +322,7 @@ export const templatesModule = {
 		async fetchTemplates({state, commit}) {
 			try {
 				
-				const response = await axios.get('http://localhost:3000/templates')
+				const response = await axios.get('http://montenegro-guide.com/constructor/data-test.json')
 				commit('SET_TEMPLATES', response.data.templates)		
 				
 			} catch (e) {

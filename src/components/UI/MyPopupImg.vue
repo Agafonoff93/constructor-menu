@@ -19,12 +19,19 @@
 					>
 						Отменить
 					</button>
-					<button 
+					<!-- <button 
 				
 					@click="$emit('removeabout', previewImage), hidePopup(), $emit('showPreviewImg',showPreviewImg)"  
 					class="popup__agree"
 					>
 						Да, удалить
+					</button> -->
+								
+										<button 
+					@click="removeAboutImage"
+					class="popup__agree"
+					>
+					Да, удалить
 					</button>
 				</div>
 			</div>
@@ -51,7 +58,16 @@ export default {
 		hidePopup() {
 			this.$emit('update:show', false)
 		},
-	 
+	// 	removeAboutImage() {
+   //    this.$emit('removeabout', this.previewImage);
+   //    this.hidePopup();
+   //  }
+		removeAboutImage() {
+		this.$emit('removeabout', this.previewImage);
+		console.log(this.previewImage)
+		this.hidePopup();
+		this.$emit('showPreviewImg', this.showPreviewImg);
+	},
 	}
 	
 }

@@ -237,7 +237,7 @@ export default {
   methods: {
 	
 	...mapActions({
-		sendHtml: 'user/sendHtml',
+		
 		fetchLangList: 'user/fetchLangList',
 		fetchAbout: 'user/fetchAbout',
 		fetchCategories: 'user/fetchCategories',

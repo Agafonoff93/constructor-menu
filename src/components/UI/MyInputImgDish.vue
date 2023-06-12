@@ -137,9 +137,9 @@ export default {
 		
       },
 		removeImage(image){
-			
+			console.log('Удаление фото блюда')
 			this.imageArray = this.imageArray.filter(p => p.id !== image.id)
-		
+			this.$emit('removeabout', image.img)
 			this.$emit('update:valueimage', this.imageArray) 
 		},
 		showPreviewImg(){

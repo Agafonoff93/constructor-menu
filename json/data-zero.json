@@ -1,100 +1,94 @@
 {
-	"about": {
-	  "title": {
-		 "ru": ""
-	  },
-	  "text": {
-		 "ru": ""
-	  },
-	  "img": ""
-	},
-	"categories": [],
-	"langList": [
-	  {
-		 "id": 1,
-		 "name": "ru",
-		 "value": "Russia",
-		 "img": "/icon-lang/russia_1.png",
-		 "unavailable": true
-	  }
-	],
-	"langListReserve": [
-	  {
-		 "id": 2,
-		 "name": "en",
-		 "value": "English",
-		 "img": "/icon-lang/united-kingdom_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 3,
-		 "name": "fr",
-		 "value": "France",
-		 "img": "/icon-lang/france_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 4,
-		 "name": "gr",
-		 "value": "Germany",
-		 "img": "/icon-lang/germany_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 5,
-		 "name": "it",
-		 "value": "Italy",
-		 "img": "/icon-lang/italy_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 6,
-		 "name": "sp",
-		 "value": "Spain",
-		 "img": "/icon-lang/spain_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 7,
-		 "name": "ch",
-		 "value": "China",
-		 "img": "/icon-lang/china_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 8,
-		 "name": "jp",
-		 "value": "Japan",
-		 "img": "/icon-lang/japan_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 9,
-		 "name": "ua",
-		 "value": "Ukraine",
-		 "img": "/icon-lang/ukraine_1.png",
-		 "unavailable": true
-	  },
-	  {
-		 "id": 10,
-		 "name": "cz",
-		 "value": "Czech republic",
-		 "img": "/icon-lang/czech-republic_1.png",
-		 "unavailable": false
-	  },
-	  {
-		 "id": 11,
-		 "name": "tr",
-		 "value": "Turkey",
-		 "img": "/icon-lang/turkey_1.png",
-		 "unavailable": false
-	  }
-	],
-	"user": {
-	  "id": 1,
-	  "isfirsttimeUser": true,
-	  "issecondContentUser": true,
-	  "templateUrl": "",
-	  "linkQrCode": ""
+	"firm": {
+		"id": 7,
+		"name": "www.restaurant-rating.com visitka",
+		"isfirsttimeUser": true,
+		"theme": "ThemeCairo",
+		"issecondContentUser": true,
+		"linkQrCode": "",
+		"templateUrl": "",
+		"menu": {
+			"about": {
+				"title": "",
+				"text": "",
+				"img": ""
+			},
+			"categories": [
+				{
+					"label": {
+						"ru": "NEW"
+					},
+					"text": {
+						"ru": ""
+					},
+					"value": 1685343478802,
+					"rubrics": [
+						{
+							"label": {
+								"ru": "R1"
+							},
+							"text": {
+								"ru": "RRR"
+							},
+							"img": "",
+							"dishs": [
+								{
+									"label": {
+										"ru": "Б1"
+									},
+									"text": {
+										"ru": "БББ"
+									},
+									"price": "1234",
+									"weight": "321",
+									"img": "",
+									"sliderImage": [
+										{
+											"id": 1685773482873,
+											"img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAYAAACdKY9CAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAD2SURBVHgBjZGxTwIxFMa/rz0XE/E0cWeExAF1cVVi4uif4OTg4mDUwYG7yUR3R8LIyAYDw82QEGZCAisskHBhKcejCYEAA/S3tM37fW36HrFBLhj5Z6fx/VSOL43x1Bxst79SlU2Hq83Nb/wGSgCBjy3YF8zD1meqtA5c/00KFATYgxBB6+MkZO5nlNba68EBJrhTWh8V4Ij2zKuyjz25BoQ6771kyj7cOad0HoY2e+Hmy0DZPkVwRlUVZvLv7Cc6VMzWI4h8H5QFIbO1/nrS9i/PdrEtlvSWSIyR4J2ZenF53L2om39EwltbMSCbiE2DV9F4VV8AZc9K2DTaqPEAAAAASUVORK5CYII=",
+											"name": "ukraine_1.png"
+										},
+										{
+											"id": 1685773521165,
+											"img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAANCAYAAACdKY9CAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAHkSURBVHgBlVBLSBtRFD0zTmamltSkamkDNdKChS4KpS76ScvQghRKyWgXjVBo2lIEu2gp3bQFEz8guBARRBeCIoqCYiJ+oqBENCjiIuBCVNQxfjFOgkb8zCSZOP6CZud5i/e475xz7z3ARfAOXfuIYF7M/vB/wWSx900IPBJAnj/uFbh/gtQIq0HJCZYuI0DYZjckB/J6hNf/RqyXBOOfimydH/VVxlRGl+h4l4lmls71NnjdXtupgHdlWliTfb/Jia78dBjTmDg54yaNbu0UkgstMLcG7OC7OTLLwNokBfiVxiGpdwicIT4lTMF5XLeaUdC/Czmi4LaeKaQ8OREeFKV+qyo8RmR6AcrOLojjo9ZTgiJ6Xh3LKcTkMEfM4EEMVwDh7xzwg9akXyyG/laq/oC2/Pclstphk3riSvKEo5HcjFQWLXl66PZCIFO0JwTq4X2s1bTjG5GN5aCMG9coF7mydVBNUySaeR38tR0YZe7EHYfXFUTfvUHVlhu0msXcWqiYhPP98KD1VpFY70A++xK+gBwX+EQJ5rYAkj/zaJU9xXDmLp1kmPX8UelX5tmXZVFaSlzSJx5uf+/f+fGiqcR+mtUZZupyGtWr0fhHeBsD8TR2KIUNeo0XSnhssoLbPucdAeDjqd62XI9nAAAAAElFTkSuQmCC",
+											"name": "united-kingdom_1.png"
+										}
+									],
+									"value": 1685773523897
+								}
+							],
+							"value": 1685773289245
+						}
+					]
+				},
+				{
+					"label": {
+						"ru": "Категория 2"
+					},
+					"text": {
+						"ru": "Описание к"
+					},
+					"value": 1686114999014,
+					"rubrics": []
+				}
+			],
+			"langList": [
+				{
+					"id": 1,
+					"name": "ru",
+					"img": "icon-lang/russia_1.png",
+					"unavailable": true
+				}
+			],
+			"langListReserve": [
+				{
+					"id": 2,
+					"name": "en",
+					"img": "icon-lang/united-kingdom_1.png",
+					"unavailable": false
+				}
+			]
+		},
+		"isUserLoading": true
 	}
- }
+}

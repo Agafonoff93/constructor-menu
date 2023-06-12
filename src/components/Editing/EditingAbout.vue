@@ -2,7 +2,7 @@
 
 	<div class="page__input input-page input-page_about">
 				<div class="input-page__container _container">
-					<div class="input-page__body">
+					<div v-if="!isUserLoading" class="input-page__body">
 						<div class="input-page__content _text">
 						Расскажите о своём ресторане! В чём его особенности и преимущества. А также добавьте лого.
 						</div>
@@ -25,14 +25,17 @@
 							</div>
 							<my-input-img
 							v-model:valueimage="about.img"	
-									
-							@removeabout="$emit('removeabout', about)"
+							@beforeImageChange="handleBeforeImageChange"		
+							@removeabout="$emit('removeabout', $event)"
 							ref="MyInputImg"
 						
 							/>
 						
 						</div>
 
+					</div>
+					<div  v-else class="input-page__loading">
+						<img src="@/assets/loading.gif" alt="loading">
 					</div>
 				</div>
 			
@@ -56,6 +59,7 @@
 
 
 <script>
+import {mapState} from 'vuex'
 
 export default {
    name: 'EditingAbout',
@@ -64,6 +68,7 @@ export default {
 		type: Object,
 		required: true
 	},
+	
   },
 	data() {
 		return {
@@ -74,13 +79,14 @@ export default {
 			// },
 			title: '',
 			text:'',
-			uiButtonHidden: false
+			uiButtonHidden: false,
+			beforeImage: null,
 		}
 	},
 	expose: ['seeAboutImage'],
 	methods: {
 		saveAbout() {
-			this.$emit('save', this.about)
+			this.$emit('save', this.about, this.beforeImage)
 		},
 		hideAbout(){
 			this.$emit('hideAbout')
@@ -89,19 +95,36 @@ export default {
 		seeAboutImage(){
 		
 			this.$refs.MyInputImg.showAboutImg();
-		}
+		},
+		handleBeforeImageChange(beforeImage) {
+      this.beforeImage = beforeImage
+    },
 	},
 	
 	computed: {
-	 
-	},
+	...mapState({
+
+		isUserLoading: state => state.user.isUserLoading,
+		
+	}),
+	
+	
+		
+	
+
+  },
 
 	mounted() {
+		console.log(this.isUserLoading)
 		if(this.about.img != ''){
 			this.$refs.MyInputImg.showAboutImg();
+			console.log('изображение есть')
 		}
 	   if(this.about.img || this.about.title || this.about.text != ''){
 			this.uiButtonHidden = true
+		}
+		if(this.about.img = ''){
+			console.log('изображения нет')
 		}
    
   }
@@ -136,6 +159,10 @@ export default {
   line-height: 15px;
   color: #EB5757;
 }
-
+.input-page__loading {
+	width:100%;
+	height: 100%;
+	background-color: #ffffff77;
+}
 
 </style>
